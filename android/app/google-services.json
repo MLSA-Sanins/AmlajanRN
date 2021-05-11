@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "348071048651",
+    "project_id": "amlajan-7f5b4",
+    "storage_bucket": "amlajan-7f5b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348071048651:android:eb2511df20996e2f43f24e",
+        "android_client_info": {
+          "package_name": "com.amlajan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348071048651-vsp7behqu23rn98o748jk6q6sss0o6f1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcKfTtwJw_kBt2HkTq6zbHj_Xd0B2MMtc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348071048651-vsp7behqu23rn98o748jk6q6sss0o6f1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
