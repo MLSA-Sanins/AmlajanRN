@@ -1,18 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 import LoginScreen from '../pages/LoginScreen';
 import SignUpScreen from '../pages/SignUpScreen';
 import OnboardingScreen from '../pages/OnboardingScreen';
 import PrivacyPolicyScreen from '../pages/PrivacyPolicyScreen';
 
-const AppStack = createStackNavigator();
+const Stack = createStackNavigator();
 
 export default function AuthStack() {
-  const [isFirstLaunch, setIsFirstLaunch] = useState();
+  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
 
   let routeName;
 
@@ -25,6 +26,11 @@ export default function AuthStack() {
         setIsFirstLaunch(false);
       }
     });
+
+    GoogleSignin.configure({
+      webClientId:
+        '348071048651-vsp7behqu23rn98o748jk6q6sss0o6f1.apps.googleusercontent.com',
+    });
   }, []);
 
   if (isFirstLaunch === null) {
@@ -36,18 +42,18 @@ export default function AuthStack() {
   }
 
   return (
-    <AppStack.Navigator initialRouteName={routeName}>
-      <AppStack.Screen
+    <Stack.Navigator initialRouteName={routeName}>
+      <Stack.Screen
         options={{header: () => null}}
         name="Onboarding"
         component={OnboardingScreen}
       />
-      <AppStack.Screen
+      <Stack.Screen
         options={{header: () => null}}
         name="Login"
         component={LoginScreen}
       />
-      <AppStack.Screen
+      <Stack.Screen
         options={({navigation}) => ({
           title: '',
           headerStyle: {
@@ -70,7 +76,7 @@ export default function AuthStack() {
         name="Signup"
         component={SignUpScreen}
       />
-      <AppStack.Screen
+      <Stack.Screen
         name="PrivacyPolicy"
         options={({navigation}) => ({
           title: '',
@@ -93,7 +99,7 @@ export default function AuthStack() {
         })}
         component={PrivacyPolicyScreen}
       />
-    </AppStack.Navigator>
+    </Stack.Navigator>
   );
 }
 

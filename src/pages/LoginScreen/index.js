@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import FormInput from '../../components/FormInput';
@@ -6,10 +6,13 @@ import GoogleButton from '../../components/GoogleButton';
 import FacebookButton from '../../components/FacebookButton';
 import {primary} from '../../theme/theme';
 import {width, height} from '../../utils/dimensions';
+import {AuthContext} from '../../context/AuthProvider';
 
 const LoginScreen = ({navigation}) => {
   const [email, changeEmail] = useState();
   const [password, changePassword] = useState();
+
+  const {login, googleLogin, fbLogin} = useContext(AuthContext);
 
   return (
     <View style={styles.Page}>
@@ -18,8 +21,8 @@ const LoginScreen = ({navigation}) => {
         Log In with one of the following options.
       </Text>
       <View style={styles.oAuth}>
-        <GoogleButton />
-        <FacebookButton />
+        <GoogleButton onPress={() => googleLogin()} />
+        <FacebookButton onPress={() => fbLogin()} />
       </View>
       <View style={styles.emailCredentials}>
         <FormInput
@@ -39,7 +42,7 @@ const LoginScreen = ({navigation}) => {
           phd="Password"
           autoCapitalize="none"
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => login(email, password)}>
           <LinearGradient
             start={{x: 1, y: 0}}
             end={{x: 0, y: 1}}

@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Swiper from 'react-native-swiper';
 import {width, height} from '../../utils/dimensions';
 import {primary, secondary} from '../../theme/theme';
+import GradientButton from '../../components/GradientButton';
 
 //svg
 // import Navigation from "../../../assets/svgCodes/Navigation";
@@ -53,13 +54,13 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     marginLeft: 10,
   },
-  buttonContainer: {
-    marginHorizontal: 50,
-    backgroundColor: secondary.button,
-    marginTop: 20,
-    borderRadius: 10,
-    width: 200,
-  },
+  // buttonContainer: {
+  //   marginHorizontal: 50,
+  //   backgroundColor: secondary.button,
+  //   marginTop: 20,
+  //   borderRadius: 10,
+  //   width: 200,
+  // },
   buttonText: {
     color: 'white',
     padding: 15,
@@ -197,11 +198,16 @@ const OnboardingScreen = ({navigation}) => {
         <Text style={styles.lastSlideText}>
           Wishing you a lightning recovery.
         </Text>
-        <TouchableOpacity
+        <GradientButton
+          onPress={() => navigation.navigate('Login')}
+          title="SIGN IN"
+          height={50}
+        />
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('Login')}
           style={styles.buttonContainer}>
           <Text style={styles.buttonText}>SIGNIN</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </Swiper>
   );

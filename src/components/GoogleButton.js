@@ -3,9 +3,9 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {width, height} from '../utils/dimensions';
 
-export default function GoogleButton() {
+export default function GoogleButton({onPress}) {
   return (
-    <TouchableOpacity style={styles.google}>
+    <TouchableOpacity onPress={onPress} style={styles.google}>
       <Icon style={styles.googleIcon} name="google" />
     </TouchableOpacity>
   );

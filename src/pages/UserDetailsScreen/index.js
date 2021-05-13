@@ -1,9 +1,10 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   StyleSheet,
   Keyboard,
   Text,
   View,
+  Pressable,
   TextInput,
   TouchableOpacity,
   Image,
@@ -11,65 +12,103 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
 } from 'react-native';
+import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
-import Icon from 'react-native-vector-icons';
+import Feather from 'react-native-vector-icons/Feather';
 import {primary, secondary} from '../../theme/theme';
+import GradientButton from '../../components/GradientButton';
 
-const UserDetailsScreen = ({route, user}) => {
+const UserDetailsScreen = ({route, navigation}) => {
   const [userName, setUserName] = useState('');
   const [address, changeAddress] = useState('');
+  const [incentive, setIncentive] = useState(false);
+
+  // const { user } = useContext(AuthContext);
+  // console.log(user);
+
+  const activeColor = primary.main;
+  const inactiveColor = '#9e9e9e';
   return (
-    <>
-      <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View>
-            <Text style={styles.title}>
-              ENTER {route.params.title.toUpperCase()} DETAILS
-            </Text>
-            <View style={styles.picContainer}>
-              <Image
+    <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
+      <Pressable onPress={Keyboard.dismiss}>
+        <View>
+          <Text style={styles.title}>
+            ENTER {route.params.title.toUpperCase()} DETAILS
+          </Text>
+          <View style={styles.picContainer}>
+            {/* <Image
                 progressiveRenderingEnabled
                 style={styles.img}
                 source={{uri: user.currentUser.picture.data.url}}
-              />
-            </View>
-            <View style={styles.formContainer}>
-              <Icon style={styles.icon} name="user" />
-              <TextInput
-                value={userName}
-                onChangeText={setUserName}
-                style={styles.textInput}
-                placeholder="Username"
-              />
-            </View>
-            {route.params.title.toUpperCase() === 'PROVIDER' && (
-              <FormInput phd="Email" name="mail" />
-            )}
-            {route.params.title.toUpperCase() === 'PROVIDER' && (
-              <FormInput phd="Phone Number" name="smartphone" />
-            )}
-            <View style={styles.formContainerAddress}>
-              <Icon style={styles.icon} name="map" />
-              <TextInput
-                multiline
-                numberOfLines={4}
-                value={address}
-                onChangeText={changeAddress}
-                style={styles.textInput}
-                placeholder="Address"
-              />
-            </View>
-            <TouchableOpacity style={styles.registerButton}>
-              <Text style={styles.buttonText}>
-                {route.params.title === 'Provider'
-                  ? 'REGISTER'
-                  : 'SEARCH PROVIDERS'}
-              </Text>
-            </TouchableOpacity>
+              /> */}
           </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </>
+          <FormInput
+            value={userName}
+            onChangeText={setUserName}
+            phd="Username"
+            name="user"
+          />
+          {route.params.title.toUpperCase() === 'PROVIDER' && (
+            <FormInput phd="Email" name="mail" />
+          )}
+          {route.params.title.toUpperCase() === 'PROVIDER' && (
+            <FormInput phd="Phone Number" name="smartphone" />
+          )}
+          <View style={styles.formContainerAddress}>
+            <Feather style={styles.icon} name="map" />
+            <TextInput
+              multiline
+              numberOfLines={4}
+              value={address}
+              onChangeText={changeAddress}
+              style={styles.textInput}
+              placeholder="Address"
+              placeholderTextColor="#9e9e9e"
+            />
+          </View>
+          {route.params.title.toUpperCase() === 'PROVIDER' && (
+            <>
+              <Text style={styles.text}>
+                Will you charge money from Patients in Need ?
+              </Text>
+              <View style={styles.incentiveWrapper}>
+                <View style={styles.optionWrapper}>
+                  <TouchableOpacity
+                    onPress={() => setIncentive(true)}
+                    style={{
+                      ...styles.option,
+                      backgroundColor: incentive ? activeColor : inactiveColor,
+                    }}
+                  />
+                  <Text style={styles.optionText}>Yes , I will</Text>
+                </View>
+                <View style={styles.optionWrapper}>
+                  <TouchableOpacity
+                    onPress={() => setIncentive(false)}
+                    style={{
+                      ...styles.option,
+                      backgroundColor: incentive ? inactiveColor : activeColor,
+                    }}
+                  />
+                  <Text style={styles.optionText}>
+                    No , I really want to help
+                  </Text>
+                </View>
+              </View>
+            </>
+          )}
+          <GradientButton
+            height={50}
+            title={
+              route.params.title === 'Provider'
+                ? 'REGISTER'
+                : 'SEARCH PROVIDERS'
+            }
+            onPress={() => navigation.navigate('Home')}
+          />
+        </View>
+      </Pressable>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -81,8 +120,8 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    marginTop: 30,
-    marginBottom: 15,
+    marginTop: 20,
+    marginBottom: 10,
     fontSize: 25,
   },
   formContainer: {
@@ -102,7 +141,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     borderColor: 'gray',
     borderRadius: 5,
-    height: 100,
+    height: 80,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -129,7 +168,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   picContainer: {
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 10,
     width: 120,
     height: 120,
@@ -154,5 +193,29 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  text: {
+    marginHorizontal: 30,
+    textAlign: 'center',
+  },
+  incentiveWrapper: {
+    display: 'flex',
+    marginHorizontal: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  optionWrapper: {
+    paddingTop: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  option: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+  },
+  optionText: {
+    paddingLeft: 10,
   },
 });

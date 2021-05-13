@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {width, height} from '../../utils/dimensions';
 import {primary, secondary} from '../..//theme/theme';
+import GradientButton from '../../components/GradientButton';
 
 const RoleScreen = ({navigation, fetchLocationAndAddress, isLoading}) => {
   return (
@@ -22,16 +23,16 @@ const RoleScreen = ({navigation, fetchLocationAndAddress, isLoading}) => {
       </View>
       <Text style={styles.title}>CHOOSE</Text>
       <Text style={styles.subTitle}>YOUR ROLE</Text>
-      <TouchableOpacity
+      <GradientButton
+        height={50}
+        title="PATIENT"
         onPress={() => navigation.navigate('UserDetails', {title: 'Patient'})}
-        style={styles.button}>
-        <Text style={styles.buttonTitle}>PATIENT</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
+      />
+      <GradientButton
+        height={50}
+        title="PROVIDER"
         onPress={() => navigation.navigate('UserDetails', {title: 'Provider'})}
-        style={styles.button}>
-        <Text style={styles.buttonTitle}>PROVIDER</Text>
-      </TouchableOpacity>
+      />
     </View>
   );
 };
@@ -53,7 +54,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   title: {
-    marginTop: 60,
     marginHorizontal: 10,
     fontSize: 32,
     textAlign: 'center',

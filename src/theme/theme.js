@@ -1,6 +1,6 @@
 export const primary = {
   main: '#5A189A',
-  light: '#7B2CBF',
+  light: '#0088FF',
   dark: '#14213D',
 };
 

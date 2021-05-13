@@ -3,9 +3,9 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import {width, height} from '../utils/dimensions';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-export default function FacebookButton() {
+export default function FacebookButton({onPress}) {
   return (
-    <TouchableOpacity style={styles.facebook}>
+    <TouchableOpacity onPress={onPress} style={styles.facebook}>
       <FontAwesome style={styles.facebookIcon} name="facebook" />
     </TouchableOpacity>
   );
