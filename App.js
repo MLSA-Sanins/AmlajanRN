@@ -8,9 +8,15 @@
 
 import React from 'react';
 import RouteWrapper from './src/navigation';
+import {Provider} from 'react-redux';
+import {store} from './src/redux/store';
 
 const App = () => {
-  return <RouteWrapper />;
+  return (
+    <Provider store={store}>
+      <RouteWrapper />
+    </Provider>
+  );
 };
 
 export default App;

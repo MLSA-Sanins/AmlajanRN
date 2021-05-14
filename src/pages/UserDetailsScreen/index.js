@@ -16,18 +16,31 @@ import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Feather from 'react-native-vector-icons/Feather';
 import {primary, secondary} from '../../theme/theme';
+import {connect} from 'react-redux';
+import {registerNewUser} from '../../redux/actions/userActions';
 import GradientButton from '../../components/GradientButton';
 
-const UserDetailsScreen = ({route, navigation}) => {
-  const [userName, setUserName] = useState('');
-  const [address, changeAddress] = useState('');
+const UserDetailsScreen = ({route, navigation, userData, registerNewUser}) => {
+  const [userName, setUserName] = useState(userData.displayName);
+  const [address, changeAddress] = useState(null);
+  const [email, changeEmail] = useState(userData.email);
+  const [phone, changePhone] = useState(userData.phoneNumber);
   const [incentive, setIncentive] = useState(false);
-
-  // const { user } = useContext(AuthContext);
-  // console.log(user);
 
   const activeColor = primary.main;
   const inactiveColor = '#9e9e9e';
+
+  const newUserRegistration = () => {
+    const data = {
+      displayName: userName,
+      address,
+      email,
+      phone,
+      incentive,
+    };
+    registerNewUser(route.params.title.toLowerCase(), data, navigation);
+  };
+
   return (
     <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
       <Pressable onPress={Keyboard.dismiss}>
@@ -36,11 +49,11 @@ const UserDetailsScreen = ({route, navigation}) => {
             ENTER {route.params.title.toUpperCase()} DETAILS
           </Text>
           <View style={styles.picContainer}>
-            {/* <Image
-                progressiveRenderingEnabled
-                style={styles.img}
-                source={{uri: user.currentUser.picture.data.url}}
-              /> */}
+            <Image
+              progressiveRenderingEnabled
+              style={styles.img}
+              source={{uri: userData.photoURL}}
+            />
           </View>
           <FormInput
             value={userName}
@@ -49,10 +62,20 @@ const UserDetailsScreen = ({route, navigation}) => {
             name="user"
           />
           {route.params.title.toUpperCase() === 'PROVIDER' && (
-            <FormInput phd="Email" name="mail" />
+            <FormInput
+              value={email}
+              onChangeText={changeEmail}
+              phd="Email"
+              name="mail"
+            />
           )}
           {route.params.title.toUpperCase() === 'PROVIDER' && (
-            <FormInput phd="Phone Number" name="smartphone" />
+            <FormInput
+              value={phone}
+              onChangeText={changePhone}
+              phd="Phone Number"
+              name="smartphone"
+            />
           )}
           <View style={styles.formContainerAddress}>
             <Feather style={styles.icon} name="map" />
@@ -104,7 +127,7 @@ const UserDetailsScreen = ({route, navigation}) => {
                 ? 'REGISTER'
                 : 'SEARCH PROVIDERS'
             }
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => newUserRegistration()}
           />
         </View>
       </Pressable>
@@ -112,7 +135,13 @@ const UserDetailsScreen = ({route, navigation}) => {
   );
 };
 
-export default UserDetailsScreen;
+const mapStateToProps = state => {
+  return {userData: state.user.currentUser};
+};
+
+export default connect(mapStateToProps, {
+  registerNewUser: registerNewUser,
+})(UserDetailsScreen);
 
 const styles = StyleSheet.create({
   topWrapper: {

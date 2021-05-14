@@ -1,17 +1,29 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+//import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import {View, StyleSheet} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {connect} from 'react-redux';
 
 import RoleScreen from '../pages/RoleScreen';
 import UserDetailsScreen from '../pages/UserDetailsScreen';
-import HomeScreen from '../pages/HomeScreen';
+import MainScreen from '../pages/MainScreen';
+import LoadingView from '../components/LoadingView';
 
 const AppStack = createStackNavigator();
 
-const index = () => {
+const index = ({isRegistered}) => {
+  let routeName;
+
+  if (isRegistered === null) {
+    return <LoadingView />;
+  } else if (isRegistered) {
+    routeName = 'Main';
+  } else {
+    routeName = 'Roles';
+  }
   return (
-    <AppStack.Navigator>
+    <AppStack.Navigator initialRouteName={routeName}>
       <AppStack.Screen
         options={{header: () => null}}
         name="Roles"
@@ -42,14 +54,18 @@ const index = () => {
       />
       <AppStack.Screen
         options={{header: () => null}}
-        name="Home"
-        component={HomeScreen}
+        name="Main"
+        component={MainScreen}
       />
     </AppStack.Navigator>
   );
 };
 
-export default index;
+const mapStateToProps = state => {
+  return {isRegistered: state.user.isRegisteredUser};
+};
+
+export default connect(mapStateToProps, {})(index);
 
 const styles = StyleSheet.create({
   headerStyle: {

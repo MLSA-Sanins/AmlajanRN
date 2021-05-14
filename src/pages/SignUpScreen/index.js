@@ -1,5 +1,14 @@
 import React, {useState, useContext} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
+import {
+  StyleSheet,
+  Keyboard,
+  KeyboardAvoidingView,
+  Pressable,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import {width, height} from '../../utils/dimensions';
 import FacebookButton from '../../components/FacebookButton';
 import GoogleButton from '../../components/GoogleButton';
@@ -24,76 +33,81 @@ export default function SignUpScreen({navigation}) {
   };
 
   return (
-    <View style={styles.Page}>
-      <Text style={styles.header}>SIGN UP</Text>
-      <Text style={styles.subtitle}>
-        Sign up with one of the following options.
-      </Text>
-      <View style={styles.oAuth}>
-        {Platform.OS ? (
-          <>
-            <GoogleButton onPress={() => googleLogin()} />
-            <FacebookButton onPress={() => fbLogin()} />
-          </>
-        ) : null}
-      </View>
-      <View style={styles.emailCredentials}>
-        <FormInput
-          value={email}
-          onChangeText={changeEmail}
-          autoCorrect={false}
-          name="mail"
-          phd="Email"
-          autoCapitalize="none"
-        />
-        <FormInput
-          value={password}
-          onChangeText={changePassword}
-          secureTextEntry={true}
-          autoCorrect={false}
-          name="lock"
-          phd="Password"
-          autoCapitalize="none"
-        />
-        <FormInput
-          value={confirmPassword}
-          onChangeText={changeConfirmPassword}
-          secureTextEntry={true}
-          autoCorrect={false}
-          name="lock"
-          phd="Confirm Password"
-          autoCapitalize="none"
-        />
-        <TouchableOpacity onPress={() => onClickSignUp()}>
-          <LinearGradient
-            start={{x: 1, y: 0}}
-            end={{x: 0, y: 1}}
-            colors={[primary.main, primary.light]}
-            style={styles.button}>
-            <Text style={styles.buttonText}>SIGN UP</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <View style={styles.bottomView}>
-          <Text style={styles.bottomText}>Already have an account?</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Login')}
-            style={styles.signUpLink}>
-            <Text style={styles.link}>Log In</Text>
-          </TouchableOpacity>
+    <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
+      <Pressable onPress={Keyboard.dismiss}>
+        <Text style={styles.header}>SIGN UP</Text>
+        <Text style={styles.subtitle}>
+          Sign up with one of the following options.
+        </Text>
+        <View style={styles.oAuth}>
+          {Platform.OS ? (
+            <>
+              <GoogleButton onPress={() => googleLogin()} />
+              <FacebookButton onPress={() => fbLogin()} />
+            </>
+          ) : null}
         </View>
-        <View style={styles.bottomView}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('PrivacyPolicy')}
-            style={styles.signUpLink}>
-            <Text style={styles.link}>Privacy Policy</Text>
+        <View style={styles.emailCredentials}>
+          <FormInput
+            value={email}
+            onChangeText={changeEmail}
+            autoCorrect={false}
+            name="mail"
+            phd="Email"
+            autoCapitalize="none"
+          />
+          <FormInput
+            value={password}
+            onChangeText={changePassword}
+            secureTextEntry={true}
+            autoCorrect={false}
+            name="lock"
+            phd="Password"
+            autoCapitalize="none"
+          />
+          <FormInput
+            value={confirmPassword}
+            onChangeText={changeConfirmPassword}
+            secureTextEntry={true}
+            autoCorrect={false}
+            name="lock"
+            phd="Confirm Password"
+            autoCapitalize="none"
+          />
+          <TouchableOpacity onPress={() => onClickSignUp()}>
+            <LinearGradient
+              start={{x: 1, y: 0}}
+              end={{x: 0, y: 1}}
+              colors={[primary.main, primary.light]}
+              style={styles.button}>
+              <Text style={styles.buttonText}>SIGN UP</Text>
+            </LinearGradient>
           </TouchableOpacity>
+          <View style={styles.bottomView}>
+            <Text style={styles.bottomText}>Already have an account?</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Login')}
+              style={styles.signUpLink}>
+              <Text style={styles.link}>Log In</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.bottomView}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('PrivacyPolicy')}
+              style={styles.signUpLink}>
+              <Text style={styles.link}>Privacy Policy</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </View>
+      </Pressable>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  topWrapper: {
+    flex: 1,
+  },
   Page: {
     flex: 1,
   },
