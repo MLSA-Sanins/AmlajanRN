@@ -7,12 +7,28 @@ import {
   TouchableOpacity,
   InteractionManager,
   ActivityIndicator,
+  PermissionsAndroid
 } from 'react-native';
 import {width, height} from '../../utils/dimensions';
 import {primary, secondary} from '../..//theme/theme';
 import GradientButton from '../../components/GradientButton';
+import {connect} from 'react-redux';
+import {askAndFecthLocation} from '../../redux/actions/permissionsActions';
 
-const RoleScreen = ({navigation, fetchLocationAndAddress, isLoading}) => {
+const RoleScreen = ({
+  navigation,
+  fetchLocationAndAddress,
+  askAndFecthLocation,
+  isLoading,
+}) => {
+  // const askPermissions = () => {
+  //   askAndFecthLocation();
+  // };
+
+  // useEffect(() => {
+  //   askAndFecthLocation(PermissionsAndroid);
+  //   //return askPermissions;
+  // }, []);
   return (
     <View style={styles.Page}>
       <View style={styles.imgContainer}>
@@ -37,7 +53,9 @@ const RoleScreen = ({navigation, fetchLocationAndAddress, isLoading}) => {
   );
 };
 
-export default RoleScreen;
+export default connect(null, {
+  askAndFecthLocation: askAndFecthLocation,
+})(RoleScreen);
 
 const styles = StyleSheet.create({
   Page: {

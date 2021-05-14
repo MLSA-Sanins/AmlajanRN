@@ -6,6 +6,7 @@ import {
   USER_REGISTERED,
   REGISTERING_NEW_USER,
   NEW_USER_REGISTERED,
+  LOGOUT_USER,
 } from '../constants';
 const initialState = {
   isLoading: null,
@@ -35,6 +36,8 @@ export default (state = initialState, action) => {
         isRegisteredUser: true,
         currentUser: {...state.currentUser, ...action.payload},
       };
+    case LOGOUT_USER:
+      return {...state, currentUser: null, isRegisteredUser: null};
     case USER_NOT_REGISTERED:
       return {...state, isRegisteredUser: false};
     default:

@@ -6,6 +6,7 @@ import {
   USER_REGISTERED,
   REGISTERING_NEW_USER,
   NEW_USER_REGISTERED,
+  LOGOUT_USER,
 } from '../constants';
 import {getErrors, clearErrors} from './errorActions';
 import {checkUserExistence, registerUser} from '../../api/herokuApi';
@@ -17,6 +18,7 @@ export const checkIfUserExists = uid => async dispatch => {
     const response = await checkUserExistence(uid);
     console.log(response);
     dispatch({type: USER_REGISTERED, payload: response.data.Provider});
+    dispatch(clearErrors());
   } catch (e) {
     dispatch({type: USER_NOT_REGISTERED});
     dispatch(getErrors(e));
@@ -29,6 +31,7 @@ export const getInitialUserData = user => async dispatch => {
     if (user) {
       console.log(user.uid);
       await dispatch(checkIfUserExists(user.uid));
+      dispatch(clearErrors());
     }
     dispatch({type: INITIAL_USER_FETCHED, payload: user});
   } catch (e) {
@@ -49,8 +52,19 @@ export const registerNewUser =
       });
       dispatch({type: NEW_USER_REGISTERED, payload: response.data.Response});
       navigation.navigate('Main');
+      dispatch(clearErrors());
     } catch (e) {
       dispatch(getErrors(e));
       console.log(e);
     }
   };
+
+//logging out user
+export const logoutUser = () => async dispatch => {
+  try {
+    dispatch({type: LOGOUT_USER});
+    dispatch(clearErrors());
+  } catch (e) {
+    dispatch({type: LOGOUT_USER});
+  }
+};

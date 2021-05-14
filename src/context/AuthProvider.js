@@ -1,12 +1,15 @@
 import React, {createContext, useState} from 'react';
 import auth from '@react-native-firebase/auth';
+import {useDispatch} from 'react-redux';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
+import {LOGOUT_USER} from '../redux/constants';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
 
   return (
     <AuthContext.Provider
@@ -70,6 +73,7 @@ export const AuthProvider = ({children}) => {
         logout: async () => {
           try {
             await auth().signOut();
+            dispatch({type: LOGOUT_USER});
           } catch (e) {
             console.warn(e);
           }
