@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import {Screen} from '../../components/Screen';
 
 export default function index() {
   return (
-    <View style={styles.Page}>
+    <Screen>
       <Text>PRROFILE SCREEN</Text>
-    </View>
+    </Screen>
   );
 }
 

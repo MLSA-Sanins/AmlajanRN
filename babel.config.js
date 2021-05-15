@@ -12,5 +12,13 @@ module.exports = {
         allowUndefined: true,
       },
     ],
+    [
+      'module-resolver',
+      {
+        alias: {
+          assets: './src/assets',
+        },
+      },
+    ],
   ],
 };

@@ -1,36 +1,41 @@
 import React, {useContext} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {lightTheme, darkTheme} from '../../theme/properTheme';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Button from '../../components/Button';
 import {AuthContext} from '../../context/AuthProvider';
 import GradientButton from '../../components/GradientButton';
-import {checkUserExistence} from '../../api/herokuApi';
 import {connect} from 'react-redux';
+import styled from 'styled-components/native';
+import { Page } from './styles';
+import { Screen } from "../../components/Screen";
+import {switchTheme} from '../../redux/actions/themeActions';
 
-const HomeScreen = () => {
-  const {logout} = useContext(AuthContext);
+const StyledButton = styled.TouchableOpacity``;
 
-  const checkApi = async uid => {
-    try {
-      const res = await checkUserExistence(uid);
-      console.log(res.data.Provider.email);
-    } catch (e) {
-      console.log(e);
-    }
+const HomeScreen = ({theme, switchTheme}) => {
+  const switchThemes = () => {
+    theme.mode === 'light' ? switchTheme(darkTheme) : switchTheme(lightTheme);
   };
 
   return (
-    <View style={styles.Page}>
-      <Text>HomeScreen</Text>
+    <Screen>
+      <Text>{theme.mode}</Text>
       <GradientButton
-        title="FETCH USER"
+        title={`${theme.mode === 'light' ? 'DARK MODE' : 'LIGHT MODE'}`}
         height={50}
-        onPress={() => checkApi('gD85INYhLZTqXqQDDJfdpoALtC2')}
+        onPress={() => switchThemes()}
       />
-    </View>
+    </Screen>
   );
 };
 
-export default HomeScreen;
+const mapStateToProps = state => {
+  return {theme: state.themes.theme};
+};
+
+export default connect(mapStateToProps, {
+  switchTheme: switchTheme,
+})(HomeScreen);
 
 const styles = StyleSheet.create({
   Page: {

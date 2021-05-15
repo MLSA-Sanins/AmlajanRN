@@ -4,16 +4,16 @@ import {
   DarkTheme,
   DefaultTheme,
 } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import LoadingScreen from '../components/LoadingView';
 import {connect, useDispatch} from 'react-redux';
 import {FETCHING_INITIAL_USER} from '../redux/constants';
 import {getInitialUserData} from '../redux/actions/userActions';
-import {AuthContext} from '../context/AuthProvider';
+
 
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
-import MainStack from './MainStack';
 
 const Routes = ({getInitialUserData}) => {
   const [user, setUser] = useState(null);

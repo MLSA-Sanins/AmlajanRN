@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {StyleSheet, View} from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useSelector} from 'react-redux';
 
+import NavigationHeader from '../components/NavigationHeader';
 import LoginScreen from '../pages/LoginScreen';
 import SignUpScreen from '../pages/SignUpScreen';
 import OnboardingScreen from '../pages/OnboardingScreen';
@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 
 export default function AuthStack() {
   const [isFirstLaunch, setIsFirstLaunch] = useState(null);
-
+  const theme = useSelector(state => state.themes.theme);
   let routeName;
 
   useEffect(() => {
@@ -57,20 +57,12 @@ export default function AuthStack() {
         options={({navigation}) => ({
           title: '',
           headerStyle: {
-            backgroundColor: '#f9fafd',
-            shadowColor: '#f9fafd',
+            backgroundColor: theme.PRIMARY_BACKGROUND_COLOR,
+            shadowColor: theme.PRIMARY_BACKGROUND_COLOR,
             elevation: 0,
           },
           headerLeft: () => (
-            <View style={styles.headerStyle}>
-              <FontAwesome.Button
-                name="long-arrow-left"
-                size={25}
-                backgroundColor="#f9fafd"
-                color="#333"
-                onPress={() => navigation.navigate('Login')}
-              />
-            </View>
+            <NavigationHeader onPress={() => navigation.navigate('Login')} />
           ),
         })}
         name="Signup"
@@ -81,20 +73,12 @@ export default function AuthStack() {
         options={({navigation}) => ({
           title: '',
           headerStyle: {
-            backgroundColor: '#f9fafd',
-            shadowColor: '#f9fafd',
+            backgroundColor: theme.PRIMARY_BACKGROUND_COLOR,
+            shadowColor: theme.PRIMARY_BACKGROUND_COLOR,
             elevation: 0,
           },
           headerLeft: () => (
-            <View style={styles.headerStyle}>
-              <FontAwesome.Button
-                name="long-arrow-left"
-                size={25}
-                backgroundColor="#f9fafd"
-                color="#333"
-                onPress={() => navigation.navigate('Login')}
-              />
-            </View>
+            <NavigationHeader onPress={() => navigation.navigate('Login')} />
           ),
         })}
         component={PrivacyPolicyScreen}
@@ -102,9 +86,3 @@ export default function AuthStack() {
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  headerStyle: {
-    marginLeft: 10,
-  },
-});

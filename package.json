@@ -20,12 +20,14 @@
     "@react-navigation/stack": "^5.14.5",
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
+    "babel-plugin-module-resolver": "^4.1.0",
     "react": "17.0.1",
     "react-native": "0.64.1",
     "react-native-dotenv": "^2.5.5",
     "react-native-fbsdk-next": "^4.2.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-get-location": "^2.1.0",
+    "react-native-global-props": "^1.1.5",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-location": "^2.5.0",
     "react-native-reanimated": "^2.1.0",
@@ -36,7 +38,8 @@
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

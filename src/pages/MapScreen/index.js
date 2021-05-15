@@ -2,15 +2,16 @@ import React, {useContext} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Button from '../../components/Button';
 import {AuthContext} from '../../context/AuthProvider';
+import {Screen} from '../../components/Screen';
 
 const MapScreen = () => {
   const {logout} = useContext(AuthContext);
 
   return (
-    <View style={styles.Page}>
+    <Screen>
       <Text>MapScreen</Text>
       <Button title="LOG OUT" onPress={() => logout()} />
-    </View>
+    </Screen>
   );
 };
 

@@ -1,12 +1,12 @@
 import React, {useContext, useState} from 'react';
 import {
-  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   Pressable,
   Keyboard,
+  StatusBar,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import FormInput from '../../components/FormInput';
@@ -15,20 +15,27 @@ import FacebookButton from '../../components/FacebookButton';
 import {primary} from '../../theme/theme';
 import {width, height} from '../../utils/dimensions';
 import {AuthContext} from '../../context/AuthProvider';
+import {Screen} from '../../components/Screen';
+import {Header, SubTitle, BottomText} from './styles';
+import Links from '../../components/Links';
+import {useSelector} from 'react-redux';
 
 const LoginScreen = ({navigation}) => {
   const [email, changeEmail] = useState();
   const [password, changePassword] = useState();
 
   const {login, googleLogin, fbLogin} = useContext(AuthContext);
+  const theme = useSelector(state => state.themes.theme);
 
   return (
-    <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
+    <Screen behavior="height">
       <Pressable onPress={Keyboard.dismiss}>
-        <Text style={styles.header}>LOGIN</Text>
-        <Text style={styles.subtitle}>
-          Log In with one of the following options.
-        </Text>
+        <StatusBar
+          backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
+          barStyle={theme.STATUS_BAR_STYLE}
+        />
+        <Header>LOGIN</Header>
+        <SubTitle>Log In with one of the following options.</SubTitle>
         <View style={styles.oAuth}>
           <GoogleButton onPress={() => googleLogin()} />
           <FacebookButton onPress={() => fbLogin()} />
@@ -61,23 +68,17 @@ const LoginScreen = ({navigation}) => {
             </LinearGradient>
           </TouchableOpacity>
           <View style={styles.bottomView}>
-            <Text style={styles.bottomText}>Don't have an account?</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Signup')}
-              style={styles.signUpLink}>
-              <Text style={styles.link}>Sign Up</Text>
-            </TouchableOpacity>
+            <BottomText>Don't have an account?</BottomText>
+            <Links onPress={() => navigation.navigate('Signup')}>Sign Up</Links>
           </View>
           <View style={styles.bottomView}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('PrivacyPolicy')}
-              style={styles.signUpLink}>
-              <Text style={styles.link}>Privacy Policy</Text>
-            </TouchableOpacity>
+            <Links onPress={() => navigation.navigate('PrivacyPolicy')}>
+              Privacy Policy
+            </Links>
           </View>
         </View>
       </Pressable>
-    </KeyboardAvoidingView>
+    </Screen>
   );
 };
 

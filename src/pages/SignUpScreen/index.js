@@ -8,6 +8,7 @@ import {
   View,
   TouchableOpacity,
   Platform,
+  StatusBar,
 } from 'react-native';
 import {width, height} from '../../utils/dimensions';
 import FacebookButton from '../../components/FacebookButton';
@@ -16,6 +17,11 @@ import FormInput from '../../components/FormInput';
 import {primary} from '../../theme/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import {AuthContext} from '../../context/AuthProvider';
+import {Screen} from '../../components/Screen';
+import {SubTitle, BottomText} from '../LoginScreen/styles';
+import {Header} from './styles';
+import Links from '../../components/Links';
+import {useSelector} from 'react-redux';
 
 export default function SignUpScreen({navigation}) {
   const [email, changeEmail] = useState();
@@ -32,13 +38,17 @@ export default function SignUpScreen({navigation}) {
     }
   };
 
+  const theme = useSelector(state => state.themes.theme);
+
   return (
-    <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
+    <Screen behavior="height">
       <Pressable onPress={Keyboard.dismiss}>
-        <Text style={styles.header}>SIGN UP</Text>
-        <Text style={styles.subtitle}>
-          Sign up with one of the following options.
-        </Text>
+        <StatusBar
+          backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
+          barStyle={theme.STATUS_BAR_STYLE}
+        />
+        <Header>SIGN UP</Header>
+        <SubTitle>Sign up with one of the following options.</SubTitle>
         <View style={styles.oAuth}>
           {Platform.OS ? (
             <>
@@ -84,23 +94,17 @@ export default function SignUpScreen({navigation}) {
             </LinearGradient>
           </TouchableOpacity>
           <View style={styles.bottomView}>
-            <Text style={styles.bottomText}>Already have an account?</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Login')}
-              style={styles.signUpLink}>
-              <Text style={styles.link}>Log In</Text>
-            </TouchableOpacity>
+            <BottomText>Already have an account?</BottomText>
+            <Links onPress={() => navigation.navigate('Login')}>Log In</Links>
           </View>
           <View style={styles.bottomView}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('PrivacyPolicy')}
-              style={styles.signUpLink}>
-              <Text style={styles.link}>Privacy Policy</Text>
-            </TouchableOpacity>
+            <Links onPress={() => navigation.navigate('PrivacyPolicy')}>
+              Privacy Policy
+            </Links>
           </View>
         </View>
       </Pressable>
-    </KeyboardAvoidingView>
+    </Screen>
   );
 }
 
