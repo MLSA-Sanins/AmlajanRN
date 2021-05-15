@@ -18,11 +18,19 @@ import Feather from 'react-native-vector-icons/Feather';
 import {primary, secondary} from '../../theme/theme';
 import {connect} from 'react-redux';
 import {registerNewUser} from '../../redux/actions/userActions';
+import {updateAddress} from '../../redux/actions/locationActions';
 import GradientButton from '../../components/GradientButton';
 
-const UserDetailsScreen = ({route, navigation, userData, registerNewUser}) => {
+const UserDetailsScreen = ({
+  route,
+  navigation,
+  userData,
+  registerNewUser,
+  location,
+  updateAddress,
+}) => {
   const [userName, setUserName] = useState(userData.displayName);
-  const [address, changeAddress] = useState(null);
+  const [address, changeAddress] = useState(location.address);
   const [email, changeEmail] = useState(userData.email);
   const [phone, changePhone] = useState(userData.phoneNumber);
   const [incentive, setIncentive] = useState(false);
@@ -31,12 +39,14 @@ const UserDetailsScreen = ({route, navigation, userData, registerNewUser}) => {
   const inactiveColor = '#9e9e9e';
 
   const newUserRegistration = () => {
+    updateAddress(address);
     const data = {
       displayName: userName,
-      address,
+      location,
       email,
       phone,
       incentive,
+      uid: userData.uid,
     };
     registerNewUser(route.params.title.toLowerCase(), data, navigation);
   };
@@ -136,11 +146,12 @@ const UserDetailsScreen = ({route, navigation, userData, registerNewUser}) => {
 };
 
 const mapStateToProps = state => {
-  return {userData: state.user.currentUser};
+  return {userData: state.user.currentUser, location: state.user.location};
 };
 
 export default connect(mapStateToProps, {
   registerNewUser: registerNewUser,
+  updateAddress: updateAddress,
 })(UserDetailsScreen);
 
 const styles = StyleSheet.create({

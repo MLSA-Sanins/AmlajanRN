@@ -7,11 +7,17 @@ import {
   REGISTERING_NEW_USER,
   NEW_USER_REGISTERED,
   LOGOUT_USER,
+  LOADING_ADDRESS,
+  ADDRESS_LOADED,
+  UPDATING_ADDRESS,
+  ADDRESS_UPDATED,
 } from '../constants';
 const initialState = {
   isLoading: null,
   currentUser: null,
   isRegisteredUser: null,
+  loadingLocation: null,
+  location: null,
 };
 
 export default (state = initialState, action) => {
@@ -23,11 +29,15 @@ export default (state = initialState, action) => {
       return {...state, currentUser: action.payload, isLoading: false};
     case AUTH_FAILED:
       return {...state, isLoading: false};
+    case LOADING_ADDRESS:
+      return {...state, loadingLocation: true};
+    case ADDRESS_LOADED:
+      return {...state, loadingLocation: false, location: action.payload};
     case USER_REGISTERED:
       return {
         ...state,
         isRegisteredUser: true,
-        currentUser: {...state.currentUser, ...action.payload},
+        currentUser: {...state.currentUser},
       };
     case NEW_USER_REGISTERED:
       return {
@@ -36,6 +46,8 @@ export default (state = initialState, action) => {
         isRegisteredUser: true,
         currentUser: {...state.currentUser, ...action.payload},
       };
+    case ADDRESS_UPDATED:
+      return {...state, location: {...state.location, address: action.payload}};
     case LOGOUT_USER:
       return {...state, currentUser: null, isRegisteredUser: null};
     case USER_NOT_REGISTERED:

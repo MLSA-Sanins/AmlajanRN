@@ -1,0 +1,89 @@
+import {
+  ASK_PERMISSIONS_LOCATION,
+  LOADING_LOCATION,
+  LOCATION_LOADED,
+  LOADING_ADDRESS,
+  ADDRESS_LOADED,
+  LOCATION_ERROR,
+  ADDRESS_ERROR,
+  ADDRESS_UPDATED,
+} from '../constants';
+
+import {getErrors, clearErrors} from './errorActions';
+import RNLocation from 'react-native-location';
+import {GEOLOCATION_API_KEY, REVERSEGEOCODE_URL} from '@env';
+import {fetchAddress} from '../../api/geolocationApi';
+
+const requestLocationPermission = async () => {
+  try {
+    RNLocation.configure({
+      distanceFilter: 100, // Meters
+      desiredAccuracy: {
+        ios: 'best',
+        android: 'highAccuracy',
+      },
+      // Android only
+      androidProvider: 'auto',
+      maxWaitTime: 5000, // Milliseconds
+      // iOS Only
+      activityType: 'other',
+      allowsBackgroundLocationUpdates: false,
+      headingFilter: 1, // Degrees
+      headingOrientation: 'portrait',
+      pausesLocationUpdatesAutomatically: false,
+      showsBackgroundLocationIndicator: false,
+    });
+    const granted = await RNLocation.requestPermission({
+      ios: 'whenInUse', // or 'always'
+      android: {
+        detail: 'fine', // or 'fine'
+        rationale: {
+          title: 'We need to access your location',
+          message: 'We use your location to show where you are on the map',
+          buttonPositive: 'OK',
+          buttonNegative: 'Cancel',
+        },
+      },
+    });
+    if (granted) {
+      const location = await RNLocation.getLatestLocation({timeout: 60000});
+      return location;
+    } else {
+      console.log('not permitted');
+    }
+  } catch (err) {
+    console.warn(err);
+  }
+};
+
+//asking for location permission and geting location back
+export const fecthLocationAndAddress = () => async dispatch => {
+  try {
+    dispatch({type: LOADING_ADDRESS});
+    const location = await requestLocationPermission();
+    const address = await fetchAddress(
+      location.latitude,
+      location.longitude,
+      500,
+    );
+    dispatch({
+      type: ADDRESS_LOADED,
+      payload: {
+        ...location,
+        address: address.data.Response.View[0].Result[0].Location.Address.Label,
+      },
+    });
+    console.log(address.data.Response.View[0].Result[0].Location.Address.Label);
+  } catch (e) {
+    console.log(e);
+    dispatch(getErrors(e));
+  }
+};
+
+export const updateAddress = address => async dispatch => {
+  try {
+    dispatch({type: ADDRESS_UPDATED, payload: address});
+  } catch (e) {
+    console.log('updation failed');
+  }
+};
