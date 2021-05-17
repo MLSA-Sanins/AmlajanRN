@@ -19,3 +19,4 @@ export const BottomText = styled.Text`
   font-size: 15px;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `;
+

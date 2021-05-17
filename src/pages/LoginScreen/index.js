@@ -20,10 +20,14 @@ import {SubTitle, BottomText} from './styles';
 import Links from '../../components/Links';
 import {useSelector} from 'react-redux';
 import AmlajanLogo from '../../assets/svgcodes/AmlajanLogo';
+import {Formik} from 'formik';
+import loginSchema from '../../utils/loginSchema';
+import {connect} from 'react-redux';
+import Errors from '../../components/Errors';
 
-const LoginScreen = ({navigation}) => {
-  const [email, changeEmail] = useState();
-  const [password, changePassword] = useState();
+const LoginScreen = ({navigation, error}) => {
+  // const [email, changeEmail] = useState();
+  // const [password, changePassword] = useState();
 
   const {login, googleLogin, fbLogin} = useContext(AuthContext);
   const theme = useSelector(state => state.themes.theme);
@@ -41,33 +45,55 @@ const LoginScreen = ({navigation}) => {
           <GoogleButton onPress={() => googleLogin()} />
           <FacebookButton onPress={() => fbLogin()} />
         </View>
+        {error.error && <Errors texts={error.error} />}
         <View style={styles.emailCredentials}>
-          <FormInput
-            value={email}
-            onChangeText={changeEmail}
-            autoCorrect={false}
-            name="mail"
-            phd="Email"
-            autoCapitalize="none"
-          />
-          <FormInput
-            value={password}
-            onChangeText={changePassword}
-            secureTextEntry={true}
-            autoCorrect={false}
-            name="lock"
-            phd="Password"
-            autoCapitalize="none"
-          />
-          <TouchableOpacity onPress={() => login(email, password)}>
-            <LinearGradient
-              start={{x: 1, y: 0}}
-              end={{x: 0, y: 1}}
-              colors={[primary.main, primary.light]}
-              style={styles.button}>
-              <Text style={styles.buttonText}>LOGIN</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+          <Formik
+            validationSchema={loginSchema}
+            initialValues={{email: '', password: ''}}
+            onSubmit={values => login(values.email, values.password)}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              isValid,
+            }) => (
+              <>
+                <FormInput
+                  autoCorrect={false}
+                  name="mail"
+                  phd="Email"
+                  autoCapitalize="none"
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                  keyboardType="email-address"
+                />
+                {errors.email && <Errors texts={errors.email} />}
+                <FormInput
+                  autoCorrect={false}
+                  name="lock"
+                  phd="Password"
+                  autoCapitalize="none"
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  secureTextEntry
+                />
+                {errors.password && <Errors texts={errors.password} />}
+                <TouchableOpacity disabled={!isValid} onPress={handleSubmit}>
+                  <LinearGradient
+                    start={{x: 1, y: 0}}
+                    end={{x: 0, y: 1}}
+                    colors={[primary.main, primary.light]}
+                    style={styles.button}>
+                    <Text style={styles.buttonText}>LOGIN</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
           <View style={styles.bottomView}>
             <BottomText>Don't have an account?</BottomText>
             <Links onPress={() => navigation.navigate('Signup')}>Sign Up</Links>
@@ -83,7 +109,11 @@ const LoginScreen = ({navigation}) => {
   );
 };
 
-export default LoginScreen;
+const mapStateToProps = state => {
+  return {error: state.error};
+};
+
+export default connect(mapStateToProps, {})(LoginScreen);
 
 const styles = StyleSheet.create({
   subtitle: {

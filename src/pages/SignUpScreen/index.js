@@ -10,7 +10,7 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import {width, height} from '../../utils/dimensions';
+import {width} from '../../utils/dimensions';
 import FacebookButton from '../../components/FacebookButton';
 import GoogleButton from '../../components/GoogleButton';
 import FormInput from '../../components/FormInput';
@@ -22,21 +22,13 @@ import {SubTitle, BottomText} from '../LoginScreen/styles';
 import Links from '../../components/Links';
 import {useSelector} from 'react-redux';
 import AmlajanLogo from '../../assets/svgcodes/AmlajanLogo';
+import {Formik} from 'formik';
+import signupSchema from '../../utils/loginSchema';
+import {connect} from 'react-redux';
+import Errors from '../../components/Errors';
 
-export default function SignUpScreen({navigation}) {
-  const [email, changeEmail] = useState();
-  const [password, changePassword] = useState();
-  const [confirmPassword, changeConfirmPassword] = useState();
-
+const SignUpScreen = ({navigation, error}) => {
   const {register, googleLogin, fbLogin} = useContext(AuthContext);
-
-  const onClickSignUp = () => {
-    if (password === confirmPassword) {
-      register(email, password);
-    } else {
-      console.warn('Passwords donot Match!');
-    }
-  };
 
   const theme = useSelector(state => state.themes.theme);
 
@@ -57,42 +49,68 @@ export default function SignUpScreen({navigation}) {
             </>
           ) : null}
         </View>
+        {error.error && <Errors texts={error.error} />}
         <View style={styles.emailCredentials}>
-          <FormInput
-            value={email}
-            onChangeText={changeEmail}
-            autoCorrect={false}
-            name="mail"
-            phd="Email"
-            autoCapitalize="none"
-          />
-          <FormInput
-            value={password}
-            onChangeText={changePassword}
-            secureTextEntry={true}
-            autoCorrect={false}
-            name="lock"
-            phd="Password"
-            autoCapitalize="none"
-          />
-          <FormInput
-            value={confirmPassword}
-            onChangeText={changeConfirmPassword}
-            secureTextEntry={true}
-            autoCorrect={false}
-            name="lock"
-            phd="Confirm Password"
-            autoCapitalize="none"
-          />
-          <TouchableOpacity onPress={() => onClickSignUp()}>
-            <LinearGradient
-              start={{x: 1, y: 0}}
-              end={{x: 0, y: 1}}
-              colors={[primary.main, primary.light]}
-              style={styles.button}>
-              <Text style={styles.buttonText}>SIGN UP</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+          <Formik
+            validationSchema={signupSchema}
+            initialValues={{email: '', password: '', confirmPassword: ''}}
+            onSubmit={values => register(values.email, values.password)}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              isValid,
+            }) => (
+              <>
+                <FormInput
+                  autoCorrect={false}
+                  name="mail"
+                  phd="Email"
+                  autoCapitalize="none"
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                  keyboardType="email-address"
+                />
+                {errors.email && <Errors texts={errors.email} />}
+                <FormInput
+                  autoCorrect={false}
+                  name="lock"
+                  phd="Password"
+                  autoCapitalize="none"
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  secureTextEntry
+                />
+                {errors.password && <Errors texts={errors.password} />}
+                <FormInput
+                  autoCorrect={false}
+                  name="lock"
+                  phd="Confirm Password"
+                  autoCapitalize="none"
+                  onChangeText={handleChange('confirmPassword')}
+                  onBlur={handleBlur('confirmPassword')}
+                  value={values.confirmPassword}
+                  secureTextEntry
+                />
+                {errors.confirmPassord && (
+                  <Errors texts={errors.confirmPassord} />
+                )}
+                <TouchableOpacity disabled={isValid} onPress={handleSubmit}>
+                  <LinearGradient
+                    start={{x: 1, y: 0}}
+                    end={{x: 0, y: 1}}
+                    colors={[primary.main, primary.light]}
+                    style={styles.button}>
+                    <Text style={styles.buttonText}>SIGN UP</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
           <View style={styles.bottomView}>
             <BottomText>Already have an account?</BottomText>
             <Links onPress={() => navigation.navigate('Login')}>Log In</Links>
@@ -106,7 +124,13 @@ export default function SignUpScreen({navigation}) {
       </Pressable>
     </Screen>
   );
-}
+};
+
+const mapStateToProps = state => {
+  return {error: state.error};
+};
+
+export default connect(mapStateToProps)(SignUpScreen);
 
 const styles = StyleSheet.create({
   oAuth: {

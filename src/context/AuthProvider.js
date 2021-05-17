@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 import {LOGOUT_USER} from '../redux/constants';
+import {getErrors, clearErrors} from '../redux/actions/errorActions';
 
 export const AuthContext = createContext();
 
@@ -22,6 +23,7 @@ export const AuthProvider = ({children}) => {
 
           // Create a Google credential with the token
           const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+          dispatch(clearErrors());
 
           // Sign-in the user with the credential
           return auth().signInWithCredential(googleCredential);
@@ -29,8 +31,9 @@ export const AuthProvider = ({children}) => {
         login: async (email, password) => {
           try {
             await auth().signInWithEmailAndPassword(email, password);
+            dispatch(clearErrors());
           } catch (e) {
-            console.warn(e);
+            dispatch(getErrors('Login Failed! Invalid Credentials'));
           }
         },
         fbLogin: async () => {
@@ -56,18 +59,22 @@ export const AuthProvider = ({children}) => {
             const facebookCredential = auth.FacebookAuthProvider.credential(
               data.accessToken,
             );
+            dispatch(clearErrors());
 
             // Sign-in the user with the credential
             return auth().signInWithCredential(facebookCredential);
           } catch (e) {
             console.log(e);
+            dispatch(getErrors(e));
           }
         },
         register: async (email, password) => {
           try {
             await auth().createUserWithEmailAndPassword(email, password);
+            dispatch(clearErrors());
           } catch (e) {
             console.warn(e);
+            dispatch(getErrors('Registration Failed!'));
           }
         },
         logout: async () => {
