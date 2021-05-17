@@ -13,7 +13,6 @@ const HeaderView = styled.View`
 
 export default function AppNavigationHeader({onPress}) {
   const theme = useSelector(state => state.themes.theme);
-  console.log(theme);
   return (
     <HeaderView>
       <AntDesign.Button

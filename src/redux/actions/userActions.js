@@ -43,10 +43,7 @@ export const registerNewUser =
   (role, data, navigation) => async (dispatch, getState) => {
     try {
       dispatch({type: REGISTERING_NEW_USER});
-      const response = await registerUser(role, {
-        ...data,
-        uid: getState().user.currentUser.uid,
-      });
+      const response = await registerUser(role, data);
       dispatch({type: NEW_USER_REGISTERED, payload: response.data.Response});
       navigation.navigate('Main');
       dispatch(clearErrors());

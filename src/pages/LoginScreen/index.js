@@ -19,7 +19,7 @@ import {Screen} from '../../components/Screen';
 import {SubTitle, BottomText} from './styles';
 import Links from '../../components/Links';
 import {useSelector} from 'react-redux';
-import AmlajanLogo from '../../components/AmlajanLogo';
+import AmlajanLogo from '../../assets/svgcodes/AmlajanLogo';
 
 const LoginScreen = ({navigation}) => {
   const [email, changeEmail] = useState();

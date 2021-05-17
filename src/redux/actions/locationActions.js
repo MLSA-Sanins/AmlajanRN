@@ -74,7 +74,6 @@ export const fecthLocationAndAddress = () => async dispatch => {
         address: address.data.Response.View[0].Result[0].Location.Address.Label,
       },
     });
-    console.log(address.data.Response.View[0].Result[0].Location.Address.Label);
   } catch (e) {
     console.log(e);
     dispatch(getErrors(e));

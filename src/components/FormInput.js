@@ -29,7 +29,7 @@ export default function FormInput({phd, name, ...rest}) {
       />
       <TextInput
         placeholderTextColor="#9e9e9e"
-        style={styles.textInput}
+        style={{...styles.textInput, color: theme.FORM_INPUT_TEXT_COLOR}}
         placeholder={phd}
         {...rest}
       />

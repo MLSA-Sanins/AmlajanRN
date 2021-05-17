@@ -20,6 +20,7 @@ import {connect} from 'react-redux';
 import {registerNewUser} from '../../redux/actions/userActions';
 import {updateAddress} from '../../redux/actions/locationActions';
 import GradientButton from '../../components/GradientButton';
+import {useSelector} from 'react-redux';
 
 const UserDetailsScreen = ({
   route,
@@ -29,29 +30,70 @@ const UserDetailsScreen = ({
   location,
   updateAddress,
 }) => {
-  const [userName, setUserName] = useState(userData.displayName);
-  const [address, changeAddress] = useState(location.address);
-  const [email, changeEmail] = useState(userData.email);
-  const [phone, changePhone] = useState(userData.phoneNumber);
-  const [incentive, setIncentive] = useState(false);
+  const [data, setData] = useState({
+    userName: userData.displayName,
+    address: location.address,
+    email: userData.email,
+    phoneNumber: userData.phoneNumber,
+    incentive: false,
+    checkTextInputChange: false,
+    secureTextEntry: true,
+  });
+
+  const theme = useSelector(state => state.themes.theme);
+
+  const onEmailChange = val => {
+    if (val.length !== 0) {
+      setData({...data, email: val, checkTextInputChange: true});
+    } else {
+      setData({...data, email: val, checkTextInputChange: false});
+    }
+  };
+
+  const onUserNameChange = val => {
+    if (val.length !== 0) {
+      setData({...data, userName: val, checkTextInputChange: true});
+    } else {
+      setData({...data, userName: val, checkTextInputChange: false});
+    }
+  };
+
+  const onAddressChange = val => {
+    if (val.length !== 0) {
+      setData({...data, address: val, checkTextInputChange: true});
+    } else {
+      setData({...data, address: val, checkTextInputChange: true});
+    }
+  };
+
+  const onPhoneChange = val => {
+    if (val.length !== 0) {
+      setData({...data, phoneNumber: val, checkTextInputChange: true});
+    } else {
+      setData({...data, phoneNumber: val, checkTextInputChange: false});
+    }
+  };
+
+  const onIncentiveChange = val => {
+    setData({...data, incentive: val});
+  };
 
   const activeColor = primary.main;
   const inactiveColor = '#9e9e9e';
 
   const newUserRegistration = () => {
-    updateAddress(address);
-    const data = {
-      displayName: userName,
+    updateAddress(data.address);
+    const dataSubmit = {
+      displayName: data.userName,
       location,
-      email,
-      phone,
-      incentive,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      incentive: data.incentive,
       uid: userData.uid,
     };
-    registerNewUser(route.params.title.toLowerCase(), data, navigation);
+    registerNewUser(route.params.title.toLowerCase(), dataSubmit, navigation);
   };
 
-  console.log(userData.photoURL,userName,email,phone,address);
   return (
     <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
       <Pressable onPress={Keyboard.dismiss}>
@@ -67,35 +109,42 @@ const UserDetailsScreen = ({
             />
           </View>
           <FormInput
-            value={userName}
-            onChangeText={setUserName}
+            value={data.userName}
+            onChangeText={val => onUserNameChange(val)}
             phd="Username"
             name="user"
           />
           {route.params.title.toUpperCase() === 'PROVIDER' && (
             <FormInput
-              value={email}
-              onChangeText={changeEmail}
+              value={data.email}
+              onChangeText={val => onEmailChange(val)}
               phd="Email"
               name="mail"
             />
           )}
           {route.params.title.toUpperCase() === 'PROVIDER' && (
             <FormInput
-              value={phone}
-              onChangeText={changePhone}
+              value={data.phoneNumber}
+              onChangeText={val => onPhoneChange(val)}
               phd="Phone Number"
               name="smartphone"
             />
           )}
-          <View style={styles.formContainerAddress}>
-            <Feather style={styles.icon} name="map" />
+          <View
+            style={{
+              ...styles.formContainerAddress,
+              backgroundColor: theme.FORM_INPUT_COLOR,
+            }}>
+            <Feather
+              style={{...styles.icon, color: theme.FORM_INPUT_TEXT_COLOR}}
+              name="map"
+            />
             <TextInput
               multiline
               numberOfLines={4}
-              value={address}
-              onChangeText={changeAddress}
-              style={styles.textInput}
+              value={data.address}
+              onChangeText={val => onAddressChange(val)}
+              style={{...styles.textInput, color: theme.FORM_INPUT_TEXT_COLOR}}
               placeholder="Address"
               placeholderTextColor="#9e9e9e"
             />
@@ -108,20 +157,24 @@ const UserDetailsScreen = ({
               <View style={styles.incentiveWrapper}>
                 <View style={styles.optionWrapper}>
                   <TouchableOpacity
-                    onPress={() => setIncentive(true)}
+                    onPress={() => onIncentiveChange(true)}
                     style={{
                       ...styles.option,
-                      backgroundColor: incentive ? activeColor : inactiveColor,
+                      backgroundColor: data.incentive
+                        ? activeColor
+                        : inactiveColor,
                     }}
                   />
                   <Text style={styles.optionText}>Yes , I will</Text>
                 </View>
                 <View style={styles.optionWrapper}>
                   <TouchableOpacity
-                    onPress={() => setIncentive(false)}
+                    onPress={() => onIncentiveChange(false)}
                     style={{
                       ...styles.option,
-                      backgroundColor: incentive ? inactiveColor : activeColor,
+                      backgroundColor: data.incentive
+                        ? inactiveColor
+                        : activeColor,
                     }}
                   />
                   <Text style={styles.optionText}>
@@ -195,18 +248,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 20,
     margin: 10,
-    color: primary.main,
-  },
-  location: {
-    justifyContent: 'center',
-    backgroundColor: primary.main,
-    borderTopRightRadius: 4,
-    borderBottomRightRadius: 4,
-  },
-  mapPin: {
-    fontSize: 20,
-    margin: 10,
-    color: '#fff',
   },
   picContainer: {
     marginTop: 10,
@@ -221,19 +262,6 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 100,
-  },
-  registerButton: {
-    backgroundColor: secondary.button,
-    marginHorizontal: 30,
-    marginVertical: 10,
-    borderRadius: 5,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
   },
   text: {
     marginHorizontal: 30,

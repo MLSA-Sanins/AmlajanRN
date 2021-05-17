@@ -12,7 +12,6 @@ import {AuthContext} from '../../context/AuthProvider';
 import GradientButton from '../../components/GradientButton';
 import {connect} from 'react-redux';
 import styled from 'styled-components/native';
-import {Page} from './styles';
 import {Screen} from '../../components/Screen';
 import {switchTheme} from '../../redux/actions/themeActions';
 import {useSelector} from 'react-redux';

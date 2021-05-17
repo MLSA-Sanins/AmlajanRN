@@ -1,10 +1,7 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {primary, secondary} from '../theme/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import HomeScreen from '../pages/HomeScreen';
@@ -39,7 +36,6 @@ const MainStack = () => {
               size={30}
             />
           ),
-          // tabBarBadge: 3,
         }}
         component={HomeScreen}
       />
@@ -57,7 +53,6 @@ const MainStack = () => {
               size={30}
             />
           ),
-          // tabBarBadge: 3,
         }}
         name="Maps"
         component={MapScreen}
@@ -76,7 +71,6 @@ const MainStack = () => {
               size={30}
             />
           ),
-          // tabBarBadge: 3,
         }}
         name="Profile"
         component={ProfileScreen}

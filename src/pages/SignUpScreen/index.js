@@ -21,7 +21,7 @@ import {Screen} from '../../components/Screen';
 import {SubTitle, BottomText} from '../LoginScreen/styles';
 import Links from '../../components/Links';
 import {useSelector} from 'react-redux';
-import AmlajanLogo from '../../components/AmlajanLogo';
+import AmlajanLogo from '../../assets/svgcodes/AmlajanLogo';
 
 export default function SignUpScreen({navigation}) {
   const [email, changeEmail] = useState();

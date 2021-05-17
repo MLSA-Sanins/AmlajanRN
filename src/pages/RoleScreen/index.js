@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
+import AuthNavigationHeader from '../../components/AuthNavigationHeader';
 import {
   StyleSheet,
   Text,
@@ -14,16 +15,10 @@ import {primary, secondary} from '../..//theme/theme';
 import GradientButton from '../../components/GradientButton';
 import {connect} from 'react-redux';
 import {fecthLocationAndAddress} from '../../redux/actions/locationActions';
+import {AuthContext} from '../../context/AuthProvider';
 
 const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
-  // const askPermissions = () => {
-  //   fecthLocationAndAddress();
-  // };
-
-  // useEffect(() => {
-  //   fecthLocationAndAddress(PermissionsAndroid);
-  //   //return askPermissions;
-  // }, []);
+  const {logout} = useContext(AuthContext);
 
   useEffect(() => {
     fecthLocationAndAddress(PermissionsAndroid);
@@ -31,9 +26,10 @@ const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
 
   return (
     <View style={styles.Page}>
+      <AuthNavigationHeader onPress={() => logout()} />
       <View style={styles.imgContainer}>
         <Image
-          source={require('../../../assets/png/help.png')}
+          source={require('../../assets/png/doc.png')}
           style={styles.img}
         />
       </View>
@@ -62,7 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imgContainer: {
-    paddingTop: 80,
+    paddingTop: 20,
     marginHorizontal: 30,
   },
   img: {
