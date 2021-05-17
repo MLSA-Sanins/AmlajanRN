@@ -96,10 +96,10 @@ const SignUpScreen = ({navigation, error}) => {
                   value={values.confirmPassword}
                   secureTextEntry
                 />
-                {errors.confirmPassord && (
-                  <Errors texts={errors.confirmPassord} />
+                {errors.confirmPassword && (
+                  <Errors texts={errors.confirmPassword} />
                 )}
-                <TouchableOpacity disabled={isValid} onPress={handleSubmit}>
+                <TouchableOpacity disabled={!isValid} onPress={handleSubmit}>
                   <LinearGradient
                     start={{x: 1, y: 0}}
                     end={{x: 0, y: 1}}
