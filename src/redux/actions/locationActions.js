@@ -13,6 +13,7 @@ import {getErrors, clearErrors} from './errorActions';
 import RNLocation from 'react-native-location';
 import {GEOLOCATION_API_KEY, REVERSEGEOCODE_URL} from '@env';
 import {fetchAddress} from '../../api/geolocationApi';
+import {getStateFromPath} from '@react-navigation/core';
 
 const requestLocationPermission = async () => {
   try {
@@ -58,7 +59,10 @@ const requestLocationPermission = async () => {
 };
 
 //asking for location permission and geting location back
-export const fecthLocationAndAddress = () => async dispatch => {
+export const fecthLocationAndAddress = () => async (dispatch, getState) => {
+  if (getState().user.location.address) {
+    return;
+  }
   try {
     dispatch({type: LOADING_ADDRESS});
     const location = await requestLocationPermission();
