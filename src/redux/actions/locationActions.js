@@ -45,6 +45,7 @@ const requestLocationPermission = async () => {
         },
       },
     });
+    console.log(granted);
     if (granted) {
       const location = await RNLocation.getLatestLocation({timeout: 60000});
       return location;

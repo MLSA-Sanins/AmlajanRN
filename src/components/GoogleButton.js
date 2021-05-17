@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {width, height} from '../utils/dimensions';
 import styled from 'styled-components';
@@ -9,7 +9,7 @@ const Google = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.theme.SECONDARY_BACKGROUND_COLOR};
+  background-color: ${props => props.theme.AUTH_BACKGROUND_COLOR};
   border-radius: 20px;
   border-width: 1px;
   border-color: #e5e5e5;
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   google: {
     width: width / 2.5,
     height: height / 10,
+    elevation: 5,
   },
   googleIcon: {
     fontSize: 30,

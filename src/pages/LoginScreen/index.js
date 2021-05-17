@@ -16,9 +16,10 @@ import {primary} from '../../theme/theme';
 import {width, height} from '../../utils/dimensions';
 import {AuthContext} from '../../context/AuthProvider';
 import {Screen} from '../../components/Screen';
-import {Header, SubTitle, BottomText} from './styles';
+import {SubTitle, BottomText} from './styles';
 import Links from '../../components/Links';
 import {useSelector} from 'react-redux';
+import AmlajanLogo from '../../components/AmlajanLogo';
 
 const LoginScreen = ({navigation}) => {
   const [email, changeEmail] = useState();
@@ -34,7 +35,7 @@ const LoginScreen = ({navigation}) => {
           backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
           barStyle={theme.STATUS_BAR_STYLE}
         />
-        <Header>LOGIN</Header>
+        <AmlajanLogo style={styles.Logo} />
         <SubTitle>Log In with one of the following options.</SubTitle>
         <View style={styles.oAuth}>
           <GoogleButton onPress={() => googleLogin()} />
@@ -85,16 +86,6 @@ const LoginScreen = ({navigation}) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  topWrapper: {
-    flex: 1,
-  },
-  header: {
-    marginLeft: 30,
-    marginTop: 150,
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: primary.main,
-  },
   subtitle: {
     marginLeft: 30,
     marginTop: 30,
@@ -108,13 +99,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     width: width,
     borderRadius: 20,
-  },
-  emailCredentials: {},
-  label: {
-    marginTop: 20,
-    marginLeft: 30,
-    fontSize: 20,
-    color: 'gray',
   },
   button: {
     marginHorizontal: 30,
@@ -136,12 +120,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
   },
-  bottomText: {},
-  signUpLink: {
-    lineHeight: 10,
-  },
-  link: {
-    marginLeft: 5,
-    color: primary.main,
+  Logo: {
+    alignSelf: 'center',
+    marginTop: 100,
   },
 });

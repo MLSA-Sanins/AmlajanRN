@@ -1,22 +1,25 @@
 import React from 'react';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useSelector} from 'react-redux';
 import styled from 'styled-components';
 
 const HeaderView = styled.View`
-  margin-left: 10px;
-  background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
+  padding-left: 10px;
+  height: 100px;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: ${props => props.theme.SECONDARY_COLOR};
 `;
 
-export default function NavigationHeader({onPress}) {
+export default function AppNavigationHeader({onPress}) {
   const theme = useSelector(state => state.themes.theme);
   console.log(theme);
   return (
     <HeaderView>
-      <FontAwesome.Button
-        name="long-arrow-left"
+      <AntDesign.Button
+        name="user"
         size={25}
-        backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
+        backgroundColor={theme.SECONDARY_COLOR}
         color={theme.PRIMARY_TEXT_COLOR}
         onPress={onPress}
       />

@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useSelector} from 'react-redux';
 
-import NavigationHeader from '../components/NavigationHeader';
+import AuthNavigationHeader from '../components/AuthNavigationHeader';
 import LoginScreen from '../pages/LoginScreen';
 import SignUpScreen from '../pages/SignUpScreen';
 import OnboardingScreen from '../pages/OnboardingScreen';
@@ -62,7 +62,9 @@ export default function AuthStack() {
             elevation: 0,
           },
           headerLeft: () => (
-            <NavigationHeader onPress={() => navigation.navigate('Login')} />
+            <AuthNavigationHeader
+              onPress={() => navigation.navigate('Login')}
+            />
           ),
         })}
         name="Signup"
@@ -78,7 +80,9 @@ export default function AuthStack() {
             elevation: 0,
           },
           headerLeft: () => (
-            <NavigationHeader onPress={() => navigation.navigate('Login')} />
+            <AuthNavigationHeader
+              onPress={() => navigation.navigate('Login')}
+            />
           ),
         })}
         component={PrivacyPolicyScreen}

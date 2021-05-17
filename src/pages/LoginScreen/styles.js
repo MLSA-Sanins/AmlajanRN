@@ -9,10 +9,10 @@ export const Header = styled.Text`
 `;
 
 export const SubTitle = styled.Text`
-  margin-left: 30px;
   margin-top: 30px;
   font-size: 15px;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
+  align-self: center;
 `;
 
 export const BottomText = styled.Text`

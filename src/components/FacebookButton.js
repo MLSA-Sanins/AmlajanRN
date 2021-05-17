@@ -9,7 +9,7 @@ const FbButton = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.theme.SECONDARY_BACKGROUND_COLOR};
+  background-color: ${props => props.theme.AUTH_BACKGROUND_COLOR};
   border-radius: 20px;
   border-width: 1px;
   border-color: #e5e5e5;

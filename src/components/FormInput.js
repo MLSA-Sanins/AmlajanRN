@@ -3,33 +3,41 @@ import {StyleSheet, View, TextInput} from 'react-native';
 import {height, width} from '../utils/dimensions';
 import Icon from 'react-native-vector-icons/Feather';
 import {primary} from '../theme/theme';
+import styled from 'styled-components';
+import {useSelector} from 'react-redux';
+
+const FormContainer = styled.View`
+  border-width: 1px;
+  margin-vertical: 10px;
+  margin-horizontal: 30px;
+  border-color: gray;
+  border-radius: 5px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: ${props => props.theme.FORM_INPUT_COLOR};
+`;
 
 export default function FormInput({phd, name, ...rest}) {
+  const theme = useSelector(state => state.themes.theme);
   return (
-    <View style={styles.formContainer}>
-      <Icon style={styles.icon} name={name} />
+    <FormContainer style={styles.formContainer}>
+      <Icon
+        style={{...styles.icon, color: theme.PRIMARY_BACKGROUND_COLOR}}
+        name={name}
+      />
       <TextInput
         placeholderTextColor="#9e9e9e"
         style={styles.textInput}
         placeholder={phd}
         {...rest}
       />
-    </View>
+    </FormContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  formContainer: {
-    borderWidth: 1,
-    marginVertical: 10,
-    marginHorizontal: 30,
-    borderColor: 'gray',
-    borderRadius: 5,
-    height: 50,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
   textInput: {
     flex: 1,
     fontSize: 18,

@@ -9,8 +9,9 @@
 import React from 'react';
 import RouteWrapper from './src/navigation';
 import {Provider} from 'react-redux';
-import {store} from './src/redux/store';
+import rootStore from './src/redux/store';
 import {setCustomText, setCustomTextInput} from 'react-native-global-props';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   const customTextProps = {
@@ -20,9 +21,13 @@ const App = () => {
   };
   setCustomText(customTextProps);
   setCustomTextInput(customTextProps);
+
+  const {store, persistor} = rootStore();
   return (
     <Provider store={store}>
-      <RouteWrapper />
+      <PersistGate persistor={persistor}>
+        <RouteWrapper loading={null} />
+      </PersistGate>
     </Provider>
   );
 };

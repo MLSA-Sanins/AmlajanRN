@@ -51,6 +51,7 @@ const UserDetailsScreen = ({
     registerNewUser(route.params.title.toLowerCase(), data, navigation);
   };
 
+  console.log(userData.photoURL,userName,email,phone,address);
   return (
     <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
       <Pressable onPress={Keyboard.dismiss}>

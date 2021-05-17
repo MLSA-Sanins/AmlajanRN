@@ -19,9 +19,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import {AuthContext} from '../../context/AuthProvider';
 import {Screen} from '../../components/Screen';
 import {SubTitle, BottomText} from '../LoginScreen/styles';
-import {Header} from './styles';
 import Links from '../../components/Links';
 import {useSelector} from 'react-redux';
+import AmlajanLogo from '../../components/AmlajanLogo';
 
 export default function SignUpScreen({navigation}) {
   const [email, changeEmail] = useState();
@@ -47,7 +47,7 @@ export default function SignUpScreen({navigation}) {
           backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
           barStyle={theme.STATUS_BAR_STYLE}
         />
-        <Header>SIGN UP</Header>
+        <AmlajanLogo style={styles.Logo} />
         <SubTitle>Sign up with one of the following options.</SubTitle>
         <View style={styles.oAuth}>
           {Platform.OS ? (
@@ -109,24 +109,6 @@ export default function SignUpScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  topWrapper: {
-    flex: 1,
-  },
-  Page: {
-    flex: 1,
-  },
-  header: {
-    marginLeft: 30,
-    marginTop: 50,
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: primary.main,
-  },
-  subtitle: {
-    marginLeft: 30,
-    marginTop: 30,
-    fontSize: 15,
-  },
   oAuth: {
     display: 'flex',
     flexDirection: 'row',
@@ -135,13 +117,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     width: width,
     borderRadius: 20,
-  },
-  emailCredentials: {},
-  label: {
-    marginTop: 20,
-    marginLeft: 30,
-    fontSize: 20,
-    color: 'gray',
   },
   button: {
     marginHorizontal: 30,
@@ -162,12 +137,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
   },
-  bottomText: {},
-  signUpLink: {
-    lineHeight: 10,
-  },
-  link: {
-    marginLeft: 5,
-    color: primary.main,
+  Logo: {
+    alignSelf: 'center',
+    marginTop: 30,
   },
 });

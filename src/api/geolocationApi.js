@@ -1,13 +1,13 @@
 import {
   GEOLOCATION_API_KEY,
   REVERSEGEOCODE_URL,
-  GEOLOCATION_REST_API,
+  GEO_LOCATION_REST_API,
 } from '@env';
 import axios from 'axios';
 
 export const fetchAddress = (lat, long, rad) =>
   axios.get(
-    `${REVERSEGEOCODE_URL}?apiKey=${GEOLOCATION_REST_API}&mode=retrieveAddresses&prox=${lat},${long}&maxresults=1`,
+    `${REVERSEGEOCODE_URL}?apiKey=${GEO_LOCATION_REST_API}&mode=retrieveAddresses&prox=${lat},${long}&maxresults=1`,
     {},
   );
 

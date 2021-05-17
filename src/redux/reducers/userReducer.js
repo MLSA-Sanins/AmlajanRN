@@ -14,10 +14,18 @@ import {
 } from '../constants';
 const initialState = {
   isLoading: null,
-  currentUser: null,
+  currentUser: {
+    email: null,
+    phoneNumber: null,
+    displayName: null,
+  },
   isRegisteredUser: null,
   loadingLocation: null,
-  location: null,
+  location: {
+    address: null,
+    latitude: null,
+    logitude: null,
+  },
 };
 
 export default (state = initialState, action) => {
