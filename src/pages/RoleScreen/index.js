@@ -13,28 +13,37 @@ import {
 import {width, height} from '../../utils/dimensions';
 import {primary, secondary} from '../..//theme/theme';
 import GradientButton from '../../components/GradientButton';
+import LoadingView from '../../components/LoadingView';
 import {connect} from 'react-redux';
 import {fecthLocationAndAddress} from '../../redux/actions/locationActions';
 import {AuthContext} from '../../context/AuthProvider';
+import {useSelector} from 'react-redux';
 
 const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
   const {logout} = useContext(AuthContext);
+  const theme = useSelector(state => state.themes.theme);
 
   useEffect(() => {
     fecthLocationAndAddress(PermissionsAndroid);
   }, []);
+
+  if (isLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <View style={styles.Page}>
       <AuthNavigationHeader onPress={() => logout()} />
       <View style={styles.imgContainer}>
         <Image
-          source={require('../../assets/png/doc.png')}
+          source={require('../../assets/png/vaccine.png')}
           style={styles.img}
         />
       </View>
       <Text style={styles.title}>CHOOSE</Text>
-      <Text style={styles.subTitle}>YOUR ROLE</Text>
+      <Text style={{...styles.subTitle, color: theme.SECONDARY_COLOR}}>
+        YOUR ROLE
+      </Text>
       <GradientButton
         height={50}
         title="PATIENT"
@@ -49,7 +58,11 @@ const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
   );
 };
 
-export default connect(null, {
+const mapStateToProps = state => {
+  return {isLoading: state.user.loadingLocation};
+};
+
+export default connect(mapStateToProps, {
   fecthLocationAndAddress: fecthLocationAndAddress,
 })(RoleScreen);
 
