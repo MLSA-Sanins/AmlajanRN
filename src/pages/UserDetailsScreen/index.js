@@ -10,8 +10,10 @@ import {
   Image,
   InteractionManager,
   TouchableWithoutFeedback,
+  PixelRatio,
   KeyboardAvoidingView,
 } from 'react-native';
+import getPicDimension from '../../utils/getPicDimensions';
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Feather from 'react-native-vector-icons/Feather';
@@ -81,6 +83,14 @@ const UserDetailsScreen = ({
   const activeColor = primary.main;
   const inactiveColor = '#9e9e9e';
 
+  //size of image container
+  const size = 120;
+  const profile = {
+    uri: `${userData.photoURL}?height=${getPicDimension(size, size)}`,
+    width: size,
+    height: size,
+  };
+
   const newUserRegistration = () => {
     updateAddress(data.address);
     const dataSubmit = {
@@ -105,7 +115,7 @@ const UserDetailsScreen = ({
             <Image
               progressiveRenderingEnabled
               style={styles.img}
-              source={{uri: userData.photoURL}}
+              source={profile}
             />
           </View>
           <FormInput

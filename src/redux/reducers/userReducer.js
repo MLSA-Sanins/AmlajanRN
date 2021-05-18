@@ -18,6 +18,8 @@ const initialState = {
     email: null,
     phoneNumber: null,
     displayName: null,
+    uid: null,
+    photoURL: null,
   },
   isRegisteredUser: null,
   loadingLocation: null,
@@ -34,7 +36,11 @@ export default (state = initialState, action) => {
     case FETCHING_INITIAL_USER:
       return {...state, isLoading: true};
     case INITIAL_USER_FETCHED:
-      return {...state, currentUser: action.payload, isLoading: false};
+      return {
+        ...state,
+        currentUser: action.payload,
+        isLoading: false,
+      };
     case AUTH_FAILED:
       return {...state, isLoading: false};
     case LOADING_ADDRESS:
@@ -57,7 +63,17 @@ export default (state = initialState, action) => {
     case ADDRESS_UPDATED:
       return {...state, location: {...state.location, address: action.payload}};
     case LOGOUT_USER:
-      return {...state, currentUser: null, isRegisteredUser: null};
+      return {
+        ...state,
+        currentUser: {
+          email: null,
+          phoneNumber: null,
+          displayName: null,
+          uid: null,
+          photoURL: null,
+        },
+        isRegisteredUser: null,
+      };
     case USER_NOT_REGISTERED:
       return {...state, isRegisteredUser: false};
     default:

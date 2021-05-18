@@ -50,6 +50,7 @@ export const AuthProvider = ({children}) => {
 
             // Once signed in, get the users AccesToken
             const data = await AccessToken.getCurrentAccessToken();
+            console.log(data)
 
             if (!data) {
               throw 'Something went wrong obtaining access token';
@@ -60,7 +61,6 @@ export const AuthProvider = ({children}) => {
               data.accessToken,
             );
             dispatch(clearErrors());
-
             // Sign-in the user with the credential
             return auth().signInWithCredential(facebookCredential);
           } catch (e) {

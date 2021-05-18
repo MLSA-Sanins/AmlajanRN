@@ -1,27 +1,28 @@
 import React from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useSelector} from 'react-redux';
 import styled from 'styled-components';
 
 const HeaderView = styled.View`
   padding-left: 10px;
-  height: 100px;
-  justify-content: center;
-  align-items: flex-end;
+  padding-right: 10px;
+  padding-top: 10px;
+  justify-content: space-between;
   background-color: ${props => props.theme.SECONDARY_COLOR};
+  flex-direction: row;
 `;
 
-export default function AppNavigationHeader({onPress}) {
-  const theme = useSelector(state => state.themes.theme);
+const ButtonLeft = styled.View`
+  align-items: flex-end;
+`;
+
+const ButtonRight = styled.View`
+  align-items: flex-start;
+`;
+
+export default function AppNavigationHeader({children, height}) {
   return (
-    <HeaderView>
-      <AntDesign.Button
-        name="user"
-        size={25}
-        backgroundColor={theme.SECONDARY_COLOR}
-        color={theme.PRIMARY_TEXT_COLOR}
-        onPress={onPress}
-      />
+    <HeaderView style={{height}}>
+      <ButtonLeft>{children[0]}</ButtonLeft>
+      <ButtonRight>{children[1]}</ButtonRight>
     </HeaderView>
   );
 }

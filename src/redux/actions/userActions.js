@@ -17,6 +17,7 @@ export const checkIfUserExists = uid => async dispatch => {
     const response = await checkUserExistence(uid);
     dispatch({type: USER_REGISTERED, payload: response.data.Provider._user});
     dispatch(clearErrors());
+    return;
   } catch (e) {
     dispatch({type: USER_NOT_REGISTERED});
     dispatch(getErrors(e));
@@ -59,6 +60,7 @@ export const logoutUser = () => async dispatch => {
     dispatch({type: LOGOUT_USER});
     dispatch(clearErrors());
   } catch (e) {
+    console.log(e);
     dispatch({type: LOGOUT_USER});
   }
 };

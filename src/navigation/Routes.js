@@ -23,7 +23,6 @@ const Routes = ({getInitialUserData}) => {
     }
     getInitialUserData(user);
   }
-  // console.log(user);
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
