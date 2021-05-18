@@ -7,9 +7,17 @@ import AppNavigationHeader from '../../components/AppNavigationHeader';
 import LoadingView from '../../components/LoadingView';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MapView from 'react-native-maps';
+import mapNormal from '../../utils/mapNormal.json';
+import mapDarkStyle from '../../utils/mapDarkStyle.json';
+import mapAubergine from '../../utils/mapAubergine.json';
 
 const MapScreen = ({navigation}) => {
   const theme = useSelector(state => state.themes.theme);
+
+  const mapTheme = () => {
+    return theme.mode === 'light' ? mapNormal : mapDarkStyle;
+  };
+
   return (
     <Screen>
       <AppNavigationHeader height={100}>
@@ -29,6 +37,7 @@ const MapScreen = ({navigation}) => {
         />
       </AppNavigationHeader>
       <MapView
+        customMapStyle={mapTheme()}
         style={{...styles.Maps}}
         initialRegion={{
           latitude: 37.78825,

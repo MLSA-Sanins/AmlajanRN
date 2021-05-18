@@ -9,8 +9,15 @@ import {
   Image,
   PixelRatio,
 } from 'react-native';
-import { ImgContainer, ProfileThumbnail, ProfileName } from './styles';
-import getPicDimension from "../../utils/getPicDimensions";
+import {
+  ImgContainer,
+  ProfileThumbnail,
+  ProfileName,
+  HomeView,
+  MapView,
+  MapImage,
+} from './styles';
+import getPicDimension from '../../utils/getPicDimensions';
 import Button from '../../components/Button';
 import {AuthContext} from '../../context/AuthProvider';
 import GradientButton from '../../components/GradientButton';
@@ -53,18 +60,19 @@ const HomeScreen = ({navigation, switchTheme, userData}) => {
           onPress={() => navigation.navigate('Maps')}
         />
       </AppNavigationHeader>
-      <ImgContainer>
-        {userData.photoURL ? (
-          <ProfileThumbnail
-            style={styles.img}
-            progressiveRenderingEnabled
-            source={profile}
-          />
-        ) : (
-          <AntDesign name="user" size={30} color={theme.PRIMARY_TEXT_COLOR} />
-        )}
-      </ImgContainer>
-      <ProfileName>Hi ! {userData.displayName}</ProfileName>
+      <HomeView>
+        <ImgContainer style={styles.profile}>
+          {userData.photoURL ? (
+            <ProfileThumbnail progressiveRenderingEnabled source={profile} />
+          ) : (
+            <AntDesign name="user" size={30} color={theme.PRIMARY_TEXT_COLOR} />
+          )}
+        </ImgContainer>
+        <ProfileName>Hi ! {userData.displayName}</ProfileName>
+        <MapView onPress={()=>navigation.navigate('Maps')}>
+          <MapImage source={require('../../assets/maps.jpg')}/>
+        </MapView>
+      </HomeView>
     </Screen>
   );
 };
@@ -76,9 +84,5 @@ export default connect(mapStateToProps, {
 })(HomeScreen);
 
 const styles = StyleSheet.create({
-  img: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 30,
-  },
+  profile: {elevation: 5},
 });
