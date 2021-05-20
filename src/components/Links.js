@@ -6,6 +6,7 @@ const TouchLink = styled.TouchableOpacity`
 `;
 const Link = styled.Text`
   margin-left: 5px;
+  font-family: Montserrat-Regular;
   color: ${props => props.theme.LINKS_COLOR};
 `;
 

@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     color: 'black',
+    fontFamily: 'Montserrat-Regular',
   },
   icon: {
     alignSelf: 'center',
     fontSize: 20,
     margin: 10,
-    color: primary.main,
   },
 });

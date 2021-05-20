@@ -8,6 +8,7 @@ const ErrorView = styled.View`
 `;
 
 const ErrorText = styled.Text`
+  font-family: Montserrat-Regular;
   color: red;
   font-size: 10px;
 `;

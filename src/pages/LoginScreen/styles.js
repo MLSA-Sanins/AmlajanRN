@@ -6,6 +6,7 @@ export const Header = styled.Text`
   margin-top: 150px;
   font-size: 30px;
   font-weight: bold;
+  font-family: Montserrat-Regular;
 `;
 
 export const SubTitle = styled.Text`
@@ -13,10 +14,11 @@ export const SubTitle = styled.Text`
   font-size: 15px;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   align-self: center;
+  font-family: Montserrat-Regular;
 `;
 
 export const BottomText = styled.Text`
   font-size: 15px;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
+  font-family: Montserrat-Regular;
 `;
-

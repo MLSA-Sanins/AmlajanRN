@@ -89,6 +89,6 @@ const styles = StyleSheet.create({
     right: 20,
     elevation: 5,
     borderRadius: 15,
-    height: 90,
+    height: 60,
   },
 });

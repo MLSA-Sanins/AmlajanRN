@@ -12,6 +12,13 @@ import {Provider} from 'react-redux';
 import rootStore from './src/redux/store';
 import {setCustomText, setCustomTextInput} from 'react-native-global-props';
 import {PersistGate} from 'redux-persist/integration/react';
+import {
+  AppearanceProvider,
+  Appearance,
+  useColorScheme,
+} from 'react-native-appearance';
+
+Appearance.getColorScheme();
 
 const App = () => {
   const customTextProps = {
@@ -24,11 +31,13 @@ const App = () => {
 
   const {store, persistor} = rootStore();
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <RouteWrapper loading={null} />
-      </PersistGate>
-    </Provider>
+    <AppearanceProvider>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <RouteWrapper loading={null} />
+        </PersistGate>
+      </Provider>
+    </AppearanceProvider>
   );
 };
 

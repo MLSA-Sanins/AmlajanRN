@@ -1,9 +1,12 @@
 import {SWITCH_THEME} from '../constants';
-import {lightTheme} from '../../theme/properTheme';
+import {lightTheme, darkTheme} from '../../theme/properTheme';
+import {Appearance} from 'react-native-appearance';
+
 //import {REHYDRATE} from 'redux-persist';
+const whichTheme = Appearance.getColorScheme();
 
 const initialState = {
-  theme: {...lightTheme},
+  theme: whichTheme === 'dark' ? darkTheme : lightTheme,
 };
 
 export default (state = initialState, action) => {

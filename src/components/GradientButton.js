@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     minWidth: 200,
   },
   buttonText: {
+    fontFamily: 'Montserrat-Regular',
     color: '#fff',
     fontSize: 22,
   },

@@ -17,6 +17,7 @@ const Routes = ({getInitialUserData}) => {
   // Handle user state changes
   function onAuthStateChanged(user) {
     dispatch({type: FETCHING_INITIAL_USER});
+    console.log(user);
     setUser(user);
     if (initializing) {
       setInitializing(false);

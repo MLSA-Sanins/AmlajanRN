@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 22,
+    fontFamily: 'Montserrat-Regular',
   },
   bottomView: {
     display: 'flex',

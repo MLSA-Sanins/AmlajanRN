@@ -136,18 +136,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     paddingBottom: 20,
+    fontFamily: 'Montserrat-Regular',
   },
   subHeader: {
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
     paddingBottom: 10,
+    fontFamily: 'Montserrat-Regular',
   },
   paragraph: {
     textAlign: 'justify',
     paddingBottom: 30,
+    fontFamily: 'Montserrat-Regular',
   },
   bottomLine: {
     textAlign: 'center',
+    fontFamily: 'Montserrat-Regular',
   },
 });
