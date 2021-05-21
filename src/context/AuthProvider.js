@@ -61,7 +61,6 @@ export const AuthProvider = ({children}) => {
               data.accessToken,
             );
             dispatch(clearErrors());
-            console.log("Running fb login")
             // Sign-in the user with the credential
             return auth().signInWithCredential(facebookCredential);
           } catch (e) {

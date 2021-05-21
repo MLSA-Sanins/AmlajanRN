@@ -64,7 +64,7 @@ const index = ({isRegistered}) => {
 const mapStateToProps = state => {
   return {
     isRegistered: state.user.isRegisteredUser,
-    isAdmin: state.user.currentUser.email,
+    //isAdmin: state.user.currentUser.email,
   };
 };
 

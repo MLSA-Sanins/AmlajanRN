@@ -82,7 +82,7 @@ const MainStack = () => {
 };
 
 const mapStateToProps = state => {
-  return {isAdmin: state.user.currentUser.email};
+  return {isAdmin: state.user.currentUser};
 };
 
 export default connect(mapStateToProps, null)(MainStack);

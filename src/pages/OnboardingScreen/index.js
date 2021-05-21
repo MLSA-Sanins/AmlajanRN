@@ -5,12 +5,7 @@ import Swiper from 'react-native-swiper';
 import {width, height} from '../../utils/dimensions';
 import {primary, secondary} from '../../theme/theme';
 import GradientButton from '../../components/GradientButton';
-
-//svg
-// import Navigation from "../../../assets/svgCodes/Navigation";
-// import Search from "../../../assets/svgCodes/Search";
-// import Social from "../../../assets/svgCodes/Social";
-// import Welcome from "../../../assets/svgCodes/Welcome";
+import {useSelector} from 'react-redux';
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -22,11 +17,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   img: {
-    //height: height * 0.5,
-    // borderTopRightRadius: 80,
-    // borderBottomLeftRadius: 80,
-    // height: height * 0.5,
-    // width: width * 0.9,
     paddingHorizontal: 30,
     height: height * 0.5,
     width: width * 0.9,
@@ -46,6 +36,7 @@ const styles = StyleSheet.create({
   title: {
     marginHorizontal: 10,
     fontSize: 32,
+    fontFamily: 'Montserrat-Regular',
   },
   text: {
     color: '#767676',
@@ -53,14 +44,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 25,
     marginLeft: 10,
+    fontFamily: 'Montserrat-Regular',
   },
-  // buttonContainer: {
-  //   marginHorizontal: 50,
-  //   backgroundColor: secondary.button,
-  //   marginTop: 20,
-  //   borderRadius: 10,
-  //   width: 200,
-  // },
   buttonText: {
     color: 'white',
     padding: 15,
@@ -113,26 +98,38 @@ const styles = StyleSheet.create({
 });
 
 const OnboardingScreen = ({navigation}) => {
+  const theme = useSelector(state => state.themes.theme);
   return (
     <Swiper
       buttonWrapperStyle={styles.buttonWrapper}
       loop={false}
       index={0}
-      style={styles.wrapper}
+      style={{
+        ...styles.wrapper,
+        backgroundColor: theme.PRIMARY_BACKGROUND_COLOR,
+      }}
       showsButtons={true}
       paginationStyle={{
         marginRight: width * 0.7,
         marginBottom: height * 0.02,
       }}
-      activeDotColor={secondary.button}
+      activeDotColor={theme.SECONDARY_COLOR}
       dotColor={secondary.backgroundGray}
       nextButton={
-        <View style={styles.buttonRight}>
+        <View
+          style={{
+            ...styles.buttonRight,
+            backgroundColor: theme.SECONDARY_COLOR,
+          }}>
           <Icon name="arrowright" size={22} color="#FFF" />
         </View>
       }
       prevButton={
-        <View style={styles.buttonLeft}>
+        <View
+          style={{
+            ...styles.buttonLeft,
+            backgroundColor: theme.SECONDARY_COLOR,
+          }}>
           <Icon name="arrowleft" size={22} color="#FFF" />
         </View>
       }>
@@ -143,7 +140,9 @@ const OnboardingScreen = ({navigation}) => {
         />
         {/* <Search style={styles.img} /> */}
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>SEARCH</Text>
+          <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
+            SEARCH
+          </Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>
@@ -160,7 +159,9 @@ const OnboardingScreen = ({navigation}) => {
         />
         {/* <Social style={styles.img}/> */}
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>CONTACT</Text>
+          <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
+            CONTACT
+          </Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>
@@ -178,7 +179,9 @@ const OnboardingScreen = ({navigation}) => {
         />
         {/* <Navigation style={styles.img}/> */}
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>VISUALISE</Text>
+          <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
+            VISUALISE
+          </Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>
@@ -194,7 +197,10 @@ const OnboardingScreen = ({navigation}) => {
           style={styles.img}
         />
         {/* <Welcome style={styles.img}/> */}
-        <Text style={styles.lastSlideTitle}>WELCOME</Text>
+        <Text
+          style={{...styles.lastSlideTitle, color: theme.PRIMARY_TEXT_COLOR}}>
+          WELCOME
+        </Text>
         <Text style={styles.lastSlideText}>
           Wishing you a lightning recovery.
         </Text>

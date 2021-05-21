@@ -92,7 +92,8 @@ export const ProfileCard = styled.View`
   margin-bottom: 20px;
   width: ${width * 0.9}px;
   height: auto;
-  background-color: ${props => props.theme.SECONDARY_COLOR};
+  /* background-color: ${props => props.theme.SECONDARY_COLOR}; */
+  background-color: gray;
   border-radius: 10px;
   flex-direction: row;
 `;
