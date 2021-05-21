@@ -12,12 +12,13 @@ import {connect} from 'react-redux';
 import AppNavigationHeader from '../../components/AppNavigationHeader';
 import LoadingView from '../../components/LoadingView';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import mapNormal from '../../utils/mapNormal.json';
 import mapDarkStyle from '../../utils/mapDarkStyle.json';
 import mapAubergine from '../../utils/mapAubergine.json';
+import {DummyData} from '../../utils/DummyData';
 
-const MapScreen = ({navigation}) => {
+const MapScreen = ({navigation, location}) => {
   const theme = useSelector(state => state.themes.theme);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -59,17 +60,31 @@ const MapScreen = ({navigation}) => {
         customMapStyle={mapTheme()}
         style={{...styles.Maps}}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: location.lat,
+          longitude: location.long,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }}
-      />
+        }}>
+        {DummyData.map((marker, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: marker.location.lat,
+              longitude: marker.location.long,
+            }}
+            title={marker.displayName}
+            description={marker.location.address}
+          />
+        ))}
+      </MapView>
     </Screen>
   );
 };
+const mapStateToProps = state => {
+  return {location: state.user.currentUser.location};
+};
 
-export default MapScreen;
+export default connect(mapStateToProps, null)(MapScreen);
 
 const styles = StyleSheet.create({
   Page: {

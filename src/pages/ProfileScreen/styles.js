@@ -56,12 +56,12 @@ export const StatsSection = styled.View`
   flex: 1;
   border-right-color: white;
   border-right-width: 1px;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const LastStatsSection = styled.View`
   flex: 1;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 `;

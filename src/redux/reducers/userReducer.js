@@ -58,6 +58,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isRegisteredUser: true,
+        currentUser: {...state.currentUser, ...action.payload},
       };
     case NEW_USER_REGISTERED:
       return {
