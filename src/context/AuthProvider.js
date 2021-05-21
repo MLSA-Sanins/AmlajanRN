@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
-import {LOGOUT_USER} from '../redux/constants';
+import {LOGOUT_USER, FETCHING_INITIAL_USER} from '../redux/constants';
 import {getErrors, clearErrors} from '../redux/actions/errorActions';
 
 export const AuthContext = createContext();
@@ -19,6 +19,7 @@ export const AuthProvider = ({children}) => {
         setUser,
         googleLogin: async () => {
           // Get the users ID token
+          dispatch({type: FETCHING_INITIAL_USER});
           const {idToken} = await GoogleSignin.signIn();
 
           // Create a Google credential with the token
@@ -30,6 +31,7 @@ export const AuthProvider = ({children}) => {
         },
         login: async (email, password) => {
           try {
+            dispatch({type: FETCHING_INITIAL_USER});
             await auth().signInWithEmailAndPassword(email, password);
             dispatch(clearErrors());
           } catch (e) {
@@ -38,6 +40,7 @@ export const AuthProvider = ({children}) => {
         },
         fbLogin: async () => {
           try {
+            dispatch({type: FETCHING_INITIAL_USER});
             // Attempt login with permissions
             const result = await LoginManager.logInWithPermissions([
               'public_profile',
@@ -70,6 +73,7 @@ export const AuthProvider = ({children}) => {
         },
         register: async (email, password) => {
           try {
+            dispatch({type: FETCHING_INITIAL_USER});
             await auth().createUserWithEmailAndPassword(email, password);
             dispatch(clearErrors());
           } catch (e) {

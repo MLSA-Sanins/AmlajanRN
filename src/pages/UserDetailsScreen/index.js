@@ -23,6 +23,7 @@ import {registerNewUser} from '../../redux/actions/userActions';
 import {updateAddress} from '../../redux/actions/locationActions';
 import GradientButton from '../../components/GradientButton';
 import {useSelector} from 'react-redux';
+import {Screen} from '../../components/Screen';
 
 const UserDetailsScreen = ({
   route,
@@ -105,10 +106,10 @@ const UserDetailsScreen = ({
   };
 
   return (
-    <KeyboardAvoidingView style={styles.topWrapper} behavior="height">
+    <Screen style={styles.topWrapper} behavior="height">
       <Pressable onPress={Keyboard.dismiss}>
         <View>
-          <Text style={styles.title}>
+          <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
             ENTER {route.params.title.toUpperCase()} DETAILS
           </Text>
           <View style={styles.picContainer}>
@@ -161,7 +162,7 @@ const UserDetailsScreen = ({
           </View>
           {route.params.title.toUpperCase() === 'PROVIDER' && (
             <>
-              <Text style={styles.text}>
+              <Text style={{...styles.text, color: theme.PRIMARY_TEXT_COLOR}}>
                 Will you charge money from Patients in Need ?
               </Text>
               <View style={styles.incentiveWrapper}>
@@ -175,7 +176,13 @@ const UserDetailsScreen = ({
                         : inactiveColor,
                     }}
                   />
-                  <Text style={styles.optionText}>Yes , I will</Text>
+                  <Text
+                    style={{
+                      ...styles.optionText,
+                      color: theme.PRIMARY_TEXT_COLOR,
+                    }}>
+                    Yes , I will
+                  </Text>
                 </View>
                 <View style={styles.optionWrapper}>
                   <TouchableOpacity
@@ -187,7 +194,11 @@ const UserDetailsScreen = ({
                         : activeColor,
                     }}
                   />
-                  <Text style={styles.optionText}>
+                  <Text
+                    style={{
+                      ...styles.optionText,
+                      color: theme.PRIMARY_TEXT_COLOR,
+                    }}>
                     No , I really want to help
                   </Text>
                 </View>
@@ -205,12 +216,15 @@ const UserDetailsScreen = ({
           />
         </View>
       </Pressable>
-    </KeyboardAvoidingView>
+    </Screen>
   );
 };
 
 const mapStateToProps = state => {
-  return {userData: state.user.currentUser, location: state.user.location};
+  return {
+    userData: state.user.currentUser,
+    location: state.user.currentUser.location,
+  };
 };
 
 export default connect(mapStateToProps, {

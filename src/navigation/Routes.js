@@ -17,7 +17,6 @@ const Routes = ({getInitialUserData,isLoading}) => {
   // Handle user state changes
   function onAuthStateChanged(user) {
     dispatch({type: FETCHING_INITIAL_USER});
-    console.log(user);
     setUser(user);
     if (initializing) {
       setInitializing(false);
@@ -30,7 +29,7 @@ const Routes = ({getInitialUserData,isLoading}) => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  if (isLoading) {
+  if (initializing) {
     return <LoadingScreen />;
   }
 
@@ -51,6 +50,6 @@ const Routes = ({getInitialUserData,isLoading}) => {
 const mapStateToProps = state => {
   return {isLoading: state.user.isLoading};
 };
-export default connect(null, {
+export default connect(mapStateToProps, {
   getInitialUserData: getInitialUserData,
 })(Routes);

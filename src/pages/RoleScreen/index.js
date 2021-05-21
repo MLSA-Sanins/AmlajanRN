@@ -18,6 +18,7 @@ import {connect} from 'react-redux';
 import {fecthLocationAndAddress} from '../../redux/actions/locationActions';
 import {AuthContext} from '../../context/AuthProvider';
 import {useSelector} from 'react-redux';
+import {Screen} from '../../components/Screen';
 
 const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
   const {logout} = useContext(AuthContext);
@@ -32,7 +33,7 @@ const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
   }
 
   return (
-    <View style={styles.Page}>
+    <Screen style={styles.Page}>
       <AuthNavigationHeader onPress={() => logout()} />
       <View style={styles.imgContainer}>
         <Image
@@ -40,7 +41,9 @@ const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
           style={styles.img}
         />
       </View>
-      <Text style={styles.title}>CHOOSE</Text>
+      <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
+        CHOOSE
+      </Text>
       <Text style={{...styles.subTitle, color: theme.SECONDARY_COLOR}}>
         YOUR ROLE
       </Text>
@@ -54,7 +57,7 @@ const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
         title="PROVIDER"
         onPress={() => navigation.navigate('UserDetails', {title: 'Provider'})}
       />
-    </View>
+    </Screen>
   );
 };
 

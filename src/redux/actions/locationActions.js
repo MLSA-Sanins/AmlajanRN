@@ -46,7 +46,6 @@ const requestLocationPermission = async () => {
         },
       },
     });
-    console.log(granted);
     if (granted) {
       const location = await RNLocation.getLatestLocation({timeout: 60000});
       return location;
@@ -60,7 +59,7 @@ const requestLocationPermission = async () => {
 
 //asking for location permission and geting location back
 export const fecthLocationAndAddress = () => async (dispatch, getState) => {
-  if (getState().user.location.address) {
+  if (getState().user.currentUser.location.address) {
     return;
   }
   try {

@@ -20,14 +20,14 @@ const initialState = {
     displayName: null,
     uid: null,
     photoURL: null,
+    location: {
+      address: null,
+      latitude: null,
+      logitude: null,
+    },
   },
   isRegisteredUser: null,
   loadingLocation: null,
-  location: {
-    address: null,
-    latitude: null,
-    logitude: null,
-  },
 };
 
 export default (state = initialState, action) => {
@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
     case INITIAL_USER_FETCHED:
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: {...state.currentUser, ...action.payload},
         isLoading: false,
       };
     case AUTH_FAILED:
@@ -46,12 +46,18 @@ export default (state = initialState, action) => {
     case LOADING_ADDRESS:
       return {...state, loadingLocation: true};
     case ADDRESS_LOADED:
-      return {...state, loadingLocation: false, location: action.payload};
+      return {
+        ...state,
+        loadingLocation: false,
+        currentUser: {
+          ...state.currentUser,
+          location: {...state.currentUser.location, ...action.payload},
+        },
+      };
     case USER_REGISTERED:
       return {
         ...state,
         isRegisteredUser: true,
-        currentUser: {...state.currentUser},
       };
     case NEW_USER_REGISTERED:
       return {
@@ -65,17 +71,14 @@ export default (state = initialState, action) => {
     case LOGOUT_USER:
       return {
         ...state,
-        currentUser: {
-          email: null,
-          phoneNumber: null,
-          displayName: null,
-          uid: null,
-          photoURL: null,
-        },
-        isRegisteredUser: null,
+        ...initialState,
       };
     case USER_NOT_REGISTERED:
-      return {...state, isRegisteredUser: false};
+      return {
+        ...state,
+        isRegisteredUser: false,
+        currentUser: {...state.currentUser, ...action.payload},
+      };
     default:
       return state;
   }

@@ -14,8 +14,9 @@ import {checkUserExistence, registerUser} from '../../api/herokuApi';
 //get data from our data base
 export const checkIfUserExists = uid => async dispatch => {
   try {
+    // console.log(...user);
     const response = await checkUserExistence(uid);
-    dispatch({type: USER_REGISTERED, payload: response.data.Provider._user});
+    dispatch({type: USER_REGISTERED, payload: response.data.Provider});
     dispatch(clearErrors());
     return;
   } catch (e) {
@@ -26,12 +27,13 @@ export const checkIfUserExists = uid => async dispatch => {
 
 //get data from firebase
 export const getInitialUserData = user => async dispatch => {
+  const userData = await JSON.parse(JSON.stringify(user));
   try {
     if (user) {
       await dispatch(checkIfUserExists(user.uid));
       dispatch(clearErrors());
     }
-    dispatch({type: INITIAL_USER_FETCHED, payload: user});
+    dispatch({type: INITIAL_USER_FETCHED, payload: userData});
   } catch (e) {
     //console.log(e);
     dispatch(getErrors(e));

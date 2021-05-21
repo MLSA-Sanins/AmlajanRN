@@ -1,5 +1,11 @@
-import React, {useContext} from 'react';
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import React, {useContext, useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  InteractionManager,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 import {Screen} from '../../components/Screen';
 import {connect} from 'react-redux';
@@ -13,10 +19,23 @@ import mapAubergine from '../../utils/mapAubergine.json';
 
 const MapScreen = ({navigation}) => {
   const theme = useSelector(state => state.themes.theme);
+  const [isLoading, setIsLoading] = useState(true);
 
   const mapTheme = () => {
     return theme.mode === 'light' ? mapNormal : mapDarkStyle;
   };
+
+  useEffect(() => {
+    InteractionManager.runAfterInteractions(() => {
+      /*     // 2: Component is done animating */
+      /*     // 3: Start fetching the team */
+      setIsLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <Screen>

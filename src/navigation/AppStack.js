@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {View, StyleSheet} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import RoleScreen from '../pages/RoleScreen';
 import UserDetailsScreen from '../pages/UserDetailsScreen';
@@ -12,8 +13,9 @@ import LoadingView from '../components/LoadingView';
 
 const AppStack = createStackNavigator();
 
-const index = ({isRegistered}) => {
+const AppStacks = ({isRegistered}) => {
   let routeName;
+  const theme = useSelector(state => state.themes.theme);
 
   if (isRegistered === null) {
     return <LoadingView />;
@@ -33,7 +35,7 @@ const index = ({isRegistered}) => {
         options={({navigation}) => ({
           title: '',
           headerStyle: {
-            backgroundColor: '#f9fafd',
+            backgroundColor: theme.PRIMARY_BACKGROUND_COLOR,
             shadowColor: '#f9fafd',
             elevation: 0,
           },
@@ -42,8 +44,8 @@ const index = ({isRegistered}) => {
               <FontAwesome.Button
                 name="long-arrow-left"
                 size={25}
-                backgroundColor="#f9fafd"
-                color="#333"
+                backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
+                color={theme.PRIMARY_TEXT_COLOR}
                 onPress={() => navigation.navigate('Roles')}
               />
             </View>
@@ -68,7 +70,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(index);
+export default connect(mapStateToProps, {})(AppStacks);
 
 const styles = StyleSheet.create({
   headerStyle: {
