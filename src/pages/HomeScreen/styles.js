@@ -127,9 +127,7 @@ export const CardDescription = styled.View`
   flex: 1;
   border-radius: 10px;
   display: flex;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
+  padding: 10px;
   flex-direction: column;
 `;
 
@@ -144,6 +142,7 @@ export const ProviderDistance = styled.Text`
   font-family: Montserrat-Regular;
   font-size: 14px;
 `;
+
 export const ProviderAddress = styled.Text`
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   font-family: Montserrat-Regular;

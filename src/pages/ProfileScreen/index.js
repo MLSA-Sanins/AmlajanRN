@@ -1,5 +1,13 @@
 import React, {useContext} from 'react';
-import {StyleSheet, Text, Button, View, PixelRatio} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Button,
+  View,
+  PixelRatio,
+  Touchable,
+  TouchableOpacity,
+} from 'react-native';
 import {Screen} from '../../components/Screen';
 import AppNavigationHeader from '../../components/AppNavigationHeader';
 import {lightTheme, darkTheme} from '../../theme/properTheme';
@@ -62,31 +70,34 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
         <UserName>{userData.displayName}</UserName>
         <StatsView>
           <StatsSection>
-            <AntDesign.Button
-              name="setting"
-              size={25}
-              backgroundColor={theme.STATS_VIEW_COLOR}
-              color={theme.FORM_INPUT_TEXT_COLOR}
-              onPress={() => navigation.navigate('Maps')}
-            />
+            <TouchableOpacity onPress={() => navigation.navigate('Maps')}>
+              <AntDesign
+                name="setting"
+                size={25}
+                backgroundColor={theme.STATS_VIEW_COLOR}
+                color={theme.FORM_INPUT_TEXT_COLOR}
+              />
+            </TouchableOpacity>
           </StatsSection>
           <StatsSection>
-            <AntDesign.Button
-              name="bulb1"
-              size={25}
-              backgroundColor={theme.STATS_VIEW_COLOR}
-              color={theme.FORM_INPUT_TEXT_COLOR}
-              onPress={() => switchThemes()}
-            />
+            <TouchableOpacity onPress={() => switchThemes()}>
+              <AntDesign
+                name="bulb1"
+                size={25}
+                backgroundColor={theme.STATS_VIEW_COLOR}
+                color={theme.FORM_INPUT_TEXT_COLOR}
+              />
+            </TouchableOpacity>
           </StatsSection>
           <LastStatsSection>
-            <AntDesign.Button
-              name="logout"
-              size={25}
-              backgroundColor={theme.STATS_VIEW_COLOR}
-              color={theme.FORM_INPUT_TEXT_COLOR}
-              onPress={() => logout()}
-            />
+            <TouchableOpacity onPress={() => logout()}>
+              <AntDesign
+                name="logout"
+                size={25}
+                backgroundColor={theme.STATS_VIEW_COLOR}
+                color={theme.FORM_INPUT_TEXT_COLOR}
+              />
+            </TouchableOpacity>
           </LastStatsSection>
         </StatsView>
         <GradientButton

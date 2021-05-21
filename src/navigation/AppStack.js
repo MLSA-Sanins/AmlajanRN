@@ -62,7 +62,10 @@ const index = ({isRegistered}) => {
 };
 
 const mapStateToProps = state => {
-  return {isRegistered: state.user.isRegisteredUser};
+  return {
+    isRegistered: state.user.isRegisteredUser,
+    isAdmin: state.user.currentUser.email,
+  };
 };
 
 export default connect(mapStateToProps, {})(index);

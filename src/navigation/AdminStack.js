@@ -1,18 +1,18 @@
-import * as React from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
-import {connect} from 'react-redux';
 
-import HomeScreen from '../pages/HomeScreen';
+import AdminPage from '../pages/AdminScreen/AdminPage';
 import ProfileScreen from '../pages/ProfileScreen';
 import MapScreen from '../pages/MapScreen';
 
 const Tab = createBottomTabNavigator();
 
-const MainStack = () => {
+export default function AdminStack() {
   const theme = useSelector(state => state.themes.theme);
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -22,11 +22,10 @@ const MainStack = () => {
           backgroundColor: theme.BOTTOM_NAVBAR_COLOR,
         },
       }}>
-      
       <Tab.Screen
-        name="Home"
+        name="AdminHome"
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'AHome',
           tabBarIcon: ({focused, color, size}) => (
             <AntDesign
               name="home"
@@ -39,7 +38,7 @@ const MainStack = () => {
             />
           ),
         }}
-        component={HomeScreen}
+        component={AdminPage}
       />
       <Tab.Screen
         options={{
@@ -79,22 +78,6 @@ const MainStack = () => {
       />
     </Tab.Navigator>
   );
-};
+}
 
-const mapStateToProps = state => {
-  return {isAdmin: state.user.currentUser.email};
-};
-
-export default connect(mapStateToProps, null)(MainStack);
-
-const styles = StyleSheet.create({
-  BottomNav: {
-    position: 'absolute',
-    bottom: 25,
-    left: 20,
-    right: 20,
-    elevation: 5,
-    borderRadius: 15,
-    height: 60,
-  },
-});
+const styles = StyleSheet.create({});
