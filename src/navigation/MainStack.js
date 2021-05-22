@@ -1,18 +1,19 @@
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {StyleSheet} from 'react-native';
-import {useSelector,connect} from 'react-redux';
+import {useSelector, connect} from 'react-redux';
 import LoadingView from '../components/LoadingView';
 import {getAllO2Providers} from '../redux/actions/providerActions';
 
 import HomeScreen from '../pages/HomeScreen';
 import ProfileScreen from '../pages/ProfileScreen';
 import MapScreen from '../pages/MapScreen';
+import AdminScreen from '../pages/AdminScreen';
 
 const Tab = createBottomTabNavigator();
 
-const MainStack = () => {
+const MainStack = ({role}) => {
   const theme = useSelector(state => state.themes.theme);
 
   return (
@@ -25,6 +26,26 @@ const MainStack = () => {
           backgroundColor: theme.BOTTOM_NAVBAR_COLOR,
         },
       }}>
+      {role === 'admin' && (
+        <Tab.Screen
+          name="Admin"
+          options={{
+            tabBarLabel: 'Admin',
+            tabBarIcon: ({focused, color, size}) => (
+              <AntDesign
+                name="tool"
+                color={`${
+                  focused
+                    ? theme.BOTTOM_NAVBAR_ACTIVE_ICON_COLOR
+                    : theme.BOTTOM_NAVBAR_INACTIVE_ICON_COLOR
+                }`}
+                size={30}
+              />
+            ),
+          }}
+          component={AdminScreen}
+        />
+      )}
       <Tab.Screen
         name="Home"
         options={{
@@ -83,7 +104,11 @@ const MainStack = () => {
   );
 };
 
-export default MainStack;
+const mapStateToProps = state => {
+  return {role: state.user.currentUser.role};
+};
+
+export default connect(mapStateToProps, null)(MainStack);
 
 const styles = StyleSheet.create({
   BottomNav: {

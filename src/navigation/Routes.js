@@ -9,7 +9,7 @@ import {getInitialUserData} from '../redux/actions/userActions';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 
-const Routes = ({getInitialUserData,isLoading}) => {
+const Routes = ({getInitialUserData, isLoading}) => {
   const [user, setUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
   const dispatch = useDispatch();

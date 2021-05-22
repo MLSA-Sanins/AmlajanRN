@@ -18,7 +18,6 @@ export const checkIfUserExists = uid => async (dispatch, getState) => {
   try {
     // console.log(...user);
     const response = await checkUserExistence(uid);
-    console.log(response);
     if (
       getState().user.currentUser.location.latitude === null &&
       getState().user.loadingLocation === null

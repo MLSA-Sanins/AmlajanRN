@@ -7,7 +7,10 @@ import {getAllProviders} from '../../api/azureApi';
 import {clearErrors, getErrors} from './errorActions';
 
 export const getAllO2Providers = () => async (dispatch, getState) => {
-  if (getState().providers.allProviders.length !== 0) {
+  if (
+    // getState().providers.allProviders.length !== 0 &&
+    getState().providers.isLoading === true
+  ) {
     return;
   }
   try {

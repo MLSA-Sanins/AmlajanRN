@@ -18,6 +18,7 @@ import {
   useColorScheme,
 } from 'react-native-appearance';
 
+
 Appearance.getColorScheme();
 
 const App = () => {

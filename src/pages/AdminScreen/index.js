@@ -1,27 +1,34 @@
-import React from 'react';
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import React, {useContext, useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  InteractionManager,
+} from 'react-native';
+import {useSelector, connect} from 'react-redux';
 import {Screen} from '../../components/Screen';
-import AdminStack from '../../navigation/AdminStack';
-import {useSelector} from 'react-redux';
+import AppNavigationHeader from '../../components/AppNavigationHeader';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const AdminScreen = () => {
+const AdminScreen = ({navigation}) => {
   const theme = useSelector(state => state.themes.theme);
-  const [statusBarStyle, setStatusBarStyle] = useState(theme.STATUS_BAR_STYLE);
   return (
-    <>
-      <StatusBar
-        backgroundColor={theme.SECONDARY_COLOR}
-        barStyle={theme.STATUS_BAR_STYLE}
-      />
-      <AdminStack />
-    </>
+    <Screen>
+      <AppNavigationHeader height={50}>
+        <></>
+        <AntDesign.Button
+          name="home"
+          size={25}
+          backgroundColor={theme.SECONDARY_COLOR}
+          color={theme.PRIMARY_TEXT_COLOR}
+          onPress={() => navigation.navigate('Home')}
+        />
+      </AppNavigationHeader>
+    </Screen>
   );
 };
 
 export default AdminScreen;
 
-const styles = StyleSheet.create({
-  Page: {
-    flex: 1,
-  },
-});
+const styles = StyleSheet.create({});
