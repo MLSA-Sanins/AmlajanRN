@@ -9,6 +9,7 @@ import LoginScreen from '../pages/LoginScreen';
 import SignUpScreen from '../pages/SignUpScreen';
 import OnboardingScreen from '../pages/OnboardingScreen';
 import PrivacyPolicyScreen from '../pages/PrivacyPolicyScreen';
+import LoadingView from '../components/LoadingView';
 
 const Stack = createStackNavigator();
 
@@ -34,7 +35,7 @@ export default function AuthStack() {
   }, []);
 
   if (isFirstLaunch === null) {
-    return null;
+    return <LoadingView />;
   } else if (isFirstLaunch === true) {
     routeName = 'Onboarding';
   } else {

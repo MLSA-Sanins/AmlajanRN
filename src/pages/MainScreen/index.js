@@ -1,11 +1,16 @@
-import React,{useState} from 'react';
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  InteractionManager,
+} from 'react-native';
 import MainStack from '../../navigation/MainStack';
-import {useSelector} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 
-export default function index() {
+const MainScreen = ({isLoading}) => {
   const theme = useSelector(state => state.themes.theme);
-  const [statusBarStyle, setStatusBarStyle] = useState(theme.STATUS_BAR_STYLE);
   return (
     <>
       <StatusBar
@@ -15,7 +20,13 @@ export default function index() {
       <MainStack />
     </>
   );
-}
+};
+
+const mapStateToProps = state => {
+  return {isLoading: state.providers.isLoading};
+};
+
+export default connect(mapStateToProps, null)(MainScreen);
 
 const styles = StyleSheet.create({
   Page: {

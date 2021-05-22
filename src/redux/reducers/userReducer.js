@@ -23,7 +23,7 @@ const initialState = {
     location: {
       address: null,
       latitude: null,
-      logitude: null,
+      longitude: null,
     },
   },
   isRegisteredUser: null,

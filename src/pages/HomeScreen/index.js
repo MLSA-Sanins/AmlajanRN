@@ -39,7 +39,10 @@ const HomeScreen = ({navigation, userData}) => {
   );
 };
 const mapStateToProps = state => {
-  return {userData: state.user.currentUser};
+  return {
+    userData: state.user.currentUser,
+    allProviders: state.providers.allProviders,
+  };
 };
 export default connect(mapStateToProps, null)(HomeScreen);
 

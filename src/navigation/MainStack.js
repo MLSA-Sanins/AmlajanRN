@@ -1,9 +1,10 @@
-import * as React from 'react';
+import React,{useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
-import {connect} from 'react-redux';
+import {useSelector,connect} from 'react-redux';
+import LoadingView from '../components/LoadingView';
+import {getAllO2Providers} from '../redux/actions/providerActions';
 
 import HomeScreen from '../pages/HomeScreen';
 import ProfileScreen from '../pages/ProfileScreen';
@@ -13,6 +14,7 @@ const Tab = createBottomTabNavigator();
 
 const MainStack = () => {
   const theme = useSelector(state => state.themes.theme);
+
   return (
     <Tab.Navigator
       lazy={false}

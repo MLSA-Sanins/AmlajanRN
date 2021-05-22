@@ -12,10 +12,10 @@ import {
   ProviderAddress,
   ProviderHeader,
 } from './styles';
-import {DummyData} from '../../utils/DummyData';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {connect} from 'react-redux';
 
-const ProviderSection = ({theme}) => {
+const ProviderSection = ({theme, allProviders}) => {
   const size = 80;
   //calculating right dimension to be fetched
   const picDimension = {
@@ -23,25 +23,25 @@ const ProviderSection = ({theme}) => {
     picHeight: PixelRatio.getPixelSizeForLayoutSize(size),
   };
   const profile = {
-    uri: `${DummyData.photoURL}?height=${picDimension.picHeight}`,
+    uri: `${allProviders.photoURL}?height=${picDimension.picHeight}`,
     width: size,
     height: size,
   };
   return (
     <ProviderView>
       <ProviderHeader>
-        Showing {DummyData.length} Results. Scroll Down to View.{' '}
+        Showing {allProviders.length} Results. Scroll Down to View.{' '}
       </ProviderHeader>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={DummyData}
+        data={allProviders}
         keyExtractor={item => item.uid}
         renderItem={({item}) => {
           return (
             <ProfileCard>
               <ImgView>
                 <CardImgContainer>
-                  {DummyData.photoURL ? (
+                  {allProviders.photoURL ? (
                     <ImgThumbnail
                       progressiveRenderingEnabled
                       source={profile}
@@ -67,5 +67,9 @@ const ProviderSection = ({theme}) => {
     </ProviderView>
   );
 };
-export default ProviderSection;
+
+const mapStateToProps = state => {
+  return {allProviders: state.providers.allProviders};
+};
+export default connect(mapStateToProps, null)(ProviderSection);
 const styles = StyleSheet.create({});

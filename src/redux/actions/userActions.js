@@ -9,14 +9,24 @@ import {
   LOGOUT_USER,
 } from '../constants';
 import {getErrors, clearErrors} from './errorActions';
-import {checkUserExistence, registerUser} from '../../api/herokuApi';
+import {checkUserExistence, registerUser} from '../../api/azureApi';
+import {getAllO2Providers} from './providerActions';
+import {fecthLocationAndAddress} from './locationActions';
 
 //get data from our data base
-export const checkIfUserExists = uid => async dispatch => {
+export const checkIfUserExists = uid => async (dispatch, getState) => {
   try {
     // console.log(...user);
     const response = await checkUserExistence(uid);
+    console.log(response);
+    if (
+      getState().user.currentUser.location.latitude === null &&
+      getState().user.loadingLocation === null
+    ) {
+      await dispatch(fecthLocationAndAddress());
+    }
     dispatch({type: USER_REGISTERED, payload: response.data.Provider});
+    await dispatch(getAllO2Providers());
     dispatch(clearErrors());
     return;
   } catch (e) {
@@ -47,7 +57,14 @@ export const registerNewUser =
     try {
       dispatch({type: REGISTERING_NEW_USER});
       const response = await registerUser(role, data);
+      if (
+        getState().user.currentUser.location.latitude === null &&
+        getState().user.loadingLocation === null
+      ) {
+        await dispatch(fecthLocationAndAddress());
+      }
       dispatch({type: NEW_USER_REGISTERED, payload: response.data.Response});
+      await dispatch(getAllO2Providers());
       navigation.navigate('Main');
       dispatch(clearErrors());
     } catch (e) {

@@ -16,27 +16,14 @@ import MapView, {Marker} from 'react-native-maps';
 import mapNormal from '../../utils/mapNormal.json';
 import mapDarkStyle from '../../utils/mapDarkStyle.json';
 import mapAubergine from '../../utils/mapAubergine.json';
-import {DummyData} from '../../utils/DummyData';
 
-const MapScreen = ({navigation, location}) => {
+const MapScreen = ({navigation, location, allProviders}) => {
   const theme = useSelector(state => state.themes.theme);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const mapTheme = () => {
     return theme.mode === 'light' ? mapNormal : mapDarkStyle;
   };
-
-  useEffect(() => {
-    InteractionManager.runAfterInteractions(() => {
-      /*     // 2: Component is done animating */
-      /*     // 3: Start fetching the team */
-      setIsLoading(false);
-    });
-  }, []);
-
-  if (isLoading) {
-    return <LoadingView />;
-  }
 
   return (
     <Screen>
@@ -60,28 +47,39 @@ const MapScreen = ({navigation, location}) => {
         customMapStyle={mapTheme()}
         style={{...styles.Maps}}
         initialRegion={{
-          latitude: location.lat,
-          longitude: location.long,
+          latitude: location.latitude || location.lat,
+          longitude: location.longitude || location.long,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
-        {DummyData.map((marker, index) => (
+        {allProviders.map((marker, index) => (
           <Marker
             key={index}
             coordinate={{
-              latitude: marker.location.lat,
-              longitude: marker.location.long,
+              latitude: marker.location.lat || marker.location.latitude,
+              longitude: marker.location.long || marker.location.longitude,
             }}
             title={marker.displayName}
             description={marker.location.address}
           />
         ))}
+        <Marker
+          pinColor="yellow"
+          title="My Location"
+          coordinate={{
+            latitude: location.latitude || location.lat,
+            longitude: location.longitude || location.long,
+          }}
+        />
       </MapView>
     </Screen>
   );
 };
 const mapStateToProps = state => {
-  return {location: state.user.currentUser.location};
+  return {
+    location: state.user.currentUser.location,
+    allProviders: state.providers.allProviders,
+  };
 };
 
 export default connect(mapStateToProps, null)(MapScreen);
