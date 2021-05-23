@@ -54,13 +54,13 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
           <Formik
             validationSchema={signupSchema}
             initialValues={{email: '', password: '', confirmPassword: ''}}
-            onSubmit={values => register(values.email, values.password)}
-            validateOnMount>
+            onSubmit={values => register(values.email, values.password)}>
             {({
               handleChange,
               handleBlur,
               handleSubmit,
               values,
+              touched,
               errors,
               isValid,
             }) => (
@@ -77,7 +77,9 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
                   value={values.email}
                   keyboardType="email-address"
                 />
-                {errors.email && <Errors texts={errors.email} />}
+                {errors.email && touched.email && (
+                  <Errors texts={errors.email} />
+                )}
                 <FormInput
                   autoCorrect={false}
                   icon="lock"
@@ -91,7 +93,9 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
                   value={values.password}
                   secureTextEntry
                 />
-                {errors.password && <Errors texts={errors.password} />}
+                {errors.password && touched.password && (
+                  <Errors texts={errors.password} />
+                )}
                 <FormInput
                   autoCorrect={false}
                   icon="lock"
@@ -105,10 +109,9 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
                   value={values.confirmPassword}
                   secureTextEntry
                 />
-                {errors.confirmPassword && (
+                {errors.confirmPassword && touched.confirmPassword && (
                   <Errors texts={errors.confirmPassword} />
                 )}
-                {errors.password && <Errors texts={errors.password} />}
                 {!isValid || isLoading ? (
                   <TouchableOpacity disabled>
                     <LinearGradient

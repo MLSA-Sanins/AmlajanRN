@@ -3,7 +3,11 @@ import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
-import {LOGOUT_USER, FETCHING_INITIAL_USER} from '../redux/constants';
+import {
+  LOGOUT_USER,
+  FETCHING_INITIAL_USER,
+  AUTH_FAILED,
+} from '../redux/constants';
 import {getErrors, clearErrors} from '../redux/actions/errorActions';
 
 export const AuthContext = createContext();
@@ -35,6 +39,7 @@ export const AuthProvider = ({children}) => {
             dispatch(clearErrors());
           } catch (e) {
             dispatch(getErrors('Login Failed! Invalid Credentials'));
+            dispatch({type: AUTH_FAILED});
           }
         },
         fbLogin: async () => {
@@ -78,6 +83,7 @@ export const AuthProvider = ({children}) => {
           } catch (e) {
             console.warn(e);
             dispatch(getErrors('Registration Failed!'));
+            dispatch({type: AUTH_FAILED});
           }
         },
         logout: async () => {

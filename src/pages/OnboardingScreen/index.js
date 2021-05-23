@@ -209,11 +209,6 @@ const OnboardingScreen = ({navigation}) => {
           title="SIGN IN"
           height={50}
         />
-        {/* <TouchableOpacity
-          onPress={() => navigation.navigate('Login')}
-          style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>SIGNIN</Text>
-        </TouchableOpacity> */}
       </View>
     </Swiper>
   );

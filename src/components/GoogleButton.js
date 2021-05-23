@@ -14,10 +14,10 @@ const Google = styled.TouchableOpacity`
   border-width: 1px;
   border-color: #e5e5e5;
 `;
-export default function GoogleButton({onPress}) {
+export default function GoogleButton({onPress, ...rest}) {
   const theme = useSelector(state => state.themes.theme);
   return (
-    <Google onPress={onPress} style={styles.google}>
+    <Google onPress={onPress} style={styles.google} {...rest}>
       <Icon
         style={{...styles.googleIcon, color: theme.GOOGLE_ICON}}
         name="google"

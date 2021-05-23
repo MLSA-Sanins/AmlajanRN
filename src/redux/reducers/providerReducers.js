@@ -17,7 +17,7 @@ export default (state = initialState, actions) => {
     case ALL_PROVIDERS_FETCHED:
       return {...state, allProviders: actions.payload, isLoading: false};
     case FETCHING_PROVIDER_FAILED:
-      return {...state, isLoading: false};
+      return {...initialState};
     case LOGOUT_USER:
       return state;
     default:

@@ -42,16 +42,15 @@ const LoginScreen = ({navigation, error, isLoading}) => {
         <AmlajanLogo style={styles.Logo} />
         <SubTitle>Log In with one of the following options.</SubTitle>
         <View style={styles.oAuth}>
-          <GoogleButton onPress={() => googleLogin()} />
-          <FacebookButton onPress={() => fbLogin()} />
+          <GoogleButton disabled={isLoading} onPress={() => googleLogin()} />
+          <FacebookButton disabled={isLoading} onPress={() => fbLogin()} />
         </View>
         {error.error && <Errors texts={error.error} />}
         <View style={styles.emailCredentials}>
           <Formik
             validationSchema={loginSchema}
             initialValues={{email: '', password: ''}}
-            onSubmit={values => login(values.email, values.password)}
-            validateOnMount>
+            onSubmit={values => login(values.email, values.password)}>
             {({
               handleChange,
               handleBlur,
@@ -59,13 +58,14 @@ const LoginScreen = ({navigation, error, isLoading}) => {
               values,
               errors,
               isValid,
+              touched,
             }) => (
               <>
                 <FormInput
                   icon="mail"
                   autoCorrect={false}
-                  autoCompleteType="email"
-                  textContentType="emailAddress"
+                  // autoCompleteType="email"
+                  // textContentType="emailAddress"
                   placeholder="Email"
                   autoCapitalize="none"
                   onChangeText={handleChange('email')}
@@ -73,7 +73,9 @@ const LoginScreen = ({navigation, error, isLoading}) => {
                   value={values.email}
                   keyboardType="email-address"
                 />
-                {errors.email && <Errors texts={errors.email} />}
+                {errors.email && touched.email && (
+                  <Errors texts={errors.email} />
+                )}
                 <FormInput
                   icon="lock"
                   autoCorrect={false}
@@ -87,7 +89,9 @@ const LoginScreen = ({navigation, error, isLoading}) => {
                   value={values.password}
                   secureTextEntry
                 />
-                {errors.password && <Errors texts={errors.password} />}
+                {errors.password && touched.password && (
+                  <Errors texts={errors.password} />
+                )}
                 {!isValid || isLoading ? (
                   <TouchableOpacity disabled>
                     <LinearGradient

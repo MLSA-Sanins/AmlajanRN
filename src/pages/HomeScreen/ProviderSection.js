@@ -41,7 +41,7 @@ const ProviderSection = ({theme, allProviders}) => {
             <ProfileCard>
               <ImgView>
                 <CardImgContainer>
-                  {allProviders.photoURL ? (
+                  {item.photoURL ? (
                     <ImgThumbnail
                       progressiveRenderingEnabled
                       source={profile}

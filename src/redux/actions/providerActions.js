@@ -19,7 +19,7 @@ export const getAllO2Providers = () => async (dispatch, getState) => {
     dispatch(clearErrors());
     dispatch({
       type: ALL_PROVIDERS_FETCHED,
-      payload: response.data.Provider_lst,
+      payload: response.data.Provider_list,
     });
   } catch (e) {
     dispatch({type: FETCHING_PROVIDER_FAILED});

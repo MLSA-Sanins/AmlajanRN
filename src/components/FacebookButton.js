@@ -15,10 +15,10 @@ const FbButton = styled.TouchableOpacity`
   border-color: #e5e5e5;
 `;
 
-export default function FacebookButton({onPress}) {
+export default function FacebookButton({onPress, ...rest}) {
   const theme = useSelector(state => state.themes.theme);
   return (
-    <FbButton onPress={onPress} style={styles.facebook}>
+    <FbButton onPress={onPress} style={styles.facebook} {...rest}>
       <FontAwesome
         style={{...styles.facebookIcon, color: theme.FB_ICON}}
         name="facebook"
