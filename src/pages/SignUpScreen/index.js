@@ -27,7 +27,7 @@ import signupSchema from '../../utils/loginSchema';
 import {connect} from 'react-redux';
 import Errors from '../../components/Errors';
 
-const SignUpScreen = ({navigation, error}) => {
+const SignUpScreen = ({navigation, error, isLoading}) => {
   const {register, googleLogin, fbLogin} = useContext(AuthContext);
 
   const theme = useSelector(state => state.themes.theme);
@@ -54,7 +54,8 @@ const SignUpScreen = ({navigation, error}) => {
           <Formik
             validationSchema={signupSchema}
             initialValues={{email: '', password: '', confirmPassword: ''}}
-            onSubmit={values => register(values.email, values.password)}>
+            onSubmit={values => register(values.email, values.password)}
+            validateOnMount>
             {({
               handleChange,
               handleBlur,
@@ -66,8 +67,10 @@ const SignUpScreen = ({navigation, error}) => {
               <>
                 <FormInput
                   autoCorrect={false}
-                  name="mail"
-                  phd="Email"
+                  icon="mail"
+                  placeholder="Email"
+                  autoCompleteType="email"
+                  textContentType="emailAddress"
                   autoCapitalize="none"
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
@@ -77,8 +80,11 @@ const SignUpScreen = ({navigation, error}) => {
                 {errors.email && <Errors texts={errors.email} />}
                 <FormInput
                   autoCorrect={false}
-                  name="lock"
-                  phd="Password"
+                  icon="lock"
+                  placeholder="Password"
+                  autoCompleteType="password"
+                  keyboardType="default"
+                  textContentType="newPassword"
                   autoCapitalize="none"
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
@@ -88,8 +94,11 @@ const SignUpScreen = ({navigation, error}) => {
                 {errors.password && <Errors texts={errors.password} />}
                 <FormInput
                   autoCorrect={false}
-                  name="lock"
-                  phd="Confirm Password"
+                  icon="lock"
+                  placeholder="Confirm Password"
+                  autoCompleteType="password"
+                  keyboardType="default"
+                  textContentType="newPassword"
                   autoCapitalize="none"
                   onChangeText={handleChange('confirmPassword')}
                   onBlur={handleBlur('confirmPassword')}
@@ -99,15 +108,28 @@ const SignUpScreen = ({navigation, error}) => {
                 {errors.confirmPassword && (
                   <Errors texts={errors.confirmPassword} />
                 )}
-                <TouchableOpacity disabled={!isValid} onPress={handleSubmit}>
-                  <LinearGradient
-                    start={{x: 1, y: 0}}
-                    end={{x: 0, y: 1}}
-                    colors={[primary.main, primary.light]}
-                    style={styles.button}>
-                    <Text style={styles.buttonText}>SIGN UP</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
+                {errors.password && <Errors texts={errors.password} />}
+                {!isValid || isLoading ? (
+                  <TouchableOpacity disabled>
+                    <LinearGradient
+                      start={{x: 1, y: 0}}
+                      end={{x: 0, y: 1}}
+                      colors={['#cccccc', '#cccccc']}
+                      style={styles.button}>
+                      <Text style={styles.buttonText}>SIGN UP</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={handleSubmit}>
+                    <LinearGradient
+                      start={{x: 1, y: 0}}
+                      end={{x: 0, y: 1}}
+                      colors={[primary.main, primary.light]}
+                      style={styles.button}>
+                      <Text style={styles.buttonText}>SIGN UP</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                )}
               </>
             )}
           </Formik>
@@ -127,7 +149,7 @@ const SignUpScreen = ({navigation, error}) => {
 };
 
 const mapStateToProps = state => {
-  return {error: state.error};
+  return {error: state.error, isLoading: state.user.isLoading};
 };
 
 export default connect(mapStateToProps)(SignUpScreen);
