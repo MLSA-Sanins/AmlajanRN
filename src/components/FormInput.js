@@ -19,18 +19,17 @@ const FormContainer = styled.View`
   background-color: ${props => props.theme.FORM_INPUT_COLOR};
 `;
 
-export default function FormInput({phd, name, ...rest}) {
+export default function FormInput({icon, ...rest}) {
   const theme = useSelector(state => state.themes.theme);
   return (
     <FormContainer style={styles.formContainer}>
       <Icon
         style={{...styles.icon, color: theme.PRIMARY_BACKGROUND_COLOR}}
-        name={name}
+        name={icon}
       />
       <TextInput
         placeholderTextColor="#9e9e9e"
         style={{...styles.textInput, color: theme.FORM_INPUT_TEXT_COLOR}}
-        placeholder={phd}
         {...rest}
       />
     </FormContainer>

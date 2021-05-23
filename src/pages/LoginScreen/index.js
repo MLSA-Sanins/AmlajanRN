@@ -25,7 +25,7 @@ import loginSchema from '../../utils/loginSchema';
 import {connect} from 'react-redux';
 import Errors from '../../components/Errors';
 
-const LoginScreen = ({navigation, error}) => {
+const LoginScreen = ({navigation, error, isLoading}) => {
   // const [email, changeEmail] = useState();
   // const [password, changePassword] = useState();
 
@@ -50,7 +50,8 @@ const LoginScreen = ({navigation, error}) => {
           <Formik
             validationSchema={loginSchema}
             initialValues={{email: '', password: ''}}
-            onSubmit={values => login(values.email, values.password)}>
+            onSubmit={values => login(values.email, values.password)}
+            validateOnMount>
             {({
               handleChange,
               handleBlur,
@@ -61,9 +62,11 @@ const LoginScreen = ({navigation, error}) => {
             }) => (
               <>
                 <FormInput
+                  icon="mail"
                   autoCorrect={false}
-                  name="mail"
-                  phd="Email"
+                  autoCompleteType="email"
+                  textContentType="emailAddress"
+                  placeholder="Email"
                   autoCapitalize="none"
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
@@ -72,9 +75,12 @@ const LoginScreen = ({navigation, error}) => {
                 />
                 {errors.email && <Errors texts={errors.email} />}
                 <FormInput
+                  icon="lock"
                   autoCorrect={false}
-                  name="lock"
-                  phd="Password"
+                  placeholder="Password"
+                  autoCompleteType="password"
+                  keyboardType="default"
+                  textContentType="password"
                   autoCapitalize="none"
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
@@ -82,15 +88,27 @@ const LoginScreen = ({navigation, error}) => {
                   secureTextEntry
                 />
                 {errors.password && <Errors texts={errors.password} />}
-                <TouchableOpacity disabled={!isValid} onPress={handleSubmit}>
-                  <LinearGradient
-                    start={{x: 1, y: 0}}
-                    end={{x: 0, y: 1}}
-                    colors={[primary.main, primary.light]}
-                    style={styles.button}>
-                    <Text style={styles.buttonText}>LOGIN</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
+                {!isValid || isLoading ? (
+                  <TouchableOpacity disabled>
+                    <LinearGradient
+                      start={{x: 1, y: 0}}
+                      end={{x: 0, y: 1}}
+                      colors={['#cccccc', '#cccccc']}
+                      style={styles.button}>
+                      <Text style={styles.buttonText}>LOGIN</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={handleSubmit}>
+                    <LinearGradient
+                      start={{x: 1, y: 0}}
+                      end={{x: 0, y: 1}}
+                      colors={[primary.main, primary.light]}
+                      style={styles.button}>
+                      <Text style={styles.buttonText}>LOGIN</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                )}
               </>
             )}
           </Formik>
@@ -110,7 +128,7 @@ const LoginScreen = ({navigation, error}) => {
 };
 
 const mapStateToProps = state => {
-  return {error: state.error};
+  return {error: state.error, isLoading: state.user.isLoading};
 };
 
 export default connect(mapStateToProps, {})(LoginScreen);
