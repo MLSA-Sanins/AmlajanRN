@@ -2,8 +2,9 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Screen} from './Screen';
+import {connect} from 'react-redux';
 
-export default class LoadingView extends React.Component {
+class LoadingView extends React.Component {
   componentDidMount() {
     this.animation.play();
     // Or set a specific startFrame and endFrame with:
@@ -17,7 +18,11 @@ export default class LoadingView extends React.Component {
           ref={animation => {
             this.animation = animation;
           }}
-          source={require('../utils/loader.json')}
+          source={
+            this.props.theme.mode === 'dark'
+              ? require('../utils/loaderDark.json')
+              : require('../utils/loader.json')
+          }
           loop
           autoplay
         />
@@ -25,6 +30,12 @@ export default class LoadingView extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {theme: state.themes.theme};
+};
+
+export default connect(mapStateToProps, null)(LoadingView);
 
 const styles = StyleSheet.create({
   Page: {
