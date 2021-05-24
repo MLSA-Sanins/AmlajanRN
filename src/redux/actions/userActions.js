@@ -10,7 +10,7 @@ import {
 } from '../constants';
 import {getErrors, clearErrors} from './errorActions';
 import {checkUserExistence, registerUser} from '../../api/azureApi';
-import {getAllO2Providers} from './providerActions';
+import {getAllO2Providers, getNearbyO2Providers,getEveryProvider} from './providerActions';
 import {fecthLocationAndAddress} from './locationActions';
 
 //get data from our data base
@@ -25,7 +25,7 @@ export const checkIfUserExists = uid => async (dispatch, getState) => {
       await dispatch(fecthLocationAndAddress());
     }
     dispatch({type: USER_REGISTERED, payload: response.data.Provider});
-    await dispatch(getAllO2Providers());
+    await dispatch(getEveryProvider());
     dispatch(clearErrors());
     return;
   } catch (e) {

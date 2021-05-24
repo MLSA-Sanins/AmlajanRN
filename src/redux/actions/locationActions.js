@@ -70,6 +70,7 @@ export const fecthLocationAndAddress = () => async (dispatch, getState) => {
       location.longitude,
       500,
     );
+
     dispatch({
       type: ADDRESS_LOADED,
       payload: {

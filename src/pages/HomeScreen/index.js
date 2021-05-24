@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {HomeView, MapView, MapImage} from './styles';
 import ProfileSection from './ProfileSection';
@@ -14,6 +14,7 @@ import AppNavigationHeader from '../../components/AppNavigationHeader';
 
 const HomeScreen = ({navigation, userData}) => {
   const theme = useSelector(state => state.themes.theme);
+  const [distance, setDistance] = useState(5);
 
   return (
     <Screen>
@@ -32,8 +33,8 @@ const HomeScreen = ({navigation, userData}) => {
         {/* <MapView onPress={() => navigation.navigate('Maps')}>
           <MapImage source={require('../../assets/map.jpg')} />
         </MapView> */}
-        <DistanceSection />
-        <ProviderSection theme={theme} />
+        <DistanceSection setDistance={setDistance} />
+        <ProviderSection distance={distance} theme={theme} />
       </HomeView>
     </Screen>
   );

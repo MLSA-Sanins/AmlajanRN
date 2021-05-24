@@ -15,13 +15,93 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {connect} from 'react-redux';
 
-const ProviderSection = ({theme, allProviders}) => {
+const ProviderSection = ({theme, allProviders, nearbyProviders, distance}) => {
   const size = 80;
   //calculating right dimension to be fetched
   const picDimension = {
     picWidth: PixelRatio.getPixelSizeForLayoutSize(size),
     picHeight: PixelRatio.getPixelSizeForLayoutSize(size),
   };
+
+  const filterList = nearbyProviders.filter(prov => {
+    return prov.distance <= distance;
+  });
+
+  const showLists = () => {
+    if (distance < 200) {
+      return (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={filterList.sort((a, b) => a.distance - b.distance)}
+          keyExtractor={item => item.uid}
+          renderItem={({item}) => {
+            return (
+              <ProfileCard>
+                <ImgView>
+                  <CardImgContainer>
+                    {item.photoURL ? (
+                      <ImgThumbnail
+                        progressiveRenderingEnabled
+                        source={profile}
+                      />
+                    ) : (
+                      <AntDesign
+                        name="user"
+                        size={30}
+                        color={theme.PRIMARY_TEXT_COLOR}
+                      />
+                    )}
+                  </CardImgContainer>
+                </ImgView>
+                <CardDescription>
+                  <CardTitle>{item.displayName}</CardTitle>
+                  <ProviderDistance>
+                    {Math.floor(item.distance)} km
+                  </ProviderDistance>
+                  <ProviderAddress>{item.location.address}</ProviderAddress>
+                </CardDescription>
+              </ProfileCard>
+            );
+          }}
+        />
+      );
+    } else {
+      return (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={allProviders}
+          keyExtractor={item => item.uid}
+          renderItem={({item}) => {
+            return (
+              <ProfileCard>
+                <ImgView>
+                  <CardImgContainer>
+                    {item.photoURL ? (
+                      <ImgThumbnail
+                        progressiveRenderingEnabled
+                        source={profile}
+                      />
+                    ) : (
+                      <AntDesign
+                        name="user"
+                        size={30}
+                        color={theme.PRIMARY_TEXT_COLOR}
+                      />
+                    )}
+                  </CardImgContainer>
+                </ImgView>
+                <CardDescription>
+                  <CardTitle>{item.displayName}</CardTitle>
+                  <ProviderAddress>{item.location.address}</ProviderAddress>
+                </CardDescription>
+              </ProfileCard>
+            );
+          }}
+        />
+      );
+    }
+  };
+
   const profile = {
     uri: `${allProviders.photoURL}?height=${picDimension.picHeight}`,
     width: size,
@@ -30,46 +110,19 @@ const ProviderSection = ({theme, allProviders}) => {
   return (
     <ProviderView>
       <ProviderHeader>
-        Showing {allProviders.length} Results. Scroll Down to View.{' '}
+        Showing {distance < 200 ? filterList.length : allProviders.length}{' '}
+        Results. Scroll Down to View.{' '}
       </ProviderHeader>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={allProviders}
-        keyExtractor={item => item.uid}
-        renderItem={({item}) => {
-          return (
-            <ProfileCard>
-              <ImgView>
-                <CardImgContainer>
-                  {item.photoURL ? (
-                    <ImgThumbnail
-                      progressiveRenderingEnabled
-                      source={profile}
-                    />
-                  ) : (
-                    <AntDesign
-                      name="user"
-                      size={30}
-                      color={theme.PRIMARY_TEXT_COLOR}
-                    />
-                  )}
-                </CardImgContainer>
-              </ImgView>
-              <CardDescription>
-                <CardTitle>{item.displayName}</CardTitle>
-                <ProviderDistance>23 km</ProviderDistance>
-                <ProviderAddress>{item.location.address}</ProviderAddress>
-              </CardDescription>
-            </ProfileCard>
-          );
-        }}
-      />
+      {showLists()}
     </ProviderView>
   );
 };
 
 const mapStateToProps = state => {
-  return {allProviders: state.providers.allProviders};
+  return {
+    allProviders: state.providers.allProviders,
+    nearbyProviders: state.providers.nearbyProviders,
+  };
 };
 export default connect(mapStateToProps, null)(ProviderSection);
 const styles = StyleSheet.create({});

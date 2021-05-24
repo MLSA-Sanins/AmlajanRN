@@ -3,21 +3,33 @@ import {
   ALL_PROVIDERS_FETCHED,
   FETCHING_PROVIDER_FAILED,
   LOGOUT_USER,
+  FETCHING_NEARBY_PROVIDERS,
+  NEARBY_PROVIDERS_FETCHED,
 } from '../constants';
 
 const initialState = {
   allProviders: [],
+  nearbyProviders: [],
   isLoading: null,
+  loadingNearbyProviders: null,
 };
 
 export default (state = initialState, actions) => {
   switch (actions.type) {
+    case FETCHING_NEARBY_PROVIDERS:
+      return {...state, loadingNearbyProviders: true};
     case FETCHING_ALL_PROVIDERS:
       return {...state, isLoading: true};
     case ALL_PROVIDERS_FETCHED:
       return {...state, allProviders: actions.payload, isLoading: false};
+    case NEARBY_PROVIDERS_FETCHED:
+      return {
+        ...state,
+        nearbyProviders: actions.payload,
+        loadingNearbyProviders: false,
+      };
     case FETCHING_PROVIDER_FAILED:
-      return {...initialState};
+      return {...state, isLoading: false, loadingNearbyProviders: false};
     case LOGOUT_USER:
       return state;
     default:

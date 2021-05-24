@@ -9,3 +9,6 @@ export const registerUser = (role, data) =>
 
 export const getAllProviders = () =>
   axios.get(`${AZURE_API_ENDPOINT}getAllProviders`);
+
+export const getNearbyProvider = data =>
+  axios.post(`${AZURE_API_ENDPOINT}getNearbyProviders`, data);
