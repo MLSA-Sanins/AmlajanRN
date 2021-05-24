@@ -69,7 +69,7 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
         <PaddingView />
         <UserName>{userData.displayName}</UserName>
         <StatsView>
-          <StatsSection>
+          {/* <StatsSection>
             <TouchableOpacity onPress={() => navigation.navigate('Maps')}>
               <AntDesign
                 name="setting"
@@ -78,7 +78,7 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
                 color={theme.FORM_INPUT_TEXT_COLOR}
               />
             </TouchableOpacity>
-          </StatsSection>
+          </StatsSection> */}
           <StatsSection>
             <TouchableOpacity onPress={() => switchThemes()}>
               <AntDesign
@@ -100,12 +100,12 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
             </TouchableOpacity>
           </LastStatsSection>
         </StatsView>
-        <GradientButton
+        {/* <GradientButton
           title={`${theme.mode === 'light' ? 'DARK MODE' : 'LIGHT MODE'}`}
           height={50}
           onPress={() => switchThemes()}
         />
-        <GradientButton title="LOG OUT" height={50} onPress={() => logout()} />
+        <GradientButton title="LOG OUT" height={50} onPress={() => logout()} /> */}
       </ProfileView>
     </Screen>
   );

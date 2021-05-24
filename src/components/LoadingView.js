@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, StatusBar} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Screen} from './Screen';
 import {connect} from 'react-redux';
@@ -14,6 +14,10 @@ class LoadingView extends React.Component {
   render() {
     return (
       <Screen>
+        <StatusBar
+          backgroundColor={this.props.theme.PRIMARY_BACKGROUND_COLOR}
+          barStyle={this.props.theme.STATUS_BAR_STYLE}
+        />
         <LottieView
           ref={animation => {
             this.animation = animation;

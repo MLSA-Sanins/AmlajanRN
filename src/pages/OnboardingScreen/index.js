@@ -146,9 +146,9 @@ const OnboardingScreen = ({navigation}) => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>
-            In this hustle of COVID with oxygen availability being so less, we
-            are providing a platform for people in dire need of oxygen to search
-            oxygen providers near them.Search for verified oxygen suppliers.
+            With the increasing cases of inadequate oxygen supply, we pave the
+            way for patients to search for providers. Patients are equipped with
+            the power to seek oxygen providers in their range with just a click.
           </Text>
         </View>
       </View>
@@ -160,14 +160,13 @@ const OnboardingScreen = ({navigation}) => {
         {/* <Social style={styles.img}/> */}
         <View style={styles.titleContainer}>
           <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
-            CONTACT
+            VISUALISE
           </Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>
-            In this hustle of COVID with oxygen availability being so less, we
-            are providing a platform for people in dire need of oxygen to search
-            oxygen providers near them.Search for verified oxygen suppliers.
+            To make the information and navigation simpler, we provide means for
+            viewing the locations of oxygen providers on a map.
           </Text>
         </View>
       </View>
@@ -180,14 +179,12 @@ const OnboardingScreen = ({navigation}) => {
         {/* <Navigation style={styles.img}/> */}
         <View style={styles.titleContainer}>
           <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
-            VISUALISE
+            CONTACT
           </Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>
-            In this hustle of COVID with oxygen availability being so less, we
-            are providing a platform for people in dire need of oxygen to search
-            oxygen providers near them.Search for verified oxygen suppliers.
+          Here, patients are empowered with a way to communicate with providers to check the availability of oxygen and clear any of their queries.
           </Text>
         </View>
       </View>
