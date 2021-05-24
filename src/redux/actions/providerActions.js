@@ -38,17 +38,12 @@ export const getNearbyO2Providers = () => async (dispatch, getState) => {
   }
   try {
     dispatch({type: FETCHING_NEARBY_PROVIDERS});
-    console.log(
-      getState().user.currentUser.location.latitude,
-      getState().user.currentUser.location.longitude,
-    );
     var data = JSON.stringify({
       latitude: getState().user.currentUser.location.latitude,
       longitude: getState().user.currentUser.location.longitude,
     });
 
     const response = await getNearbyProvider(data);
-    console.log(response.data);
     dispatch(clearErrors());
     dispatch({
       type: NEARBY_PROVIDERS_FETCHED,

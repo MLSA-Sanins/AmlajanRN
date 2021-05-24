@@ -122,14 +122,14 @@ const UserDetailsScreen = ({
           <FormInput
             value={data.userName}
             onChangeText={val => onUserNameChange(val)}
-            phd="Username"
+            placeholder="Username"
             name="user"
           />
           {route.params.title.toUpperCase() === 'PROVIDER' && (
             <FormInput
               value={data.email}
               onChangeText={val => onEmailChange(val)}
-              phd="Email"
+              placeholder="Email"
               name="mail"
             />
           )}
@@ -137,7 +137,7 @@ const UserDetailsScreen = ({
             <FormInput
               value={data.phoneNumber}
               onChangeText={val => onPhoneChange(val)}
-              phd="Phone Number"
+              placeholder="Phone Number"
               name="smartphone"
             />
           )}

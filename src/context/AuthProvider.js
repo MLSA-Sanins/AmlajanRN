@@ -73,6 +73,7 @@ export const AuthProvider = ({children}) => {
           } catch (e) {
             console.log(e);
             dispatch(getErrors(e));
+            dispatch({type: AUTH_FAILED});
           }
         },
         register: async (email, password) => {
