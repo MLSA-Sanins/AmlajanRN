@@ -11,6 +11,7 @@ import {
   ProviderDistance,
   ProviderAddress,
   ProviderHeader,
+  ContactNumber,
 } from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {connect} from 'react-redux';
@@ -59,6 +60,7 @@ const ProviderSection = ({theme, allProviders, nearbyProviders, distance}) => {
                     {Math.floor(item.distance)} km
                   </ProviderDistance>
                   <ProviderAddress>{item.location.address}</ProviderAddress>
+                  <ContactNumber>Mob : {item.contact_number}</ContactNumber>
                 </CardDescription>
               </ProfileCard>
             );

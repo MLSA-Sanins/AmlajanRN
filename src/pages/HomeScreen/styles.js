@@ -157,3 +157,11 @@ export const ProviderHeader = styled.Text`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
+
+export const ContactNumber = styled.Text`
+  color: ${props => props.theme.PRIMARY_TEXT_COLOR};
+  font-family: Montserrat-Regular;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: bold;
+`;
