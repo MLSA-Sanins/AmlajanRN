@@ -26,6 +26,17 @@ import {Formik} from 'formik';
 import signupSchema from '../../utils/loginSchema';
 import {connect} from 'react-redux';
 import Errors from '../../components/Errors';
+import {
+  s,
+  vs,
+  ms,
+  mvs,
+  msr,
+  scale,
+  verticalScale,
+  moderateScale,
+} from 'react-native-size-matters';
+import {ScaledSheet} from 'react-native-size-matters';
 
 const SignUpScreen = ({navigation, error, isLoading}) => {
   const {register, googleLogin, fbLogin} = useContext(AuthContext);
@@ -33,7 +44,7 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
   const theme = useSelector(state => state.themes.theme);
 
   return (
-    <Screen behavior="height">
+    <Screen behavior="height" style={styles.Page}>
       <Pressable onPress={Keyboard.dismiss}>
         <StatusBar
           backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
@@ -157,19 +168,22 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps)(SignUpScreen);
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
+  Page: {
+    
+  },
   oAuth: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 30,
-    paddingHorizontal: 15,
+    paddingVertical: '30@vs',
+    paddingHorizontal: '15@s',
     width: width,
-    borderRadius: 20,
+    borderRadius: '20@vs',
   },
   button: {
-    marginHorizontal: 30,
-    marginTop: 30,
+    marginHorizontal: '30@s',
+    //marginTop: 30,
     borderRadius: 5,
     height: 60,
     display: 'flex',

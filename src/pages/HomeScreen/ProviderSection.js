@@ -16,7 +16,14 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {connect} from 'react-redux';
 
-const ProviderSection = ({theme, allProviders, nearbyProviders, distance}) => {
+const ProviderSection = ({
+  theme,
+  allProviders,
+  nearbyProviders,
+  distance,
+  loadingLocation,
+  loadingNearbyProviders,
+}) => {
   const size = 80;
   //calculating right dimension to be fetched
   const picDimension = {
@@ -104,6 +111,10 @@ const ProviderSection = ({theme, allProviders, nearbyProviders, distance}) => {
     }
   };
 
+  if (loadingLocation && loadingNearbyProviders) {
+    return null;
+  }
+
   const profile = {
     uri: `${allProviders.photoURL}?height=${picDimension.picHeight}`,
     width: size,
@@ -113,7 +124,7 @@ const ProviderSection = ({theme, allProviders, nearbyProviders, distance}) => {
     <ProviderView>
       <ProviderHeader>
         Showing {distance < 200 ? filterList.length : allProviders.length}{' '}
-        Results. Scroll Down to View.{' '}
+        Results. Scroll Down to View.
       </ProviderHeader>
       {showLists()}
     </ProviderView>
@@ -124,6 +135,8 @@ const mapStateToProps = state => {
   return {
     allProviders: state.providers.allProviders,
     nearbyProviders: state.providers.nearbyProviders,
+    loadingLocation: state.providers.isLoading,
+    loadingNearbyProviders: state.providers.loadingNearbyProviders,
   };
 };
 export default connect(mapStateToProps, null)(ProviderSection);

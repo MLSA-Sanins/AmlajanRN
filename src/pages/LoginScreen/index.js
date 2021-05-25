@@ -24,6 +24,17 @@ import {Formik} from 'formik';
 import loginSchema from '../../utils/loginSchema';
 import {connect} from 'react-redux';
 import Errors from '../../components/Errors';
+import {
+  s,
+  vs,
+  ms,
+  mvs,
+  msr,
+  scale,
+  verticalScale,
+  moderateScale,
+} from 'react-native-size-matters';
+import {ScaledSheet} from 'react-native-size-matters';
 
 const LoginScreen = ({navigation, error, isLoading}) => {
   // const [email, changeEmail] = useState();
@@ -137,26 +148,25 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {})(LoginScreen);
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   subtitle: {
-    marginLeft: 30,
-    marginTop: 30,
-    fontSize: 15,
+    marginLeft: '30@s',
+    marginTop: '30@vs',
+    fontSize: '15@ms0.3',
   },
   oAuth: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 30,
-    paddingHorizontal: 15,
+    paddingVertical: '30@vs',
+    paddingHorizontal: '15@s',
     width: width,
-    borderRadius: 20,
   },
   button: {
-    marginHorizontal: 30,
-    marginTop: 30,
-    borderRadius: 5,
-    height: 60,
+    marginHorizontal: '30@s',
+    marginTop: '30@vs',
+    borderRadius: '5@vs',
+    height: '50@vs',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -164,17 +174,17 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 22,
+    fontSize: '22@mvs0.3',
     fontFamily: 'Montserrat-Regular',
   },
   bottomView: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: '10@vs',
   },
   Logo: {
     alignSelf: 'center',
-    marginTop: 100,
+    marginTop: height * 0.1,
   },
 });
