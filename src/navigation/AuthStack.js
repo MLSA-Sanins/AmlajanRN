@@ -35,11 +35,11 @@ export default function AuthStack() {
   }, []);
 
   if (isFirstLaunch === null) {
-    return <LoadingView />;
+    return null;
   } else if (isFirstLaunch === true) {
     routeName = 'Onboarding';
   } else {
-    routeName = 'Login';
+    routeName = 'Onboarding';
   }
 
   return (
