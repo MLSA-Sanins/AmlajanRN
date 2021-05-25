@@ -24,8 +24,8 @@ class LoadingView extends React.Component {
           }}
           source={
             this.props.theme.mode === 'dark'
-              ? require('../utils/loaderDark.json')
-              : require('../utils/loader.json')
+              ? require('../utils/loader.json')
+              : require('../utils/loaderDark.json')
           }
           loop
           autoplay
