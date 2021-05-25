@@ -14,46 +14,47 @@ import LoadingView from '../components/LoadingView';
 const AppStack = createStackNavigator();
 
 const AppStacks = ({isRegistered}) => {
-  let routeName;
   const theme = useSelector(state => state.themes.theme);
 
   if (isRegistered === null) {
     return <LoadingView />;
-  } else if (isRegistered) {
-    routeName = 'Main';
-  } else {
-    routeName = 'Roles';
+  } else if (!isRegistered) {
+    return (
+      <AppStack.Navigator>
+        <AppStack.Screen
+          options={{header: () => null}}
+          name="Roles"
+          component={RoleScreen}
+        />
+        <AppStack.Screen
+          options={({navigation}) => ({
+            title: '',
+            headerStyle: {
+              backgroundColor: theme.PRIMARY_BACKGROUND_COLOR,
+              shadowColor: '#f9fafd',
+              elevation: 0,
+            },
+            headerLeft: () => (
+              <View style={styles.headerStyle}>
+                <FontAwesome.Button
+                  name="long-arrow-left"
+                  size={25}
+                  backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
+                  color={theme.PRIMARY_TEXT_COLOR}
+                  onPress={() => navigation.navigate('Roles')}
+                />
+              </View>
+            ),
+          })}
+          name="UserDetails"
+          component={UserDetailsScreen}
+        />
+      </AppStack.Navigator>
+    );
   }
+
   return (
-    <AppStack.Navigator initialRouteName={routeName}>
-      <AppStack.Screen
-        options={{header: () => null}}
-        name="Roles"
-        component={RoleScreen}
-      />
-      <AppStack.Screen
-        options={({navigation}) => ({
-          title: '',
-          headerStyle: {
-            backgroundColor: theme.PRIMARY_BACKGROUND_COLOR,
-            shadowColor: '#f9fafd',
-            elevation: 0,
-          },
-          headerLeft: () => (
-            <View style={styles.headerStyle}>
-              <FontAwesome.Button
-                name="long-arrow-left"
-                size={25}
-                backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
-                color={theme.PRIMARY_TEXT_COLOR}
-                onPress={() => navigation.navigate('Roles')}
-              />
-            </View>
-          ),
-        })}
-        name="UserDetails"
-        component={UserDetailsScreen}
-      />
+    <AppStack.Navigator>
       <AppStack.Screen
         options={{header: () => null}}
         name="Main"
@@ -66,7 +67,6 @@ const AppStacks = ({isRegistered}) => {
 const mapStateToProps = state => {
   return {
     isRegistered: state.user.isRegisteredUser,
-    //isAdmin: state.user.currentUser.email,
   };
 };
 

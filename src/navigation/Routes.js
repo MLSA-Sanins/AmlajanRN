@@ -26,8 +26,8 @@ const Routes = ({getInitialUserData, isLoading}) => {
   }
 
   useEffect(() => {
-    SplashScreen.hide();
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    SplashScreen.hide();
     return subscriber; // unsubscribe on unmount
   }, []);
 

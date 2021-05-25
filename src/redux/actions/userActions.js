@@ -10,7 +10,7 @@ import {
 } from '../constants';
 import {getErrors, clearErrors} from './errorActions';
 import {checkUserExistence, registerUser} from '../../api/azureApi';
-import {getAllO2Providers, getNearbyO2Providers,getEveryProvider} from './providerActions';
+import {getEveryProvider} from './providerActions';
 import {fecthLocationAndAddress} from './locationActions';
 
 //get data from our data base
@@ -63,7 +63,7 @@ export const registerNewUser =
         await dispatch(fecthLocationAndAddress());
       }
       dispatch({type: NEW_USER_REGISTERED, payload: response.data.Response});
-      await dispatch(getAllO2Providers());
+      await dispatch(getEveryProvider());
       navigation.navigate('Main');
       dispatch(clearErrors());
     } catch (e) {
