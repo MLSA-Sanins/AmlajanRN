@@ -24,6 +24,7 @@ import {updateAddress} from '../../redux/actions/locationActions';
 import GradientButton from '../../components/GradientButton';
 import {useSelector} from 'react-redux';
 import {Screen} from '../../components/Screen';
+import userDetailsSchema from '../../utils/userDetailsSchema';
 
 const UserDetailsScreen = ({
   route,
@@ -32,57 +33,16 @@ const UserDetailsScreen = ({
   registerNewUser,
   location,
   updateAddress,
+  isLoading,
 }) => {
-  const [data, setData] = useState({
-    userName: userData.displayName,
-    address: location.address,
-    email: userData.email,
-    phoneNumber: userData.phoneNumber,
-    incentive: false,
-    checkTextInputChange: false,
-    secureTextEntry: true,
-  });
+  const [userName, email, phoneNumber, uid] = userData;
+
+  const [incentive, setIncentive] = useState(false);
 
   const theme = useSelector(state => state.themes.theme);
 
-  const onEmailChange = val => {
-    if (val.length !== 0) {
-      setData({...data, email: val, checkTextInputChange: true});
-    } else {
-      setData({...data, email: val, checkTextInputChange: false});
-    }
-  };
-
-  const onUserNameChange = val => {
-    if (val.length !== 0) {
-      setData({...data, userName: val, checkTextInputChange: true});
-    } else {
-      setData({...data, userName: val, checkTextInputChange: false});
-    }
-  };
-
-  const onAddressChange = val => {
-    if (val.length !== 0) {
-      setData({...data, address: val, checkTextInputChange: true});
-    } else {
-      setData({...data, address: val, checkTextInputChange: true});
-    }
-  };
-
-  const onPhoneChange = val => {
-    if (val.length !== 0) {
-      setData({...data, phoneNumber: val, checkTextInputChange: true});
-    } else {
-      setData({...data, phoneNumber: val, checkTextInputChange: false});
-    }
-  };
-
-  const onIncentiveChange = val => {
-    setData({...data, incentive: val});
-  };
-
   const activeColor = primary.main;
-  const inactiveColor = '#9e9e9e';
+  const inactiveColor = '#cccccc';
 
   //size of image container
   const size = 120;
@@ -92,15 +52,15 @@ const UserDetailsScreen = ({
     height: size,
   };
 
-  const newUserRegistration = () => {
-    updateAddress(data.address);
+  const newUserRegistration = ({userName, address, email, phoneNumber}) => {
+    updateAddress(address);
     const dataSubmit = {
-      displayName: data.userName,
-      location,
-      email: data.email,
-      phoneNumber: data.phoneNumber,
-      incentive: data.incentive,
-      uid: userData.uid,
+      displayName: userName,
+      location: location,
+      email: email,
+      phoneNumber: phoneNumber,
+      incentive: incentive,
+      uid: uid,
     };
     registerNewUser(route.params.title.toLowerCase(), dataSubmit, navigation);
   };
@@ -119,101 +79,186 @@ const UserDetailsScreen = ({
               source={profile}
             />
           </View>
-          <FormInput
-            value={data.userName}
-            onChangeText={val => onUserNameChange(val)}
-            placeholder="Username"
-            name="user"
-          />
-          {route.params.title.toUpperCase() === 'PROVIDER' && (
-            <FormInput
-              value={data.email}
-              onChangeText={val => onEmailChange(val)}
-              placeholder="Email"
-              name="mail"
-            />
-          )}
-          {route.params.title.toUpperCase() === 'PROVIDER' && (
-            <FormInput
-              value={data.phoneNumber}
-              onChangeText={val => onPhoneChange(val)}
-              placeholder="Phone Number"
-              name="smartphone"
-            />
-          )}
-          <View
-            style={{
-              ...styles.formContainerAddress,
-              backgroundColor: theme.FORM_INPUT_COLOR,
-            }}>
-            <Feather
-              style={{...styles.icon, color: theme.FORM_INPUT_TEXT_COLOR}}
-              name="map"
-            />
-            <TextInput
-              multiline
-              numberOfLines={4}
-              value={data.address}
-              onChangeText={val => onAddressChange(val)}
-              style={{...styles.textInput, color: theme.FORM_INPUT_TEXT_COLOR}}
-              placeholder="Address"
-              placeholderTextColor="#9e9e9e"
-            />
-          </View>
-          {route.params.title.toUpperCase() === 'PROVIDER' && (
-            <>
-              <Text style={{...styles.text, color: theme.PRIMARY_TEXT_COLOR}}>
-                Will you charge money from Patients in Need ?
-              </Text>
-              <View style={styles.incentiveWrapper}>
-                <View style={styles.optionWrapper}>
-                  <TouchableOpacity
-                    onPress={() => onIncentiveChange(true)}
-                    style={{
-                      ...styles.option,
-                      backgroundColor: data.incentive
-                        ? activeColor
-                        : inactiveColor,
-                    }}
+          <Formik
+            validationSchema={userDetailsSchema}
+            initialValues={{
+              userName: userName || '',
+              address: location.address || '',
+              email: email,
+              phoneNumber: phoneNumber || '',
+            }}
+            onSubmit={values => newUserRegistration(values)}
+            validateOnMount>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              isValid,
+              touched,
+            }) => (
+              <>
+                <FormInput
+                  value={values.userName}
+                  onChangeText={handleChange('userName')}
+                  placeholder="Username"
+                  icon="user"
+                  autoCorrect={false}
+                  autoCompleteType="username"
+                  keyboardType="default"
+                  textContentType="username"
+                  autoCapitalize="none"
+                  onBlur={handleBlur('userName')}
+                />
+                {values.userName.length !== 0 &&
+                  errors.userName &&
+                  touched.userName && <Errors texts={errors.userName} />}
+                {route.params.title.toUpperCase() === 'PROVIDER' && (
+                  <>
+                    <FormInput
+                      icon="mail"
+                      autoCorrect={false}
+                      // autoCompleteType="email"
+                      // textContentType="emailAddress"
+                      placeholder="Email"
+                      autoCapitalize="none"
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      value={values.email}
+                      keyboardType="email-address"
+                    />
+                    {values.email.length !== 0 &&
+                      errors.email &&
+                      touched.email && <Errors texts={errors.email} />}
+                    <FormInput
+                      value={value.phoneNumber}
+                      placeholder="Phone Number"
+                      icon="smartphone"
+                      onChangeText={handleChange('phoneNumber')}
+                      autoCorrect={false}
+                      autoCompleteType="tel"
+                      keyboardType="number-pad"
+                      textContentType="telephoneNumber"
+                      autoCapitalize="none"
+                      onBlur={handleBlur('phoneNumber')}
+                    />
+                    {values.phoneNumber.length !== 0 &&
+                      errors.phoneNumber &&
+                      touched.phoneNumber && (
+                        <Errors texts={errors.phoneNumber} />
+                      )}
+                  </>
+                )}
+                <View
+                  style={{
+                    ...styles.formContainerAddress,
+                    backgroundColor: theme.FORM_INPUT_COLOR,
+                  }}>
+                  <Feather
+                    style={{...styles.icon, color: theme.FORM_INPUT_TEXT_COLOR}}
+                    name="map"
                   />
-                  <Text
+                  <TextInput
+                    multiline
+                    numberOfLines={4}
+                    value={values.address}
+                    onChangeText={handleChange('address')}
+                    onBlur={handleBlur('address')}
                     style={{
-                      ...styles.optionText,
-                      color: theme.PRIMARY_TEXT_COLOR,
-                    }}>
-                    Yes , I will
-                  </Text>
-                </View>
-                <View style={styles.optionWrapper}>
-                  <TouchableOpacity
-                    onPress={() => onIncentiveChange(false)}
-                    style={{
-                      ...styles.option,
-                      backgroundColor: data.incentive
-                        ? inactiveColor
-                        : activeColor,
+                      ...styles.textInput,
+                      color: theme.FORM_INPUT_TEXT_COLOR,
                     }}
+                    placeholder="Address"
+                    placeholderTextColor={inactiveColor}
+                    autoCorrect={false}
+                    autoCompleteType="street-address"
+                    keyboardType="default"
+                    textContentType="fullStreetAddress"
+                    autoCapitalize="none"
                   />
-                  <Text
-                    style={{
-                      ...styles.optionText,
-                      color: theme.PRIMARY_TEXT_COLOR,
-                    }}>
-                    No , I really want to help
-                  </Text>
                 </View>
-              </View>
-            </>
-          )}
-          <GradientButton
-            height={50}
-            title={
-              route.params.title === 'Provider'
-                ? 'REGISTER'
-                : 'SEARCH PROVIDERS'
-            }
-            onPress={() => newUserRegistration()}
-          />
+                {values.address.length !== 0 &&
+                  errors.address &&
+                  touched.address && <Errors texts={errors.address} />}
+                {route.params.title.toUpperCase() === 'PROVIDER' && (
+                  <>
+                    <Text
+                      style={{...styles.text, color: theme.PRIMARY_TEXT_COLOR}}>
+                      Will you charge money from Patients in Need ?
+                    </Text>
+                    <View style={styles.incentiveWrapper}>
+                      <View style={styles.optionWrapper}>
+                        <TouchableOpacity
+                          onPress={() => setIncentive(true)}
+                          style={{
+                            ...styles.option,
+                            backgroundColor: incentive
+                              ? activeColor
+                              : inactiveColor,
+                          }}
+                        />
+                        <Text
+                          style={{
+                            ...styles.optionText,
+                            color: theme.PRIMARY_TEXT_COLOR,
+                          }}>
+                          Yes , I will
+                        </Text>
+                      </View>
+                      <View style={styles.optionWrapper}>
+                        <TouchableOpacity
+                          onPress={() => setIncentive(false)}
+                          style={{
+                            ...styles.option,
+                            backgroundColor: incentive
+                              ? inactiveColor
+                              : activeColor,
+                          }}
+                        />
+                        <Text
+                          style={{
+                            ...styles.optionText,
+                            color: theme.PRIMARY_TEXT_COLOR,
+                          }}>
+                          No , I really want to help
+                        </Text>
+                      </View>
+                    </View>
+                  </>
+                )}
+                {!isValid || isLoading ? (
+                  <TouchableOpacity disabled>
+                    <LinearGradient
+                      start={{x: 1, y: 0}}
+                      end={{x: 0, y: 1}}
+                      colors={[inactiveColor, inactiveColor]}
+                      style={styles.button}>
+                      <Text style={styles.buttonText}>
+                        {route.params.title === 'Provider'
+                          ? 'REGISTER'
+                          : 'SEARCH PROVIDERS'}
+                      </Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={handleSubmit}>
+                    <LinearGradient
+                      start={{x: 1, y: 0}}
+                      end={{x: 0, y: 1}}
+                      colors={[primary.main, primary.light]}
+                      style={styles.button}>
+                      <Text style={styles.buttonText}>
+                        {route.params.title === 'Provider'
+                          ? 'REGISTER'
+                          : 'SEARCH PROVIDERS'}
+                      </Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                )}
+              </>
+            )}
+          </Formik>
         </View>
       </Pressable>
     </Screen>
@@ -224,6 +269,7 @@ const mapStateToProps = state => {
   return {
     userData: state.user.currentUser,
     location: state.user.currentUser.location,
+    isLoading: state.user.isLoading,
   };
 };
 
