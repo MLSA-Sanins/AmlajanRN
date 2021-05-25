@@ -4,7 +4,8 @@ import auth from '@react-native-firebase/auth';
 import LoadingScreen from '../components/LoadingView';
 import {connect, useDispatch} from 'react-redux';
 import {FETCHING_INITIAL_USER} from '../redux/constants';
-import {getInitialUserData} from '../redux/actions/userActions';
+import { getInitialUserData } from '../redux/actions/userActions';
+import SplashScreen from 'react-native-splash-screen'
 
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
@@ -26,6 +27,7 @@ const Routes = ({getInitialUserData, isLoading}) => {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    SplashScreen.hide();
     return subscriber; // unsubscribe on unmount
   }, []);
 

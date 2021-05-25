@@ -43,35 +43,37 @@ const MapScreen = ({navigation, location, allProviders}) => {
           onPress={() => navigation.navigate('Profile')}
         />
       </AppNavigationHeader>
-      <MapView
-        customMapStyle={mapTheme()}
-        style={{...styles.Maps}}
-        initialRegion={{
-          latitude: location.latitude || location.lat,
-          longitude: location.longitude || location.long,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}>
-        {allProviders.map((marker, index) => (
-          <Marker
-            key={index}
-            coordinate={{
-              latitude: marker.location.lat || marker.location.latitude,
-              longitude: marker.location.long || marker.location.longitude,
-            }}
-            title={marker.displayName}
-            description={marker.location.address}
-          />
-        ))}
-        <Marker
-          pinColor="yellow"
-          title="My Location"
-          coordinate={{
+      {location.latitude !== null && (
+        <MapView
+          customMapStyle={mapTheme()}
+          style={{...styles.Maps}}
+          initialRegion={{
             latitude: location.latitude || location.lat,
             longitude: location.longitude || location.long,
-          }}
-        />
-      </MapView>
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}>
+          {allProviders.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: marker.location.lat || marker.location.latitude,
+                longitude: marker.location.long || marker.location.longitude,
+              }}
+              title={marker.displayName}
+              description={marker.location.address}
+            />
+          ))}
+          <Marker
+            pinColor="yellow"
+            title="My Location"
+            coordinate={{
+              latitude: location.latitude || location.lat,
+              longitude: location.longitude || location.long,
+            }}
+          />
+        </MapView>
+      )}
     </Screen>
   );
 };
