@@ -26,16 +26,8 @@ import {Formik} from 'formik';
 import signupSchema from '../../utils/loginSchema';
 import {connect} from 'react-redux';
 import Errors from '../../components/Errors';
-import {
-  s,
-  vs,
-  ms,
-  mvs,
-  msr,
-  scale,
-  verticalScale,
-  moderateScale,
-} from 'react-native-size-matters';
+import GradientButton from '../../components/GradientButton';
+import DisabledButton from '../../components/DisabledButton';
 import {ScaledSheet} from 'react-native-size-matters';
 
 const SignUpScreen = ({navigation, error, isLoading}) => {
@@ -105,9 +97,9 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
                   value={values.password}
                   secureTextEntry
                 />
-                {values.password.length !== 0 && errors.password && touched.password && (
-                  <Errors texts={errors.password} />
-                )}
+                {values.password.length !== 0 &&
+                  errors.password &&
+                  touched.password && <Errors texts={errors.password} />}
                 <FormInput
                   autoCorrect={false}
                   icon="lock"
@@ -121,29 +113,19 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
                   value={values.confirmPassword}
                   secureTextEntry
                 />
-                {values.confirmPassword.length !== 0 && errors.confirmPassword && touched.confirmPassword && (
-                  <Errors texts={errors.confirmPassword} />
-                )}
+                {values.confirmPassword.length !== 0 &&
+                  errors.confirmPassword &&
+                  touched.confirmPassword && (
+                    <Errors texts={errors.confirmPassword} />
+                  )}
                 {!isValid || isLoading ? (
-                  <TouchableOpacity disabled>
-                    <LinearGradient
-                      start={{x: 1, y: 0}}
-                      end={{x: 0, y: 1}}
-                      colors={['#cccccc', '#cccccc']}
-                      style={styles.button}>
-                      <Text style={styles.buttonText}>SIGN UP</Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
+                  <DisabledButton title="SIGN UP" height={50} />
                 ) : (
-                  <TouchableOpacity onPress={handleSubmit}>
-                    <LinearGradient
-                      start={{x: 1, y: 0}}
-                      end={{x: 0, y: 1}}
-                      colors={[primary.main, primary.light]}
-                      style={styles.button}>
-                      <Text style={styles.buttonText}>SIGN UP</Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
+                  <GradientButton
+                    onPress={handleSubmit}
+                    title="SIGN UP"
+                    height={50}
+                  />
                 )}
               </>
             )}
@@ -171,7 +153,7 @@ export default connect(mapStateToProps)(SignUpScreen);
 
 const styles = ScaledSheet.create({
   Page: {
-    
+    justifyContent: 'center',
   },
   oAuth: {
     display: 'flex',
@@ -185,25 +167,24 @@ const styles = ScaledSheet.create({
   button: {
     marginHorizontal: '30@s',
     //marginTop: 30,
-    borderRadius: 5,
-    height: 60,
+    borderRadius: '5@vs',
+    height: '60@vs',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
-    fontSize: 22,
+    fontSize: '22@mvs0.3',
     fontFamily: 'Montserrat-Regular',
   },
   bottomView: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: '10@vs',
   },
   Logo: {
     alignSelf: 'center',
-    marginTop: 30,
   },
 });

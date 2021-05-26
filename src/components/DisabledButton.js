@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {primary, secondary} from '../theme/theme';
+import {Text, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {ScaledSheet, verticalScale} from 'react-native-size-matters';
 
 export default function Button({title, height}) {
   return (
@@ -10,27 +10,27 @@ export default function Button({title, height}) {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}
         colors={['#ccc', '#ccc']}
-        style={{...styles.button, height: height}}>
+        style={{...styles.button, height: verticalScale(height)}}>
         <Text style={styles.buttonText}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   button: {
-    marginHorizontal: 30,
-    marginTop: 20,
-    borderRadius: 5,
+    marginHorizontal: '30@s',
+    marginTop: '20@vs',
+    borderRadius: '5@vs',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
-    minWidth: 200,
+    minWidth: '200@s',
   },
   buttonText: {
     fontFamily: 'Montserrat-Regular',
     color: '#fff',
-    fontSize: 22,
+    fontSize: '22@mvs0.3',
   },
 });

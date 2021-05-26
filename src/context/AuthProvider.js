@@ -22,15 +22,24 @@ export const AuthProvider = ({children}) => {
         user,
         setUser,
         googleLogin: async () => {
-          // Get the users ID token
-          dispatch({type: FETCHING_INITIAL_USER});
-          const {idToken} = await GoogleSignin.signIn();
+          try {
+            // Get the users ID token
+            dispatch({type: FETCHING_INITIAL_USER});
+            const result = await GoogleSignin.signIn();
 
-          // Create a Google credential with the token
-          const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+            console.log(result);
+            const {idToken} = result;
+            // Create a Google credential with the token
+            const googleCredential =
+              auth.GoogleAuthProvider.credential(idToken);
 
-          // Sign-in the user with the credential
-          return auth().signInWithCredential(googleCredential);
+            dispatch(clearErrors());
+            // Sign-in the user with the credential
+            return auth().signInWithCredential(googleCredential);
+          } catch {
+            dispatch(getErrors('Signin Cancelled'));
+            dispatch({type: AUTH_FAILED});
+          }
         },
         login: async (email, password) => {
           try {

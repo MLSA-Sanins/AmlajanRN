@@ -8,7 +8,8 @@ import {
   Keyboard,
   StatusBar,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import GradientButton from '../../components/GradientButton';
+import DisabledButton from '../../components/DisabledButton';
 import FormInput from '../../components/FormInput';
 import GoogleButton from '../../components/GoogleButton';
 import FacebookButton from '../../components/FacebookButton';
@@ -24,16 +25,6 @@ import {Formik} from 'formik';
 import loginSchema from '../../utils/loginSchema';
 import {connect} from 'react-redux';
 import Errors from '../../components/Errors';
-import {
-  s,
-  vs,
-  ms,
-  mvs,
-  msr,
-  scale,
-  verticalScale,
-  moderateScale,
-} from 'react-native-size-matters';
 import {ScaledSheet} from 'react-native-size-matters';
 
 const LoginScreen = ({navigation, error, isLoading}) => {
@@ -44,7 +35,7 @@ const LoginScreen = ({navigation, error, isLoading}) => {
   const theme = useSelector(state => state.themes.theme);
 
   return (
-    <Screen behavior="height">
+    <Screen behavior="height" style={styles.Page}>
       <Pressable onPress={Keyboard.dismiss}>
         <StatusBar
           backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
@@ -85,7 +76,7 @@ const LoginScreen = ({navigation, error, isLoading}) => {
                   value={values.email}
                   keyboardType="email-address"
                 />
-                {values.email.length !== 0 && errors.email && touched.email && (
+                {errors.email && touched.email && (
                   <Errors texts={errors.email} />
                 )}
                 <FormInput
@@ -101,29 +92,17 @@ const LoginScreen = ({navigation, error, isLoading}) => {
                   value={values.password}
                   secureTextEntry
                 />
-                {values.password.length !== 0 && errors.password && touched.password && (
+                {errors.password && touched.password && (
                   <Errors texts={errors.password} />
                 )}
                 {!isValid || isLoading ? (
-                  <TouchableOpacity disabled>
-                    <LinearGradient
-                      start={{x: 1, y: 0}}
-                      end={{x: 0, y: 1}}
-                      colors={['#cccccc', '#cccccc']}
-                      style={styles.button}>
-                      <Text style={styles.buttonText}>LOGIN</Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
+                  <DisabledButton title="LOGIN" height={50} />
                 ) : (
-                  <TouchableOpacity onPress={handleSubmit}>
-                    <LinearGradient
-                      start={{x: 1, y: 0}}
-                      end={{x: 0, y: 1}}
-                      colors={[primary.main, primary.light]}
-                      style={styles.button}>
-                      <Text style={styles.buttonText}>LOGIN</Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
+                  <GradientButton
+                    onPress={handleSubmit}
+                    title="LOGIN"
+                    height={50}
+                  />
                 )}
               </>
             )}
@@ -150,6 +129,9 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {})(LoginScreen);
 
 const styles = ScaledSheet.create({
+  Page: {
+    justifyContent: 'center',
+  },
   subtitle: {
     marginLeft: '30@s',
     marginTop: '30@vs',
@@ -186,6 +168,5 @@ const styles = ScaledSheet.create({
   },
   Logo: {
     alignSelf: 'center',
-    marginTop: height * 0.1,
   },
 });

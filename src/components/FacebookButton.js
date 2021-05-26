@@ -1,17 +1,18 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {width, height} from '../utils/dimensions';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styled from 'styled-components';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+import {ScaledSheet,scale,verticalScale,moderateScale} from 'react-native-size-matters';
 
 const FbButton = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: ${props => props.theme.AUTH_BACKGROUND_COLOR};
-  border-radius: 20px;
-  border-width: 1px;
+  border-radius: ${verticalScale(20)}px;
+  border-width: ${moderateScale(1)}px;
   border-color: #e5e5e5;
 `;
 
@@ -27,13 +28,13 @@ export default function FacebookButton({onPress, ...rest}) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   facebook: {
     width: width / 2.5,
     height: height / 10,
     elevation: 5,
   },
   facebookIcon: {
-    fontSize: 30,
+    fontSize: '30@mvs0.3',
   },
 });
