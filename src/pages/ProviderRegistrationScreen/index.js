@@ -36,6 +36,7 @@ const UserDetailsScreen = ({
   location,
   updateAddress,
   isLoading,
+  error,
 }) => {
   const {displayName, email, phoneNumber, uid} = userData;
 
@@ -64,7 +65,7 @@ const UserDetailsScreen = ({
       incentive: incentive,
       uid: uid,
     };
-    registerNewUser(route.params.title.toLowerCase(), dataSubmit, navigation);
+    registerNewUser('provider', dataSubmit, navigation);
   };
 
   return (
@@ -81,6 +82,9 @@ const UserDetailsScreen = ({
               source={profile}
             />
           </View>
+          {error.error && (
+            <Errors texts="Registration Failed Check Your Details" />
+          )}
           <Formik
             validationSchema={providerSchema}
             initialValues={{
@@ -244,6 +248,7 @@ const mapStateToProps = state => {
     userData: state.user.currentUser,
     location: state.user.currentUser.location,
     isLoading: state.user.isLoading,
+    error: state.error,
   };
 };
 

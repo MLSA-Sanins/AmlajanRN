@@ -28,7 +28,6 @@ import {Screen} from '../../components/Screen';
 import patientSchema from '../../utils/patientSchema';
 import Errors from '../../components/Errors';
 import {Formik} from 'formik';
-import LinearGradient from 'react-native-linear-gradient';
 
 const UserDetailsScreen = ({
   route,
@@ -38,6 +37,7 @@ const UserDetailsScreen = ({
   location,
   updateAddress,
   isLoading,
+  error,
 }) => {
   const {displayName, uid} = userData;
 
@@ -58,7 +58,7 @@ const UserDetailsScreen = ({
       location: location,
       uid: uid,
     };
-    registerNewUser(route.params.title.toLowerCase(), dataSubmit, navigation);
+    registerNewUser('patient', dataSubmit, navigation);
   };
 
   return (
@@ -75,6 +75,9 @@ const UserDetailsScreen = ({
               source={profile}
             />
           </View>
+          {error.error && (
+            <Errors texts="Registration Failed Check Your Details" />
+          )}
           <Formik
             validationSchema={patientSchema}
             initialValues={{
@@ -162,6 +165,7 @@ const mapStateToProps = state => {
     userData: state.user.currentUser,
     location: state.user.currentUser.location,
     isLoading: state.user.isLoading,
+    error: state.error,
   };
 };
 
