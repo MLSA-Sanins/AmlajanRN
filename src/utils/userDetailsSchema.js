@@ -6,7 +6,7 @@ const phoneRegExp =
 export default yup.object().shape({
   userName: yup.string().required('User Name is Required'),
   address: yup.string().required('Address is Required'),
-  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('Phone Number is Required'),
   email: yup
     .string()
     .email('Please enter valid email')
