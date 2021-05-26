@@ -52,7 +52,7 @@ export const StatsView = styled.View`
   padding-bottom: 20px;
 `;
 
-export const StatsSection = styled.View`
+export const StatsSection = styled.Pressable`
   flex: 1;
   border-right-color: white;
   border-right-width: 1px;
@@ -60,7 +60,7 @@ export const StatsSection = styled.View`
   align-items: center;
 `;
 
-export const LastStatsSection = styled.View`
+export const LastStatsSection = styled.Pressable`
   flex: 1;
   justify-content: center;
   align-items: center;

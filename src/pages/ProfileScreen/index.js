@@ -79,25 +79,21 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
               />
             </TouchableOpacity>
           </StatsSection> */}
-          <StatsSection>
-            <TouchableOpacity onPress={() => switchThemes()}>
-              <AntDesign
-                name="bulb1"
-                size={25}
-                backgroundColor={theme.STATS_VIEW_COLOR}
-                color={theme.FORM_INPUT_TEXT_COLOR}
-              />
-            </TouchableOpacity>
+          <StatsSection onPress={() => switchThemes()}>
+            <AntDesign
+              name="bulb1"
+              size={25}
+              backgroundColor={theme.STATS_VIEW_COLOR}
+              color={theme.FORM_INPUT_TEXT_COLOR}
+            />
           </StatsSection>
-          <LastStatsSection>
-            <TouchableOpacity onPress={() => logout()}>
-              <AntDesign
-                name="logout"
-                size={25}
-                backgroundColor={theme.STATS_VIEW_COLOR}
-                color={theme.FORM_INPUT_TEXT_COLOR}
-              />
-            </TouchableOpacity>
+          <LastStatsSection onPress={() => logout()}>
+            <AntDesign
+              name="logout"
+              size={25}
+              backgroundColor={theme.STATS_VIEW_COLOR}
+              color={theme.FORM_INPUT_TEXT_COLOR}
+            />
           </LastStatsSection>
         </StatsView>
         {/* <GradientButton
