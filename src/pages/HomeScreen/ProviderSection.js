@@ -112,7 +112,7 @@ const ProviderSection = ({
   };
 
   if (loadingLocation && loadingNearbyProviders) {
-    return null;
+    return <ProviderHeader>Loading Data of Providers</ProviderHeader>;
   }
 
   const profile = {

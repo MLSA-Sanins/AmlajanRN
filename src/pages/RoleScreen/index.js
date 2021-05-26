@@ -50,12 +50,12 @@ const RoleScreen = ({navigation, fecthLocationAndAddress, isLoading}) => {
       <GradientButton
         height={50}
         title="PATIENT"
-        onPress={() => navigation.navigate('UserDetails', {title: 'Patient'})}
+        onPress={() => navigation.navigate('Patient')}
       />
       <GradientButton
         height={50}
         title="PROVIDER"
-        onPress={() => navigation.navigate('UserDetails', {title: 'Provider'})}
+        onPress={() => navigation.navigate('Provider')}
       />
     </Screen>
   );

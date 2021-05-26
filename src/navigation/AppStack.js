@@ -7,7 +7,8 @@ import {connect} from 'react-redux';
 import {useSelector} from 'react-redux';
 
 import RoleScreen from '../pages/RoleScreen';
-import UserDetailsScreen from '../pages/UserDetailsScreen';
+import PatientRegistrationScreen from '../pages/PatientRegistrationScreen';
+import ProviderRegistrationScreen from '../pages/ProviderRegistrationScreen';
 import MainScreen from '../pages/MainScreen';
 import LoadingView from '../components/LoadingView';
 
@@ -46,8 +47,31 @@ const AppStacks = ({isRegistered}) => {
               </View>
             ),
           })}
-          name="UserDetails"
-          component={UserDetailsScreen}
+          name="Patient"
+          component={PatientRegistrationScreen}
+        />
+        <AppStack.Screen
+          options={({navigation}) => ({
+            title: '',
+            headerStyle: {
+              backgroundColor: theme.PRIMARY_BACKGROUND_COLOR,
+              shadowColor: '#f9fafd',
+              elevation: 0,
+            },
+            headerLeft: () => (
+              <View style={styles.headerStyle}>
+                <FontAwesome.Button
+                  name="long-arrow-left"
+                  size={25}
+                  backgroundColor={theme.PRIMARY_BACKGROUND_COLOR}
+                  color={theme.PRIMARY_TEXT_COLOR}
+                  onPress={() => navigation.navigate('Roles')}
+                />
+              </View>
+            ),
+          })}
+          name="Provider"
+          component={ProviderRegistrationScreen}
         />
       </AppStack.Navigator>
     );

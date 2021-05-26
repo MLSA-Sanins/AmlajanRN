@@ -14,7 +14,6 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import getPicDimension from '../../utils/getPicDimensions';
-import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Feather from 'react-native-vector-icons/Feather';
 import {primary, secondary} from '../../theme/theme';
@@ -22,10 +21,12 @@ import {connect} from 'react-redux';
 import {registerNewUser} from '../../redux/actions/userActions';
 import {updateAddress} from '../../redux/actions/locationActions';
 import GradientButton from '../../components/GradientButton';
+import DisabledButton from '../../components/DisabledButton';
 import {useSelector} from 'react-redux';
 import {Screen} from '../../components/Screen';
-import userDetailsSchema from '../../utils/userDetailsSchema';
+import providerSchema from '../../utils/providerSchema';
 import Errors from '../../components/Errors';
+import {Formik} from 'formik';
 
 const UserDetailsScreen = ({
   route,
@@ -36,7 +37,7 @@ const UserDetailsScreen = ({
   updateAddress,
   isLoading,
 }) => {
-  const [userName, email, phoneNumber, uid] = userData;
+  const {displayName, email, phoneNumber, uid} = userData;
 
   const [incentive, setIncentive] = useState(false);
 
@@ -53,13 +54,13 @@ const UserDetailsScreen = ({
     height: size,
   };
 
-  const newUserRegistration = ({userName, address, email, phoneNumber}) => {
-    updateAddress(address);
+  const newUserRegistration = values => {
+    updateAddress(values.address);
     const dataSubmit = {
-      displayName: userName,
+      displayName: values.displayName,
       location: location,
-      email: email,
-      phoneNumber: phoneNumber,
+      email: values.email,
+      phoneNumber: values.phoneNumber,
       incentive: incentive,
       uid: uid,
     };
@@ -71,7 +72,7 @@ const UserDetailsScreen = ({
       <Pressable onPress={Keyboard.dismiss}>
         <View>
           <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
-            ENTER {route.params.title.toUpperCase()} DETAILS
+            ENTER PROVIDER DETAILS
           </Text>
           <View style={styles.picContainer}>
             <Image
@@ -81,9 +82,9 @@ const UserDetailsScreen = ({
             />
           </View>
           <Formik
-            validationSchema={userDetailsSchema}
+            validationSchema={providerSchema}
             initialValues={{
-              userName: userName || '',
+              displayName: displayName || '',
               address: location.address || '',
               email: email,
               phoneNumber: phoneNumber || '',
@@ -101,8 +102,8 @@ const UserDetailsScreen = ({
             }) => (
               <>
                 <FormInput
-                  value={values.userName}
-                  onChangeText={handleChange('userName')}
+                  value={values.displayName}
+                  onChangeText={handleChange('displayName')}
                   placeholder="Username"
                   icon="user"
                   autoCorrect={false}
@@ -110,47 +111,42 @@ const UserDetailsScreen = ({
                   keyboardType="default"
                   textContentType="username"
                   autoCapitalize="none"
-                  onBlur={handleBlur('userName')}
+                  onBlur={handleBlur('displayName')}
                 />
-                {values.userName.length !== 0 &&
-                  errors.userName &&
-                  touched.userName && <Errors texts={errors.userName} />}
-                {route.params.title.toUpperCase() === 'PROVIDER' && (
-                  <>
-                    <FormInput
-                      icon="mail"
-                      autoCorrect={false}
-                      // autoCompleteType="email"
-                      // textContentType="emailAddress"
-                      placeholder="Email"
-                      autoCapitalize="none"
-                      onChangeText={handleChange('email')}
-                      onBlur={handleBlur('email')}
-                      value={values.email}
-                      keyboardType="email-address"
-                    />
-                    {values.email.length !== 0 &&
-                      errors.email &&
-                      touched.email && <Errors texts={errors.email} />}
-                    <FormInput
-                      value={value.phoneNumber}
-                      placeholder="Phone Number"
-                      icon="smartphone"
-                      onChangeText={handleChange('phoneNumber')}
-                      autoCorrect={false}
-                      autoCompleteType="tel"
-                      keyboardType="number-pad"
-                      textContentType="telephoneNumber"
-                      autoCapitalize="none"
-                      onBlur={handleBlur('phoneNumber')}
-                    />
-                    {values.phoneNumber.length !== 0 &&
-                      errors.phoneNumber &&
-                      touched.phoneNumber && (
-                        <Errors texts={errors.phoneNumber} />
-                      )}
-                  </>
+                {errors.displayName && touched.displayName && (
+                  <Errors texts={errors.displayName} />
                 )}
+                <FormInput
+                  icon="mail"
+                  autoCorrect={false}
+                  // autoCompleteType="email"
+                  // textContentType="emailAddress"
+                  placeholder="Email"
+                  autoCapitalize="none"
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                  keyboardType="email-address"
+                />
+                {errors.email && touched.email && (
+                  <Errors texts={errors.email} />
+                )}
+                <FormInput
+                  value={values.phoneNumber}
+                  placeholder="Phone Number"
+                  icon="smartphone"
+                  onChangeText={handleChange('phoneNumber')}
+                  autoCorrect={false}
+                  autoCompleteType="tel"
+                  keyboardType="number-pad"
+                  textContentType="telephoneNumber"
+                  autoCapitalize="none"
+                  onBlur={handleBlur('phoneNumber')}
+                />
+                {errors.phoneNumber && touched.phoneNumber && (
+                  <Errors texts={errors.phoneNumber} />
+                )}
+
                 <View
                   style={{
                     ...styles.formContainerAddress,
@@ -179,83 +175,60 @@ const UserDetailsScreen = ({
                     autoCapitalize="none"
                   />
                 </View>
-                {values.address.length !== 0 &&
-                  errors.address &&
-                  touched.address && <Errors texts={errors.address} />}
-                {route.params.title.toUpperCase() === 'PROVIDER' && (
-                  <>
-                    <Text
-                      style={{...styles.text, color: theme.PRIMARY_TEXT_COLOR}}>
-                      Will you charge money from Patients in Need ?
-                    </Text>
-                    <View style={styles.incentiveWrapper}>
-                      <View style={styles.optionWrapper}>
-                        <TouchableOpacity
-                          onPress={() => setIncentive(true)}
-                          style={{
-                            ...styles.option,
-                            backgroundColor: incentive
-                              ? activeColor
-                              : inactiveColor,
-                          }}
-                        />
-                        <Text
-                          style={{
-                            ...styles.optionText,
-                            color: theme.PRIMARY_TEXT_COLOR,
-                          }}>
-                          Yes , I will
-                        </Text>
-                      </View>
-                      <View style={styles.optionWrapper}>
-                        <TouchableOpacity
-                          onPress={() => setIncentive(false)}
-                          style={{
-                            ...styles.option,
-                            backgroundColor: incentive
-                              ? inactiveColor
-                              : activeColor,
-                          }}
-                        />
-                        <Text
-                          style={{
-                            ...styles.optionText,
-                            color: theme.PRIMARY_TEXT_COLOR,
-                          }}>
-                          No , I really want to help
-                        </Text>
-                      </View>
-                    </View>
-                  </>
+                {errors.address && touched.address && (
+                  <Errors texts={errors.address} />
                 )}
+
+                <Text style={{...styles.text, color: theme.PRIMARY_TEXT_COLOR}}>
+                  Will you charge money from Patients in Need ?
+                </Text>
+                <View style={styles.incentiveWrapper}>
+                  <View style={styles.optionWrapper}>
+                    <TouchableOpacity
+                      onPress={() => setIncentive(true)}
+                      style={{
+                        ...styles.option,
+                        backgroundColor: incentive
+                          ? activeColor
+                          : inactiveColor,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        ...styles.optionText,
+                        color: theme.PRIMARY_TEXT_COLOR,
+                      }}>
+                      Yes , I will
+                    </Text>
+                  </View>
+                  <View style={styles.optionWrapper}>
+                    <TouchableOpacity
+                      onPress={() => setIncentive(false)}
+                      style={{
+                        ...styles.option,
+                        backgroundColor: incentive
+                          ? inactiveColor
+                          : activeColor,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        ...styles.optionText,
+                        color: theme.PRIMARY_TEXT_COLOR,
+                      }}>
+                      No , I really want to help
+                    </Text>
+                  </View>
+                </View>
+
                 {!isValid || isLoading ? (
-                  <TouchableOpacity disabled>
-                    <LinearGradient
-                      start={{x: 1, y: 0}}
-                      end={{x: 0, y: 1}}
-                      colors={[inactiveColor, inactiveColor]}
-                      style={styles.button}>
-                      <Text style={styles.buttonText}>
-                        {route.params.title === 'Provider'
-                          ? 'REGISTER'
-                          : 'SEARCH PROVIDERS'}
-                      </Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
+                  <DisabledButton title="REGISTER" height={50} />
                 ) : (
-                  <TouchableOpacity onPress={handleSubmit}>
-                    <LinearGradient
-                      start={{x: 1, y: 0}}
-                      end={{x: 0, y: 1}}
-                      colors={[primary.main, primary.light]}
-                      style={styles.button}>
-                      <Text style={styles.buttonText}>
-                        {route.params.title === 'Provider'
-                          ? 'REGISTER'
-                          : 'SEARCH PROVIDERS'}
-                      </Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
+                  <GradientButton
+                    title="REGISTER"
+                    height={50}
+                    onPress={handleSubmit}
+                  />
                 )}
               </>
             )}
