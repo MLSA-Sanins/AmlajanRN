@@ -65,7 +65,8 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
           <Formik
             validationSchema={signupSchema}
             initialValues={{email: '', password: '', confirmPassword: ''}}
-            onSubmit={values => register(values.email, values.password)}>
+            onSubmit={values => register(values.email, values.password)}
+            validateOnMount>
             {({
               handleChange,
               handleBlur,
@@ -88,7 +89,7 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
                   value={values.email}
                   keyboardType="email-address"
                 />
-                {errors.email && touched.email && (
+                {values.email.length !== 0 && errors.email && touched.email && (
                   <Errors texts={errors.email} />
                 )}
                 <FormInput
@@ -104,7 +105,7 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
                   value={values.password}
                   secureTextEntry
                 />
-                {errors.password && touched.password && (
+                {values.password.length !== 0 && errors.password && touched.password && (
                   <Errors texts={errors.password} />
                 )}
                 <FormInput
@@ -120,7 +121,7 @@ const SignUpScreen = ({navigation, error, isLoading}) => {
                   value={values.confirmPassword}
                   secureTextEntry
                 />
-                {errors.confirmPassword && touched.confirmPassword && (
+                {values.confirmPassword.length !== 0 && errors.confirmPassword && touched.confirmPassword && (
                   <Errors texts={errors.confirmPassword} />
                 )}
                 {!isValid || isLoading ? (
