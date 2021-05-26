@@ -25,6 +25,7 @@ import GradientButton from '../../components/GradientButton';
 import {useSelector} from 'react-redux';
 import {Screen} from '../../components/Screen';
 import userDetailsSchema from '../../utils/userDetailsSchema';
+import Errors from '../../components/Errors';
 
 const UserDetailsScreen = ({
   route,
