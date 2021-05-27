@@ -2,9 +2,11 @@ import React from 'react';
 import {StyleSheet, PixelRatio} from 'react-native';
 import {ImgContainer, ProfileThumbnail, ProfileName} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { height, width } from '../../utils/dimensions';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 const ProfileSection = ({userData, theme}) => {
-  const size = 65;
+  const size = height * 0.08;
   //calculating right dimension to be fetched
   const picDimension = {
     picWidth: PixelRatio.getPixelSizeForLayoutSize(size),

@@ -5,6 +5,7 @@ import {
   LOGOUT_USER,
   FETCHING_NEARBY_PROVIDERS,
   NEARBY_PROVIDERS_FETCHED,
+  LOCATION_LOADED,
 } from '../constants';
 
 const initialState = {
@@ -22,6 +23,8 @@ export default (state = initialState, actions) => {
       return {...state, isLoading: true};
     case ALL_PROVIDERS_FETCHED:
       return {...state, allProviders: actions.payload, isLoading: false};
+    case LOCATION_LOADED:
+      return {...state, isLoading: false, loadingNearbyProviders: false};
     case NEARBY_PROVIDERS_FETCHED:
       return {
         ...state,

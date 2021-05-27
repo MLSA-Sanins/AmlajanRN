@@ -1,33 +1,34 @@
 import styled from 'styled-components';
-import {width} from '../../utils/dimensions';
+import {height, width} from '../../utils/dimensions';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 export const ImgContainer = styled.View`
-  width: 65px;
-  height: 65px;
-  border-radius: 35px;
+  width: ${verticalScale(height * 0.08)}px;
+  height: ${verticalScale(height * 0.08)}px;
+  border-radius: ${verticalScale(height * 0.04)}px;
   background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
   position: absolute;
-  left: 20px;
-  top: -40px;
+  left: ${scale(width * 0.04)}px;
+  top: -${verticalScale(height * 0.05)}px;
   justify-content: center;
   border-color: ${props => props.theme.PRIMARY_TEXT_COLOR};
-  border-width: 1px;
+  border-width: ${verticalScale(1)}px;
   align-items: center;
 `;
 
 export const ProfileThumbnail = styled.Image`
   width: 100%;
   height: 100%;
-  border-radius: 35px;
+  border-radius: ${verticalScale(height * 0.04)}px;
 `;
 
 export const ProfileName = styled.Text`
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
-  left: 90px;
+  left: ${scale(width * 0.22)}px;
   position: absolute;
-  top: -20px;
-  font-size: 18px;
-  line-height: 20px;
+  top: -${verticalScale(20)}px;
+  font-size: ${verticalScale(18)}px;
+  line-height: ${verticalScale(20)}px;
   font-family: Montserrat-Regular;
 `;
 
@@ -38,33 +39,33 @@ export const HomeView = styled.View`
 
 export const MapView = styled.Pressable`
   width: 90%;
-  height: 25%;
+  height: ${verticalScale(height * 0.22)}px;
   background-color: gray;
-  border-radius: 10px;
-  margin-top: 40px;
-  border-width: 1px;
+  border-radius: ${verticalScale(10)}px;
+  margin-top: ${verticalScale(40)}px;
+  border-width: ${scale(1)}px;
   border-color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `;
 
 export const MapImage = styled.Image`
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: ${verticalScale(10)}px;
 `;
 
 export const DistanceView = styled.View`
-  height: 50px;
-  margin-top: 25px;
+  height: ${verticalScale(50)}px;
+  margin-top: ${verticalScale(25)}px;
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
 export const DistanceButtons = styled.TouchableOpacity`
-  width: 70px;
-  height: 35px;
+  width: ${scale(70)}px;
+  height: ${verticalScale(35)}px;
   background-color: red;
-  border-radius: 5px;
+  border-radius: ${scale(5)}px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,13 +76,13 @@ export const DistanceButtons = styled.TouchableOpacity`
 
 export const DistanceText = styled.Text`
   font-family: Montserrat-Regular;
-  font-size: 14px;
+  font-size: ${moderateScale(14)}px;
   /* font-weight: bold; */
   color: ${props => props.theme.DISTANCE_BUTTON_TEXT};
 `;
 
 export const ProviderView = styled.View`
-  margin-bottom: 95px;
+  margin-bottom: ${verticalScale(95)}px;
   width: ${width}px;
   align-items: center;
   flex: 1;
@@ -89,79 +90,79 @@ export const ProviderView = styled.View`
 `;
 
 export const ProfileCard = styled.View`
-  margin-bottom: 20px;
+  margin-bottom: ${verticalScale(20)}px;
   width: ${width * 0.9}px;
   height: auto;
   /* background-color: ${props => props.theme.SECONDARY_COLOR}; */
   background-color: gray;
-  border-radius: 10px;
+  border-radius: ${verticalScale(20)}px;
   flex-direction: row;
 `;
 
 export const ImgView = styled.View`
-  width: 90px;
+  width: ${scale(90)}px;
   height: 100%;
 `;
 
 export const CardImgContainer = styled.View`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
+  width: ${scale(80)}px;
+  height: ${scale(80)}px;
+  border-radius: ${verticalScale(40)}px;
   background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
   /* position: absolute; */
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-left: ${scale(10)}px;
+  margin-top: ${verticalScale(10)}px;
+  margin-bottom: ${verticalScale(10)}px;
   justify-content: center;
   border-color: ${props => props.theme.PRIMARY_TEXT_COLOR};
-  border-width: 1px;
+  border-width: ${verticalScale(1)}px;
   align-items: center;
 `;
 
 export const ImgThumbnail = styled.Image`
   width: 100%;
   height: 100%;
-  border-radius: 40px;
+  border-radius: ${verticalScale(40)}px;
 `;
 
 export const CardDescription = styled.View`
   flex: 1;
-  border-radius: 10px;
+  border-radius: ${verticalScale(10)}px;
   display: flex;
-  padding: 10px;
+  padding: ${scale(10)}px;
   flex-direction: column;
 `;
 
 export const CardTitle = styled.Text`
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   font-family: Montserrat-Regular;
-  font-size: 16px;
+  font-size: ${moderateScale(16)}px;
 `;
 
 export const ProviderDistance = styled.Text`
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   font-family: Montserrat-Regular;
-  font-size: 14px;
+  font-size: ${moderateScale(14)}px;
 `;
 
 export const ProviderAddress = styled.Text`
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   font-family: Montserrat-Regular;
-  font-size: 13px;
+  font-size: ${moderateScale(13)}px;
 `;
 
 export const ProviderHeader = styled.Text`
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   font-family: Montserrat-Regular;
-  font-size: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  font-size: ${moderateScale(10)}px;
+  margin-top: ${verticalScale(10)}px;
+  margin-bottom: ${verticalScale(10)}px;
 `;
 
 export const ContactNumber = styled.Text`
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   font-family: Montserrat-Regular;
-  margin-bottom: 10px;
-  font-size: 12px;
+  margin-bottom: ${verticalScale(10)}px;
+  font-size: ${moderateScale(12)}px;
   font-weight: bold;
 `;

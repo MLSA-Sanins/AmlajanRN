@@ -16,7 +16,7 @@ import {connect} from 'react-redux';
 import {AuthContext} from '../../context/AuthProvider';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useSelector} from 'react-redux';
-import GradientButton from '../../components/GradientButton';
+import { height, width } from '../../utils/dimensions';
 import {
   ProfileView,
   ImgContainer,
@@ -32,7 +32,7 @@ import {
 const ProfileScreen = ({navigation, switchTheme, userData}) => {
   const theme = useSelector(state => state.themes.theme);
   const {logout} = useContext(AuthContext);
-  const size = 150;
+  const size = height * 0.2;
   //calculating right dimension to be fetched
   const picDimension = {
     picWidth: PixelRatio.getPixelSizeForLayoutSize(size),
@@ -48,7 +48,7 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
   };
   return (
     <Screen>
-      <AppNavigationHeader height={150}>
+      <AppNavigationHeader height={height * 0.25}>
         <AntDesign.Button
           name="back"
           size={25}
@@ -68,7 +68,7 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
         </ImgContainer>
         <PaddingView />
         <UserName>{userData.displayName}</UserName>
-        
+
         <StatsView>
           {/* <StatsSection>
             <TouchableOpacity onPress={() => navigation.navigate('Maps')}>

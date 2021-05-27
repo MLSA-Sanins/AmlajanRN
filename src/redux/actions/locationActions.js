@@ -61,6 +61,7 @@ const requestLocationPermission = async dispatch => {
 //asking for location permission and geting location back
 export const fecthLocationAndAddress = () => async (dispatch, getState) => {
   if (getState().user.currentUser.location.address) {
+    dispatch({type: LOCATION_LOADED});
     return;
   }
   try {

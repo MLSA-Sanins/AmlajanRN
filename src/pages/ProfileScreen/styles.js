@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import {width} from '../../utils/dimensions';
+import {height, width} from '../../utils/dimensions';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 export const ProfileView = styled.View`
   flex: 1;
@@ -7,14 +8,14 @@ export const ProfileView = styled.View`
 `;
 
 export const ImgContainer = styled.View`
-  width: 150px;
-  height: 150px;
+  width: ${verticalScale(height * 0.2)}px;
+  height: ${verticalScale(height * 0.2)}px;
   background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
-  border-radius: 75px;
+  border-radius: ${verticalScale(height * 0.1)}px;
   /* border-width: 1px;
   border-color: ${props => props.theme.PRIMARY_TEXT_COLOR}; */
-  left: ${width / 2 - 75}px;
-  top: -90px;
+  left: ${width / 2 - verticalScale(height * 0.1)}px;
+  top: -${verticalScale(height * 0.12)}px;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -23,33 +24,33 @@ export const ImgContainer = styled.View`
 export const ProfileThumbnail = styled.Image`
   width: 100%;
   height: 100%;
-  border-radius: 75px;
+  border-radius: ${verticalScale(height * 0.1)}px;
 `;
 
 export const PaddingView = styled.View`
-  height: 80px;
+  height: ${verticalScale(height * 0.1)}px;
   width: ${width}px;
   /* background-color: red; */
 `;
 
 export const UserName = styled.Text`
-  font-size: 20px;
-  line-height: 20px;
+  font-size: ${moderateScale(20)}px;
+  line-height: ${verticalScale(20)}px;
   font-weight: bold;
   font-family: Montserrat-Regular;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `;
 
 export const StatsView = styled.View`
-  margin-top: 10px;
+  margin-top: ${verticalScale(10)}px;
   width: 80%;
   height: 15%;
   background-color: ${props => props.theme.STATS_VIEW_COLOR};
-  border-radius: 20px;
+  border-radius: ${verticalScale(20)}px;
   display: flex;
   flex-direction: row;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: ${verticalScale(20)}px;
+  padding-bottom: ${verticalScale(20)}px;
 `;
 
 export const StatsSection = styled.Pressable`

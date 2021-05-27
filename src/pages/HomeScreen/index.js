@@ -9,6 +9,8 @@ import {Screen} from '../../components/Screen';
 import {useSelector} from 'react-redux';
 import LoadingView from '../../components/LoadingView';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {height, width} from '../../utils/dimensions';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 import AppNavigationHeader from '../../components/AppNavigationHeader';
 
@@ -18,7 +20,7 @@ const HomeScreen = ({navigation, userData}) => {
 
   return (
     <Screen>
-      <AppNavigationHeader height={100}>
+      <AppNavigationHeader height={height * 0.12}>
         <></>
         <AntDesign.Button
           name="find"
@@ -30,9 +32,9 @@ const HomeScreen = ({navigation, userData}) => {
       </AppNavigationHeader>
       <HomeView>
         <ProfileSection theme={theme} userData={userData} />
-        {/* <MapView onPress={() => navigation.navigate('Maps')}>
+        <MapView onPress={() => navigation.navigate('Maps')}>
           <MapImage source={require('../../assets/map.jpg')} />
-        </MapView> */}
+        </MapView>
         <DistanceSection setDistance={setDistance} />
         <ProviderSection distance={distance} theme={theme} />
       </HomeView>

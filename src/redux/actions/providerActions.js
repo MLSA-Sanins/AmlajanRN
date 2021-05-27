@@ -4,6 +4,7 @@ import {
   FETCHING_PROVIDER_FAILED,
   FETCHING_NEARBY_PROVIDERS,
   NEARBY_PROVIDERS_FETCHED,
+  LOCATION_LOADED,
 } from '../constants';
 import {getAllProviders, getNearbyProvider} from '../../api/azureApi';
 import {clearErrors, getErrors} from './errorActions';
@@ -34,6 +35,7 @@ export const getNearbyO2Providers = () => async (dispatch, getState) => {
     // getState().providers.allProviders.length !== 0 &&
     getState().providers.loadingNearbyProviders === true
   ) {
+    dispatch({type: LOCATION_LOADED});
     return;
   }
   try {
