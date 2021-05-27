@@ -98,7 +98,7 @@ const UserDetailsScreen = ({
             initialValues={{
               displayName: displayName || '',
               address: location.address || '',
-              email: email,
+              email: email || '',
               phoneNumber: phoneNumber || '',
             }}
             onSubmit={values => newUserRegistration(values)}
