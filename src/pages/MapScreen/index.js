@@ -84,7 +84,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, null)(MapScreen);
+const component = React.memo(MapScreen);
+export default connect(mapStateToProps, null)(component);
 
 const styles = StyleSheet.create({
   Page: {

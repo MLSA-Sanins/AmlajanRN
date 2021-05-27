@@ -77,13 +77,13 @@ const UserDetailsScreen = ({
           <Text style={{...styles.title, color: theme.PRIMARY_TEXT_COLOR}}>
             ENTER PROVIDER DETAILS
           </Text>
-          <View style={styles.picContainer}>
+          {/* <View style={styles.picContainer}>
             <Image
               progressiveRenderingEnabled
               style={styles.img}
               source={profile}
             />
-          </View>
+          </View> */}
           {error.error && (
             <Errors
               texts={

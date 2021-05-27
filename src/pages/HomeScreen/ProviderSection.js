@@ -124,7 +124,14 @@ const ProviderSection = ({
     <ProviderView>
       <ProviderHeader>
         Showing {distance < 200 ? filterList.length : allProviders.length}{' '}
-        Results. Scroll Down to View.
+        Results.{' '}
+        {distance < 200
+          ? filterList.length > 2
+            ? 'Scroll Down to View.'
+            : ''
+          : allProviders.length > 2
+          ? 'Scroll Down to View.'
+          : ''}{' '}
       </ProviderHeader>
       {showLists()}
     </ProviderView>
@@ -139,5 +146,6 @@ const mapStateToProps = state => {
     loadingNearbyProviders: state.providers.loadingNearbyProviders,
   };
 };
-export default connect(mapStateToProps, null)(ProviderSection);
+const component = React.memo(ProviderSection);
+export default connect(mapStateToProps, null)(component);
 const styles = StyleSheet.create({});
