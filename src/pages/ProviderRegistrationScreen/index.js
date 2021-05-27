@@ -27,6 +27,8 @@ import {Screen} from '../../components/Screen';
 import providerSchema from '../../utils/providerSchema';
 import Errors from '../../components/Errors';
 import {Formik} from 'formik';
+import Swiper from 'react-native-swiper';
+import {width, height} from '../../utils/dimensions';
 
 const UserDetailsScreen = ({
   route,
@@ -83,7 +85,13 @@ const UserDetailsScreen = ({
             />
           </View>
           {error.error && (
-            <Errors texts="Registration Failed Check Your Details" />
+            <Errors
+              texts={
+                error.error === 'Permission Denied'
+                  ? 'We have set Delhi as your default location since you denied us location data.'
+                  : 'Registration Failed Check Your Details'
+              }
+            />
           )}
           <Formik
             validationSchema={providerSchema}
@@ -258,12 +266,16 @@ export default connect(mapStateToProps, {
 })(UserDetailsScreen);
 
 const styles = StyleSheet.create({
+  wrapper: {
+    width: width,
+    height: height / 2,
+  },
   topWrapper: {
     flex: 1,
+    justifyContent: 'center',
   },
   title: {
     textAlign: 'center',
-    marginTop: 20,
     marginBottom: 10,
     fontSize: 25,
   },

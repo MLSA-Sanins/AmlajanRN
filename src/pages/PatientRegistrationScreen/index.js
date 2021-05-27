@@ -76,7 +76,13 @@ const UserDetailsScreen = ({
             />
           </View>
           {error.error && (
-            <Errors texts="Registration Failed Check Your Details" />
+            <Errors
+              texts={
+                error.error === 'Permission Denied'
+                  ? 'We have set Delhi as your default location since you denied us location data.'
+                  : 'Registration Failed Check Your Details'
+              }
+            />
           )}
           <Formik
             validationSchema={patientSchema}

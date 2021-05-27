@@ -12,6 +12,7 @@ const ErrorText = styled.Text`
   font-family: Montserrat-Regular;
   color: red;
   font-size: ${moderateScale(10)}px;
+  text-align: center;
 `;
 
 const Errors = ({texts}) => {

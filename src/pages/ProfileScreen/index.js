@@ -68,6 +68,7 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
         </ImgContainer>
         <PaddingView />
         <UserName>{userData.displayName}</UserName>
+        
         <StatsView>
           {/* <StatsSection>
             <TouchableOpacity onPress={() => navigation.navigate('Maps')}>

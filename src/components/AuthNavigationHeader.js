@@ -2,7 +2,7 @@ import React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useSelector} from 'react-redux';
 import styled from 'styled-components';
-import { scale, moderateScale } from 'react-native-size-matters';
+import {scale, moderateScale} from 'react-native-size-matters';
 
 const HeaderView = styled.View`
   /* margin-left: 10px; */

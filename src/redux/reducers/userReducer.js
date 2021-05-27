@@ -10,6 +10,7 @@ import {
   LOADING_ADDRESS,
   ADDRESS_LOADED,
   UPDATING_ADDRESS,
+  LOCATION_ERROR,
   ADDRESS_UPDATED,
 } from '../constants';
 const initialState = {
@@ -41,6 +42,7 @@ export default (state = initialState, action) => {
         currentUser: {...state.currentUser, ...action.payload},
         isLoading: false,
       };
+    case LOCATION_ERROR:
     case AUTH_FAILED:
       return {...state, isLoading: false};
     case LOADING_ADDRESS:

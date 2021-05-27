@@ -15,7 +15,7 @@ import {GEOLOCATION_API_KEY, REVERSEGEOCODE_URL} from '@env';
 import {fetchAddress} from '../../api/geolocationApi';
 import {getStateFromPath} from '@react-navigation/core';
 
-const requestLocationPermission = async () => {
+const requestLocationPermission = async dispatch => {
   try {
     RNLocation.configure({
       distanceFilter: 100, // Meters
@@ -50,9 +50,10 @@ const requestLocationPermission = async () => {
       const location = await RNLocation.getLatestLocation({timeout: 60000});
       return location;
     } else {
-      console.log('not permitted');
+      return 'Permission Denied';
     }
   } catch (err) {
+    dispatch(getErrors(err));
     console.warn(err);
   }
 };
@@ -64,7 +65,18 @@ export const fecthLocationAndAddress = () => async (dispatch, getState) => {
   }
   try {
     dispatch({type: LOADING_ADDRESS});
-    const location = await requestLocationPermission();
+    const location = await requestLocationPermission(dispatch);
+    if (location === 'Permission Denied') {
+      dispatch({
+        type: ADDRESS_LOADED,
+        payload: {
+          latitude: 28.63409,
+          longitude: 77.21693,
+          address: 'Delhi, DL, India',
+        },
+      });
+      throw 'Permission Denied';
+    }
     const address = await fetchAddress(
       location.latitude,
       location.longitude,
@@ -80,6 +92,7 @@ export const fecthLocationAndAddress = () => async (dispatch, getState) => {
     });
   } catch (e) {
     console.log(e);
+    dispatch({type: LOCATION_ERROR, payload: e});
     dispatch(getErrors(e));
   }
 };

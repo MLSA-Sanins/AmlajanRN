@@ -25,10 +25,8 @@ export const AuthProvider = ({children}) => {
           try {
             // Get the users ID token
             dispatch({type: FETCHING_INITIAL_USER});
-            const result = await GoogleSignin.signIn();
+            const {idToken} = await GoogleSignin.signIn();
 
-            console.log(result);
-            const {idToken} = result;
             // Create a Google credential with the token
             const googleCredential =
               auth.GoogleAuthProvider.credential(idToken);
