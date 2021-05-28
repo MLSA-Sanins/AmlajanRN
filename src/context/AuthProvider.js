@@ -98,7 +98,7 @@ export const AuthProvider = ({children}) => {
             await auth().signOut();
             dispatch({type: LOGOUT_USER});
           } catch (e) {
-            console.warn(e);
+            dispatch({type: LOGOUT_USER});
           }
         },
       }}>
