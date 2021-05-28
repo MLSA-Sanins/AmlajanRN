@@ -35,8 +35,17 @@ export const PaddingView = styled.View`
 
 export const UserName = styled.Text`
   font-size: ${moderateScale(20)}px;
-  line-height: ${verticalScale(20)}px;
+  line-height: ${verticalScale(25)}px;
   font-weight: 800;
+  font-family: Montserrat-Regular;
+  color: ${props => props.theme.PRIMARY_TEXT_COLOR};
+`;
+
+export const Address = styled.Text`
+  font-size: ${moderateScale(15)}px;
+  line-height: ${verticalScale(20)}px;
+  margin-top:${verticalScale(5)}px;
+  font-weight: 200;
   font-family: Montserrat-Regular;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `;
@@ -66,3 +75,4 @@ export const LastStatsSection = styled.Pressable`
   justify-content: center;
   align-items: center;
 `;
+

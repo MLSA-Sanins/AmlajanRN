@@ -6,7 +6,7 @@ import { height, width } from '../../utils/dimensions';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 const ProfileSection = ({userData, theme}) => {
-  const size = height * 0.08;
+  const size = verticalScale(60);
   //calculating right dimension to be fetched
   const picDimension = {
     picWidth: PixelRatio.getPixelSizeForLayoutSize(size),

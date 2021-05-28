@@ -12,6 +12,7 @@ import {
   Alert,
   Pressable,
 } from 'react-native';
+import Modals from '../../components/Modals';
 import {Screen} from '../../components/Screen';
 import AppNavigationHeader from '../../components/AppNavigationHeader';
 import {lightTheme, darkTheme} from '../../theme/properTheme';
@@ -22,6 +23,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useSelector} from 'react-redux';
 import {height, width} from '../../utils/dimensions';
 import {BlurView} from '@react-native-community/blur';
+import DeleteModal from './DeleteModal';
+import EditModal from './EditModal';
 import {
   ProfileView,
   ImgContainer,
@@ -32,11 +35,14 @@ import {
   StatsSection,
   LastStatsSection,
   Icon,
+  Address,
 } from './styles';
 
 const ProfileScreen = ({navigation, switchTheme, userData}) => {
   const theme = useSelector(state => state.themes.theme);
   const [modalVisible, setModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
   const {logout} = useContext(AuthContext);
   const size = height * 0.2;
   //calculating right dimension to be fetched
@@ -44,14 +50,23 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
     picWidth: PixelRatio.getPixelSizeForLayoutSize(size),
     picHeight: PixelRatio.getPixelSizeForLayoutSize(size),
   };
+  //profile pic source
   const profile = {
     uri: `${userData.photoURL}?height=${picDimension.picHeight}`,
     width: size,
     height: size,
   };
+  //switch themes
   const switchThemes = () => {
     theme.mode === 'light' ? switchTheme(darkTheme) : switchTheme(lightTheme);
   };
+  // //show edit modal
+  // const showDeleteModal = () => {
+  //   setDeleteModalVisible(true);
+  // };
+  // const showEditModal = () => {
+  //   setEditModalVisible(true);
+  // };
   return (
     <Screen>
       <AppNavigationHeader height={height * 0.25}>
@@ -65,25 +80,14 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
         <></>
       </AppNavigationHeader>
       <ProfileView>
-        {/* <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal> */}
+        <DeleteModal
+          modalVisible={deleteModalVisible}
+          setModalVisible={setDeleteModalVisible}
+        />
+        <EditModal
+          modalVisible={editModalVisible}
+          setModalVisible={setEditModalVisible}
+        />
         <ImgContainer style={styles.ImgContainer}>
           {userData.photoURL ? (
             <ProfileThumbnail progressiveRenderingEnabled source={profile} />
@@ -93,10 +97,19 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
         </ImgContainer>
         <PaddingView />
         <UserName>{userData.displayName}</UserName>
+        <Address>{userData.location.address}</Address>
         <StatsView>
-          <StatsSection onPress={() => setModalVisible(true)}>
+          <StatsSection onPress={() => setEditModalVisible(true)}>
             <AntDesign
-              name="setting"
+              name="edit"
+              size={25}
+              backgroundColor={theme.STATS_VIEW_COLOR}
+              color={theme.FORM_INPUT_TEXT_COLOR}
+            />
+          </StatsSection>
+          <StatsSection onPress={() => setDeleteModalVisible(true)}>
+            <AntDesign
+              name="deleteuser"
               size={25}
               backgroundColor={theme.STATS_VIEW_COLOR}
               color={theme.FORM_INPUT_TEXT_COLOR}
@@ -154,46 +167,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  // centeredView: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   marginTop: 22,
-  // },
-  // modalView: {
-  //   margin: 20,
-  //   width:200,
-  //   backgroundColor: 'white',
-  //   borderRadius: 20,
-  //   padding: 35,
-  //   alignItems: 'center',
-  //   shadowColor: '#000',
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2,
-  //   },
-  //   shadowOpacity: 0.25,
-  //   shadowRadius: 4,
-  //   elevation: 5,
-  // },
-  // button: {
-  //   borderRadius: 20,
-  //   padding: 10,
-  //   elevation: 2,
-  // },
-  // buttonOpen: {
-  //   backgroundColor: '#F194FF',
-  // },
-  // buttonClose: {
-  //   backgroundColor: '#2196F3',
-  // },
-  // textStyle: {
-  //   color: 'white',
-  //   fontWeight: 'bold',
-  //   textAlign: 'center',
-  // },
-  // modalText: {
-  //   marginBottom: 15,
-  //   textAlign: 'center',
-  // },
 });

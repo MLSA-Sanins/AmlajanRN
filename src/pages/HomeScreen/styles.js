@@ -4,23 +4,23 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {PixelRatio} from 'react-native';
 
 export const ImgContainer = styled.View`
-  width: ${verticalScale(height * 0.08)}px;
-  height: ${verticalScale(height * 0.08)}px;
+  width: ${verticalScale(60)}px;
+  height: ${verticalScale(60)}px;
   border-radius: ${verticalScale(height * 0.04)}px;
   background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
   position: absolute;
   left: ${scale(width * 0.04)}px;
   top: -${verticalScale(height * 0.05)}px;
-  justify-content: center;
+  /* justify-content: center; */
   border-color: ${props => props.theme.PRIMARY_TEXT_COLOR};
-  border-width: ${verticalScale(1)}px;
-  align-items: center;
+  /* border-width: ${verticalScale(1)}px; */
+  /* align-items: center; */
 `;
 
 export const ProfileThumbnail = styled.Image`
   width: 100%;
   height: 100%;
-  border-radius: ${verticalScale(height * 0.04)}px;
+  border-radius: ${verticalScale(30)}px;
 `;
 
 export const ProfileName = styled.Text`
@@ -43,7 +43,7 @@ export const MapView = styled.Pressable`
   height: ${height * 0.22}px;
   background-color: gray;
   border-radius: ${verticalScale(10)}px;
-  margin-top: ${verticalScale(40)}px;
+  margin-top: ${verticalScale(30)}px;
   border-width: ${scale(1)}px;
   border-color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `;
@@ -83,7 +83,7 @@ export const DistanceText = styled.Text`
 `;
 
 export const ProviderView = styled.View`
-  margin-bottom: ${verticalScale(95)}px;
+  margin-bottom: ${verticalScale(85)}px;
   width: ${width}px;
   align-items: center;
   flex: 1;
@@ -94,7 +94,7 @@ export const ProfileCard = styled.View`
   margin-bottom: ${verticalScale(20)}px;
   width: ${width * 0.9}px;
   height: auto;
-  align-items: stretch;
+  /* align-items: stretch; */
   background-color: ${props => props.theme.CARD_BACKGROUND_COLOR};
   border-radius: ${verticalScale(20)}px;
   flex-direction: row;
@@ -103,7 +103,7 @@ export const ProfileCard = styled.View`
 `;
 
 export const ImgView = styled.View`
-  width: ${scale(90)}px;
+  width: ${scale(95)}px;
   height: 100%;
 `;
 
