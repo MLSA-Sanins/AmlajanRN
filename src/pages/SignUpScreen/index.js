@@ -23,7 +23,7 @@ import Links from '../../components/Links';
 import {useSelector} from 'react-redux';
 import AmlajanLogo from '../../assets/svgcodes/AmlajanLogo';
 import {Formik} from 'formik';
-import signupSchema from '../../utils/loginSchema';
+import signupSchema from '../../utils/signupSchema';
 import {connect} from 'react-redux';
 import Errors from '../../components/Errors';
 import GradientButton from '../../components/GradientButton';
