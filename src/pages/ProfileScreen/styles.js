@@ -12,9 +12,7 @@ export const ImgContainer = styled.View`
   height: ${verticalScale(height * 0.2)}px;
   background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
   border-radius: ${verticalScale(height * 0.1)}px;
-  /* border-width: 1px;
-  border-color: ${props => props.theme.PRIMARY_TEXT_COLOR}; */
-  left: ${width / 2 - verticalScale(height * 0.1)}px;
+  left: ${scale(width) / 2 - verticalScale(height * 0.1)}px;
   top: -${verticalScale(height * 0.12)}px;
   position: absolute;
   justify-content: center;
@@ -44,7 +42,7 @@ export const UserName = styled.Text`
 export const Address = styled.Text`
   font-size: ${moderateScale(15)}px;
   line-height: ${verticalScale(20)}px;
-  margin-top:${verticalScale(5)}px;
+  margin-top: ${verticalScale(5)}px;
   font-weight: 200;
   font-family: Montserrat-Regular;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
@@ -58,8 +56,8 @@ export const StatsView = styled.View`
   border-radius: ${verticalScale(20)}px;
   display: flex;
   flex-direction: row;
-  padding-top: ${verticalScale(20)}px;
-  padding-bottom: ${verticalScale(20)}px;
+  padding-top: ${verticalScale(12)}px;
+  padding-bottom: ${verticalScale(12)}px;
 `;
 
 export const StatsSection = styled.Pressable`
@@ -75,4 +73,3 @@ export const LastStatsSection = styled.Pressable`
   justify-content: center;
   align-items: center;
 `;
-

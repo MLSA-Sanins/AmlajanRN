@@ -19,6 +19,7 @@ export const lightTheme = {
   DISTANCE_BUTTON_TEXT: '#FFFFFF',
   CARD_BACKGROUND_COLOR: '#E6E6E6',
   CARD_BORDER_COLOR: '#CCCCCC',
+  PROFILE_ICON_COLOR: '#FFFFFF',
 };
 
 export const darkTheme = {
@@ -42,6 +43,7 @@ export const darkTheme = {
   DISTANCE_BUTTON_TEXT: '#FFFFFF',
   CARD_BACKGROUND_COLOR: '#0F0E25',
   CARD_BORDER_COLOR: '#2E2B6E',
+  PROFILE_ICON_COLOR: '#FFFFFF',
 };
 
 //010101 #00d1ff #005bea

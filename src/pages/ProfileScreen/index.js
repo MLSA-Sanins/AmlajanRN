@@ -104,15 +104,15 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
               name="edit"
               size={25}
               backgroundColor={theme.STATS_VIEW_COLOR}
-              color={theme.FORM_INPUT_TEXT_COLOR}
+              color={theme.PROFILE_ICON_COLOR}
             />
           </StatsSection>
           <StatsSection onPress={() => setDeleteModalVisible(true)}>
             <AntDesign
-              name="deleteuser"
+              name="delete"
               size={25}
               backgroundColor={theme.STATS_VIEW_COLOR}
-              color={theme.FORM_INPUT_TEXT_COLOR}
+              color={theme.PROFILE_ICON_COLOR}
             />
           </StatsSection>
           <StatsSection onPress={() => switchThemes()}>
@@ -120,7 +120,7 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
               name="bulb1"
               size={25}
               backgroundColor={theme.STATS_VIEW_COLOR}
-              color={theme.FORM_INPUT_TEXT_COLOR}
+              color={theme.PROFILE_ICON_COLOR}
             />
           </StatsSection>
           <LastStatsSection onPress={() => logout()}>
@@ -128,7 +128,7 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
               name="logout"
               size={25}
               backgroundColor={theme.STATS_VIEW_COLOR}
-              color={theme.FORM_INPUT_TEXT_COLOR}
+              color={theme.PROFILE_ICON_COLOR}
             />
           </LastStatsSection>
         </StatsView>
