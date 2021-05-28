@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 import {HomeView, MapView, MapImage} from './styles';
 import ProfileSection from './ProfileSection';
 import DistanceSection from './DistanceSection';

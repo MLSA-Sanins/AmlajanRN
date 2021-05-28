@@ -92,7 +92,15 @@ export const fecthLocationAndAddress = () => async (dispatch, getState) => {
       },
     });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
+    dispatch({
+      type: ADDRESS_LOADED,
+      payload: {
+        latitude: 28.63409,
+        longitude: 77.21693,
+        address: 'Delhi, DL, India',
+      },
+    });
     dispatch({type: LOCATION_ERROR, payload: e});
     dispatch(getErrors(e));
   }

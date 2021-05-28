@@ -3,8 +3,13 @@ import {StyleSheet} from 'react-native';
 import {width, height} from '../utils/dimensions';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import {ScaledSheet,scale,verticalScale,moderateScale} from 'react-native-size-matters';
+import {useSelector} from 'react-redux';
+import {
+  ScaledSheet,
+  scale,
+  verticalScale,
+  moderateScale,
+} from 'react-native-size-matters';
 
 const FbButton = styled.TouchableOpacity`
   display: flex;
@@ -12,8 +17,8 @@ const FbButton = styled.TouchableOpacity`
   align-items: center;
   background-color: ${props => props.theme.AUTH_BACKGROUND_COLOR};
   border-radius: ${verticalScale(20)}px;
-  border-width: ${moderateScale(1)}px;
-  border-color: #e5e5e5;
+  border-width: ${moderateScale(2)}px;
+  border-color: ${props => props.theme.AUTH_BORDER_COLOR};
 `;
 
 export default function FacebookButton({onPress, ...rest}) {

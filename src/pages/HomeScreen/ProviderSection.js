@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, PixelRatio, FlatList} from 'react-native';
+import {StyleSheet, PixelRatio, FlatList, ImageBackground} from 'react-native';
 import {
   ProviderView,
   ProfileCard,
@@ -12,9 +12,11 @@ import {
   ProviderAddress,
   ProviderHeader,
   ContactNumber,
+  ImgSubstitute,
 } from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {connect} from 'react-redux';
+import {width, height} from '../../utils/dimensions';
 
 const ProviderSection = ({
   theme,
@@ -53,10 +55,8 @@ const ProviderSection = ({
                         source={profile}
                       />
                     ) : (
-                      <AntDesign
-                        name="user"
-                        size={30}
-                        color={theme.PRIMARY_TEXT_COLOR}
+                      <ImgSubstitute
+                        source={require('../../assets/png/user.png')}
                       />
                     )}
                   </CardImgContainer>
@@ -91,10 +91,8 @@ const ProviderSection = ({
                         source={profile}
                       />
                     ) : (
-                      <AntDesign
-                        name="user"
-                        size={30}
-                        color={theme.PRIMARY_TEXT_COLOR}
+                      <ImgSubstitute
+                        source={require('../../assets/png/user.png')}
                       />
                     )}
                   </CardImgContainer>

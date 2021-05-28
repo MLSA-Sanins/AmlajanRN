@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {height, width} from '../../utils/dimensions';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {PixelRatio} from 'react-native';
 
 export const ImgContainer = styled.View`
   width: ${verticalScale(height * 0.08)}px;
@@ -27,7 +28,7 @@ export const ProfileName = styled.Text`
   left: ${scale(width * 0.22)}px;
   position: absolute;
   top: -${verticalScale(20)}px;
-  font-size: ${verticalScale(18)}px;
+  font-size: ${verticalScale(15)}px;
   line-height: ${verticalScale(20)}px;
   font-family: Montserrat-Regular;
 `;
@@ -93,10 +94,12 @@ export const ProfileCard = styled.View`
   margin-bottom: ${verticalScale(20)}px;
   width: ${width * 0.9}px;
   height: auto;
-  /* background-color: ${props => props.theme.SECONDARY_COLOR}; */
-  background-color: gray;
+  align-items: stretch;
+  background-color: ${props => props.theme.CARD_BACKGROUND_COLOR};
   border-radius: ${verticalScale(20)}px;
   flex-direction: row;
+  border-width: ${verticalScale(2)}px;
+  border-color: ${props => props.theme.CARD_BORDER_COLOR};
 `;
 
 export const ImgView = styled.View`
@@ -108,14 +111,14 @@ export const CardImgContainer = styled.View`
   width: ${scale(80)}px;
   height: ${scale(80)}px;
   border-radius: ${verticalScale(40)}px;
-  background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
+  /* background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR}; */
   /* position: absolute; */
   margin-left: ${scale(10)}px;
   margin-top: ${verticalScale(10)}px;
   margin-bottom: ${verticalScale(10)}px;
   justify-content: center;
-  border-color: ${props => props.theme.PRIMARY_TEXT_COLOR};
-  border-width: ${verticalScale(1)}px;
+  /* border-color: ${props => props.theme.PRIMARY_TEXT_COLOR}; */
+  /* border-width: ${verticalScale(1)}px; */
   align-items: center;
 `;
 
@@ -123,6 +126,12 @@ export const ImgThumbnail = styled.Image`
   width: 100%;
   height: 100%;
   border-radius: ${verticalScale(40)}px;
+`;
+
+export const ImgSubstitute = styled.Image`
+  width: ${PixelRatio.getPixelSizeForLayoutSize(40)}px;
+  height: ${PixelRatio.getPixelSizeForLayoutSize(40)}px;
+  /* border-radius: ${verticalScale(40)}px; */
 `;
 
 export const CardDescription = styled.View`

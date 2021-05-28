@@ -152,7 +152,7 @@ const OnboardingScreen = ({navigation}) => {
       <View style={styles.slide}>
         <View style={styles.imgView}>
           <Image
-            source={require('../../../assets/png/search.png')}
+            source={require('../../assets/png/search.png')}
             style={styles.img}
           />
         </View>
@@ -173,7 +173,7 @@ const OnboardingScreen = ({navigation}) => {
       <View style={styles.slide}>
         <View style={styles.imgView}>
           <Image
-            source={require('../../../assets/png/contact.png')}
+            source={require('../../assets/png/contact.png')}
             style={styles.img}
           />
         </View>
@@ -195,7 +195,7 @@ const OnboardingScreen = ({navigation}) => {
       <View style={styles.slide}>
         <View style={styles.imgView}>
           <Image
-            source={require('../../../assets/png/map.png')}
+            source={require('../../assets/png/map.png')}
             style={styles.img}
           />
         </View>
@@ -217,7 +217,7 @@ const OnboardingScreen = ({navigation}) => {
       <View style={styles.slide}>
         <View style={styles.imgView}>
           <Image
-            source={require('../../../assets/png/welcome.png')}
+            source={require('../../assets/png/welcome.png')}
             style={styles.img}
           />
         </View>

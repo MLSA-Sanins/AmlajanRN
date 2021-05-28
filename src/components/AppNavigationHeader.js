@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {scale, verticalScale} from 'react-native-size-matters';
+import {Image} from 'react-native';
 
 const HeaderView = styled.View`
   padding-left: ${scale(10)}px;

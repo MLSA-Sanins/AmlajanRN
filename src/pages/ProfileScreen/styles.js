@@ -36,7 +36,7 @@ export const PaddingView = styled.View`
 export const UserName = styled.Text`
   font-size: ${moderateScale(20)}px;
   line-height: ${verticalScale(20)}px;
-  font-weight: bold;
+  font-weight: 800;
   font-family: Montserrat-Regular;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `;
