@@ -40,7 +40,7 @@ export const HomeView = styled.View`
 
 export const MapView = styled.Pressable`
   width: 90%;
-  height: ${verticalScale(height * 0.22)}px;
+  height: ${height * 0.22}px;
   background-color: gray;
   border-radius: ${verticalScale(10)}px;
   margin-top: ${verticalScale(40)}px;
@@ -55,8 +55,8 @@ export const MapImage = styled.Image`
 `;
 
 export const DistanceView = styled.View`
-  height: ${verticalScale(50)}px;
-  margin-top: ${verticalScale(25)}px;
+  height: ${verticalScale(40)}px;
+  margin-top: ${verticalScale(10)}px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -110,7 +110,7 @@ export const ImgView = styled.View`
 export const CardImgContainer = styled.View`
   width: ${scale(80)}px;
   height: ${scale(80)}px;
-  border-radius: ${verticalScale(40)}px;
+  border-radius: ${scale(40)}px;
   /* background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR}; */
   /* position: absolute; */
   margin-left: ${scale(10)}px;
@@ -125,12 +125,12 @@ export const CardImgContainer = styled.View`
 export const ImgThumbnail = styled.Image`
   width: 100%;
   height: 100%;
-  border-radius: ${verticalScale(40)}px;
+  border-radius: ${scale(40)}px;
 `;
 
 export const ImgSubstitute = styled.Image`
-  width: ${PixelRatio.getPixelSizeForLayoutSize(40)}px;
-  height: ${PixelRatio.getPixelSizeForLayoutSize(40)}px;
+  width: 100%;
+  height: 100%;
   /* border-radius: ${verticalScale(40)}px; */
 `;
 
@@ -164,8 +164,8 @@ export const ProviderHeader = styled.Text`
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   font-family: Montserrat-Regular;
   font-size: ${moderateScale(10)}px;
-  margin-top: ${verticalScale(10)}px;
-  margin-bottom: ${verticalScale(10)}px;
+  margin-top: ${verticalScale(5)}px;
+  margin-bottom: ${verticalScale(5)}px;
 `;
 
 export const ContactNumber = styled.Text`
