@@ -72,13 +72,12 @@ export const AuthProvider = ({children}) => {
 
             // Create a Firebase credential with the AccessToken
             const facebookCredential = auth.FacebookAuthProvider.credential(
-              data.accessToken,
+              data.accessToken
             );
             dispatch(clearErrors());
             // Sign-in the user with the credential
             return auth().signInWithCredential(facebookCredential);
           } catch (e) {
-            console.log(e);
             dispatch(getErrors(e));
             dispatch({type: AUTH_FAILED});
           }
