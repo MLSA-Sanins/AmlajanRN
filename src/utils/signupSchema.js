@@ -6,12 +6,12 @@ export default yup.object().shape({
     .email('Please enter valid email')
     .required('Email Address is Required'),
   password: yup
-    .string('')
+    .string()
     .min(8, ({min}) => `Password must be at least ${min} characters`)
     .max(20, ({max}) => `Password must be at most ${max} characters`)
     .required('Password is required'),
   confirmPassword: yup
-    .string('')
-    .required('Confirm Password is required')
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Password is required'),
 });
