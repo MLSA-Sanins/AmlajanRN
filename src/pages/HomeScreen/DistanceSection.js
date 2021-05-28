@@ -2,9 +2,14 @@ import React, {useState} from 'react';
 import {StyleSheet, FlatList, View} from 'react-native';
 import {DistanceText, DistanceView, DistanceButtons} from './styles';
 import {distance} from '../../redux/constants/distance';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import {height, width} from '../../utils/dimensions';
-import {ScaledSheet,scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {
+  ScaledSheet,
+  scale,
+  verticalScale,
+  moderateScale,
+} from 'react-native-size-matters';
 
 const DistanceSection = ({setDistance}) => {
   const renderSeparator = () => <View style={styles.separator} />;
