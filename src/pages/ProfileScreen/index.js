@@ -38,7 +38,7 @@ import {
   Address,
 } from './styles';
 
-const ProfileScreen = ({navigation, switchTheme, userData}) => {
+const ProfileScreen = ({navigation, switchTheme, userData, location}) => {
   const theme = useSelector(state => state.themes.theme);
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -87,6 +87,8 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
         <EditModal
           modalVisible={editModalVisible}
           setModalVisible={setEditModalVisible}
+          userData={userData}
+          location={location}
         />
         <ImgContainer style={styles.ImgContainer}>
           {userData.photoURL ? (
@@ -144,7 +146,10 @@ const ProfileScreen = ({navigation, switchTheme, userData}) => {
 };
 
 const mapStateToProps = state => {
-  return {userData: state.user.currentUser};
+  return {
+    userData: state.user.currentUser,
+    location: state.user.currentUser.location,
+  };
 };
 
 export default connect(mapStateToProps, {
