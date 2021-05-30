@@ -22,7 +22,7 @@ export default function EditModal({
   userData,
   location,
 }) {
-  const {displayName, phoneNumber} = userData;
+  const {displayName, phoneNumber, contact_number} = userData;
   const theme = useSelector(state => state.themes.theme);
   const inactiveColor = '#cccccc';
 
@@ -37,7 +37,7 @@ export default function EditModal({
         initialValues={{
           displayName: displayName || '',
           address: location.address || '',
-          phoneNumber: phoneNumber || '',
+          phoneNumber: phoneNumber || contact_number || '',
         }}
         onSubmit={values => newUserRegistration(values)}
         validateOnMount>
@@ -128,15 +128,15 @@ export default function EditModal({
 }
 
 const styles = StyleSheet.create({
-  header:{
-    paddingBottom: 50
+  header: {
+    paddingBottom: 50,
   },
   buttonView: {
     flex: 1,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   formContainerAddress: {
     borderWidth: 1,
@@ -157,5 +157,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 20,
     margin: 10,
-  }
+  },
 });
