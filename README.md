@@ -15,7 +15,7 @@ Please check out our [contribution guidelines](./CONTRIBUTING.md)
 
 # The Team
 
-- **Project Maintainer👨‍🏫:**
+<!-- - **Project Maintainer👨‍🏫:**
 
 <p align="center">
 <img width=20% src="https://avatars.githubusercontent.com/u/49809895?v=4">
@@ -24,7 +24,7 @@ Please check out our [contribution guidelines](./CONTRIBUTING.md)
 <a href="https://github.com/ADRE9">
 <h5 align="center"><b>Md Arshad khan</b></h5></a>
 <br/><br/>
-
+ -->
 - **Our valuable Contributors👩‍💻👨‍💻**
 <br/><br/>
 <a href="https://github.com/ADRE9/AmlajanRN/graphs/contributors">
